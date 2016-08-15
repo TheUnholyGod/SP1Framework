@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <sstream>
 
+using namespace std;
+
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
@@ -220,20 +222,28 @@ void renderGame()
 
 void renderMap()
 {
+	const WORD colors[] = {
+	    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+	    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+	};
+	COORD c;
+	string map =read();
+		g_Console.writeToBuffer(0,1, map, colors[0]);
+	
     // Set up sample colours, and output shadings
-    const WORD colors[] = {
-        0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-        0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-    };
+    //const WORD colors[] = {
+    //    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+    //    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+    //};
 
-    COORD c;
-    for (int i = 0; i < 12; ++i)
-    {
-        c.X = 5 * i;
-        c.Y = i + 1;
-        colour(colors[i]);
-        g_Console.writeToBuffer(c, " °±²Û", colors[i]);
-    }
+    //COORD c;
+    //for (int i = 0; i < 12; ++i)
+    //{
+    //    c.X = 5 * i;
+    //    c.Y = i + 1;
+    //    colour(colors[i]);
+    //    g_Console.writeToBuffer(c, " °±²Û", colors[i]);
+    //}
 }
 
 void renderCharacter()
