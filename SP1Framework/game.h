@@ -3,6 +3,7 @@
 
 #include "Framework\timer.h"
 #include "loadlevel.h"
+#include "collision.h"
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
@@ -46,6 +47,7 @@ void moveCharacter();       // moves the character, collision detection, physics
 void processUserInput();    // checks if you should change states or do something else with the game, e.g. pause, exit
 void clearScreen();         // clears the current screen and draw from scratch 
 void renderSplashScreen();  // renders the splash screen
+void mapFiles();            // To extract the map from .txt <---- additional function created by mc
 void renderGame();          // renders the game stuff
 void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer

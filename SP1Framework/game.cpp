@@ -12,6 +12,7 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+char txt[100][100]; // <------- IMPORTANT CHANGES!
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -154,26 +155,45 @@ void moveCharacter()
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.Y--;
-        bSomethingHappened = true;
+	// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == ' ')
+		{
+			g_sChar.m_cLocation.Y--;
+			bSomethingHappened = true;
+		}
+
     }
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.X--;
-        bSomethingHappened = true;
+	// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
+		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == ' ')
+		{
+			g_sChar.m_cLocation.X--;
+			bSomethingHappened = true;
+		}
+
     }
     if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.Y++;
-        bSomethingHappened = true;
+	// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == ' ')
+		{
+			g_sChar.m_cLocation.Y++;
+			bSomethingHappened = true;
+		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.X++;
-        bSomethingHappened = true;
+	// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
+		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == ' ')
+		{
+			g_sChar.m_cLocation.X++;
+			bSomethingHappened = true;
+		}
+        
     }
     if (g_abKeyPressed[K_SPACE])
     {
@@ -227,7 +247,7 @@ void renderMap()
 		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	};
 
-	char txt[100][100];
+
 	int width = 0;
 	int height = 0;
 	ifstream file("Level_1.txt");
@@ -246,6 +266,7 @@ void renderMap()
 		}
 		file.close();
 	}
+	// ------------------------------------ THIS IS TO PRINT OUT THE CHARACTERS TAKEN FROM THE FILES ---------------------------------------------- // 
 	for (int y = 0; y < 25; y++)
 	{
 		c.Y = y + 1;
