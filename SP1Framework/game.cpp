@@ -223,27 +223,42 @@ void renderGame()
 void renderMap()
 {
 	const WORD colors[] = {
-	    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-	    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
+		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
+		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	};
-	COORD c;
-	string map =read();
-		g_Console.writeToBuffer(0,1, map, colors[0]);
-	
-    // Set up sample colours, and output shadings
-    //const WORD colors[] = {
-    //    0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-    //    0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-    //};
 
-    //COORD c;
-    //for (int i = 0; i < 12; ++i)
-    //{
-    //    c.X = 5 * i;
-    //    c.Y = i + 1;
-    //    colour(colors[i]);
-    //    g_Console.writeToBuffer(c, " °±²Û", colors[i]);
-    //}
+	char txt[100][100];
+	int width = 0;
+	int height = 0;
+	ifstream file("Level_1.txt");
+	COORD c;
+	if (file.is_open())
+	{
+		while (height < 25)
+		{
+			while (width < 80)
+			{
+				file >> txt[width][height];
+				width++;
+			}
+			width = 0;
+			height++;
+		}
+		file.close();
+	}
+	for (int y = 0; y < 25; y++)
+	{
+		c.Y = y + 1;
+		for (int x = 0; x < 80; x++)
+		{
+			if (txt[x][y] == 'i')
+			{
+				txt[x][y] = ' ';
+			}
+			c.X = x;
+			g_Console.writeToBuffer(c, txt[x][y]);
+		}
+	}
 }
 
 void renderCharacter()
