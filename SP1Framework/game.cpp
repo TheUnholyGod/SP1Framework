@@ -2,18 +2,18 @@
 //
 //
 #include "game.h"
-#include "Framework\console.h"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
 
 using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+<<<<<<< HEAD
 char txt[100][100]; // <------- IMPORTANT CHANGES!
 int cameraX = 0, cameraY = 0;
+=======
+char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -148,16 +148,25 @@ void gameplay()            // gameplay logic
 void moveCharacter()
 {
     bool bSomethingHappened = false;
+<<<<<<< HEAD
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
 
+=======
+    if (g_dBounceTime > g_dElapsedTime)
+        return;
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == ' ' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != 'W' && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != 'D')
+=======
+		//if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] = (char)176)
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
@@ -168,7 +177,11 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == ' ' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != 'W' && txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != 'D')
+=======
+		//if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == (char)176)
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
@@ -179,7 +192,11 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == ' ' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != 'W' && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != 'D')
+=======
+		//if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)176)
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
@@ -189,7 +206,11 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == ' ' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != 'W' && txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != 'D')
+=======
+		//if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == (char)176)
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
@@ -245,6 +266,7 @@ void renderGame()
 
 void renderMap()
 {
+<<<<<<< HEAD
 	const WORD colors[] = {
 		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
 		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
@@ -287,6 +309,10 @@ void renderMap()
 			g_Console.writeToBuffer(c, txt[x][y]);
 		}
 	}
+=======
+	txt = store_map(txt);
+	print_map(txt);
+>>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 }
 
 void renderCharacter()
