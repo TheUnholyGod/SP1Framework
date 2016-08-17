@@ -3,7 +3,9 @@
 
 #include "Framework\timer.h"
 #include "loadlevel.h"
-#include "collision.h"
+#include "levelSelection.h"
+#include "sideScrolling.h"
+
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;

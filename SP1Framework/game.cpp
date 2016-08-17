@@ -13,6 +13,7 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 char txt[100][100]; // <------- IMPORTANT CHANGES!
+int cameraX = 0, cameraY = 0;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -141,14 +142,14 @@ void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
-                        // sound can be played here too.
+						// sound can be played here too.
 }
 
 void moveCharacter()
 {
     bool bSomethingHappened = false;
-    if (g_dBounceTime > g_dElapsedTime)
-        return;
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
 
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
@@ -156,7 +157,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == ' ')
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == ' ' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != 'W' && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != 'D')
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
@@ -167,7 +168,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
-		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == ' ')
+		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == ' ' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != 'W' && txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != 'D')
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
@@ -178,7 +179,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == ' ')
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == ' ' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != 'W' && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != 'D')
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
@@ -188,7 +189,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
-		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == ' ')
+		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == ' ' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != 'W' && txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != 'D')
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
@@ -206,6 +207,7 @@ void moveCharacter()
         // set the bounce time to some time in the future to prevent accidental triggers
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
     }
+
 }
 void processUserInput()
 {
@@ -238,6 +240,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	Camera(g_sChar.m_cLocation.X, g_sChar.m_cLocation.Y, cameraX, cameraY);
 }
 
 void renderMap()
@@ -247,16 +250,20 @@ void renderMap()
 		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
 	};
 
-
 	int width = 0;
+	int maxWidth;
 	int height = 0;
-	ifstream file("Level_1.txt");
+	int maxHeight;
+	string readLevel = "";
+	
+	levelSelection(&maxWidth, &maxHeight, &readLevel);
+	ifstream file(readLevel);
 	COORD c;
 	if (file.is_open())
 	{
-		while (height < 25)
+		while (height < maxHeight)
 		{
-			while (width < 80)
+			while (width < maxWidth)
 			{
 				file >> txt[width][height];
 				width++;
@@ -267,12 +274,12 @@ void renderMap()
 		file.close();
 	}
 	// ------------------------------------ THIS IS TO PRINT OUT THE CHARACTERS TAKEN FROM THE FILES ---------------------------------------------- // 
-	for (int y = 0; y < 25; y++)
+	for (int y = 0; y < maxHeight; y++)
 	{
 		c.Y = y + 1;
-		for (int x = 0; x < 80; x++)
+		for (int x = 0; x < maxWidth; x++)
 		{
-			if (txt[x][y] == 'i')
+			if (txt[x][y] == '-')
 			{
 				txt[x][y] = ' ';
 			}

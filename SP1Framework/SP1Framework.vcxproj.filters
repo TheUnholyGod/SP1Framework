@@ -36,14 +36,14 @@
     <ClCompile Include="loadlevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="collision.cpp">
+    <ClCompile Include="sideScrolling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\levelSelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Framework\console.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\timer.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
@@ -53,7 +53,13 @@
     <ClInclude Include="loadlevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="collision.h">
+    <ClInclude Include="sideScrolling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\console.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\levelSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
