@@ -2,8 +2,12 @@
 #define _GAME_H
 
 #include "Framework\timer.h"
+#include "Framework\console.h"
 #include "loadlevel.h"
-#include "collision.h"
+//#include "collision.h"
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;

@@ -2,17 +2,13 @@
 //
 //
 #include "game.h"
-#include "Framework\console.h"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
 
 using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char txt[100][100]; // <------- IMPORTANT CHANGES!
+char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -149,14 +145,13 @@ void moveCharacter()
     bool bSomethingHappened = false;
     if (g_dBounceTime > g_dElapsedTime)
         return;
-
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
     {
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == ' ')
+		//if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] = (char)176)
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
@@ -167,7 +162,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
-		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == ' ')
+		//if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == (char)176)
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
@@ -178,7 +173,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == ' ')
+		//if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)176)
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
@@ -188,7 +183,7 @@ void moveCharacter()
     {
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
-		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == ' ')
+		//if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == (char)176)
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
@@ -242,44 +237,8 @@ void renderGame()
 
 void renderMap()
 {
-	const WORD colors[] = {
-		0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
-		0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
-	};
-
-
-	int width = 0;
-	int height = 0;
-	ifstream file("Level_1.txt");
-	COORD c;
-	if (file.is_open())
-	{
-		while (height < 25)
-		{
-			while (width < 80)
-			{
-				file >> txt[width][height];
-				width++;
-			}
-			width = 0;
-			height++;
-		}
-		file.close();
-	}
-	// ------------------------------------ THIS IS TO PRINT OUT THE CHARACTERS TAKEN FROM THE FILES ---------------------------------------------- // 
-	for (int y = 0; y < 25; y++)
-	{
-		c.Y = y + 1;
-		for (int x = 0; x < 80; x++)
-		{
-			if (txt[x][y] == 'i')
-			{
-				txt[x][y] = ' ';
-			}
-			c.X = x;
-			g_Console.writeToBuffer(c, txt[x][y]);
-		}
-	}
+	txt = store_map(txt);
+	print_map(txt);
 }
 
 void renderCharacter()
