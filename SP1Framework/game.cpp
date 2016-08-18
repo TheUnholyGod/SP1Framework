@@ -107,18 +107,10 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-<<<<<<< HEAD
 		case S_MENU: mainmenu(), processUserInput();
 			break;
-=======
-		case S_COMBAT: combat();
-			break;
-		//case S_MENU: menu();
-		//	break;
->>>>>>> 5057fc65b560d4a3213c179b19a169da477e74d1
     }
 }
-
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
 //            At this point, you should know exactly what to draw onto the screen.
@@ -136,11 +128,7 @@ void render()
             break;
         case S_GAME: renderGame();
             break;
-<<<<<<< HEAD
 		case S_MENU: renderMenu();
-=======
-		case S_COMBAT: combat();
->>>>>>> 5057fc65b560d4a3213c179b19a169da477e74d1
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -272,7 +260,6 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	//combat();
 }
 
 void renderMap()

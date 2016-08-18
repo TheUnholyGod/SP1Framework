@@ -36,7 +36,6 @@ char** store_map(char** field,int levelnumber)
 	}
 	return field;
 }
-
 void print_map(char ** field)
 {
 	COORD c;

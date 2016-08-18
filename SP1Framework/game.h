@@ -5,13 +5,8 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
-<<<<<<< HEAD
 #include "menu.h"
 #include "levelTransition.h"
-=======
-#include "combat.h"
-//#include "menu.h"
->>>>>>> 5057fc65b560d4a3213c179b19a169da477e74d1
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -40,13 +35,8 @@ enum EGAMESTATES
     S_SPLASHSCREEN,
     S_GAME,
 	S_MENU,
-<<<<<<< HEAD
     S_COUNT,
 	//S_EDITOR
-=======
-	S_COMBAT,
-    S_COUNT
->>>>>>> 5057fc65b560d4a3213c179b19a169da477e74d1
 };
 
 // struct for the game character
