@@ -11,42 +11,42 @@ char** store_map(char** field,int levelnumber)
 	if (levelnumber == 1)
 	{
 		file.open ("Level_1.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 		
 	if (levelnumber == 2)
 	{
 		file.open("Level_2.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 		
 	if (levelnumber == 3)
 	{
 		file.open("Level_3.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 4)
 	{
 		file.open("Level_4.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 5)
 	{
 		file.open("Level_5.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 6)
 	{
 		file.open("Level_6.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
