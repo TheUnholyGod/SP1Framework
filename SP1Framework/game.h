@@ -7,6 +7,7 @@
 #include "collision.h"
 #include "menu.h"
 #include "levelTransition.h"
+#include "editor.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -36,7 +37,7 @@ enum EGAMESTATES
     S_GAME,
 	S_MENU,
     S_COUNT,
-	//S_EDITOR
+	S_EDITOR
 };
 
 // struct for the game character

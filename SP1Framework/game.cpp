@@ -110,6 +110,8 @@ void update(double dt)
             break;
 		case S_MENU: mainmenu();
 			break;
+		case S_EDITOR: editor();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -130,6 +132,9 @@ void render()
         case S_GAME: renderGame();
             break;
 		case S_MENU: renderMenu();
+			break;
+		case S_EDITOR: renderEditor();
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -232,6 +237,11 @@ void processUserInput()
 		// Go to the level editor mode (TO DO)
 		/*if (g_abKeyPressed[K_E])
 			g_eGameState = S_EDITOR*/
+	}
+	if (g_eGameState == S_EDITOR)
+	{
+		if (g_abKeyPressed[K_M])
+			g_eGameState = S_MENU;
 	}
 }
 
