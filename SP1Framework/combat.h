@@ -269,8 +269,4 @@ void display();
 void attackProcess();
 int checkVictory(int playerhealth, int enemyhealth);
 
-<<<<<<< HEAD
 #endif //End of _COMBAT_H
-=======
-#endif //End of _COMBAT_H
->>>>>>> 7d035a5a080004b03e07b72a090ecd634fd191ac

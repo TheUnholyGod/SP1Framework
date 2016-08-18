@@ -7,7 +7,6 @@
 #include "collision.h"
 #include "menu.h"
 #include "levelTransition.h"
-#include "combat.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -37,7 +36,6 @@ enum EGAMESTATES
     S_GAME,
 	S_MENU,
     S_COUNT,
-	S_COMBAT
 	//S_EDITOR
 };
 
