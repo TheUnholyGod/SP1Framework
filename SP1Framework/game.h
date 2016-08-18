@@ -5,9 +5,14 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+#include "sideScrolling.h"
+
+//#include "menu.h"
+
 #include "menu.h"
 #include "levelTransition.h"
 #include "editor.h"
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
