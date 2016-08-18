@@ -11,7 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 
 // Game specific variables here
-int g_CurrentLevel = 1;
+int g_CurrentLevel;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -34,6 +34,7 @@ void init( void )
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
+	g_CurrentLevel = 1;
 
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
@@ -76,6 +77,9 @@ void getInput( void )
     g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_M]      = isKeyPressed(0x4D);
+	g_abKeyPressed[K_E]      = isKeyPressed(0x45);
+	g_abKeyPressed[K_L]      = isKeyPressed(0x4C);
 }
 
 //--------------------------------------------------------------
@@ -104,8 +108,10 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-		//case S_MENU: menu();
-		//	break;
+		case S_MENU: mainmenu();
+			break;
+		case S_EDITOR: editor();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -125,6 +131,10 @@ void render()
             break;
         case S_GAME: renderGame();
             break;
+		case S_MENU: renderMenu();
+			break;
+		case S_EDITOR: renderEditor();
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -132,12 +142,15 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 2.0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_GAME;
+    if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
+        g_eGameState = S_MENU;
 }
 
 void gameplay()            // gameplay logic
 {
+	//TODO
+	//make individual cpp for level completion checks and level updating
+	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
@@ -205,11 +218,31 @@ void moveCharacter()
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
     }
 }
+
 void processUserInput()
 {
-    // quits the game if player hits the escape key
-    if (g_abKeyPressed[K_ESCAPE])
-        g_bQuitGame = true;    
+	if (g_eGameState == S_GAME)
+	{
+		if (g_abKeyPressed[K_M])
+			g_eGameState = S_MENU;
+	}
+	if (g_eGameState == S_MENU)
+	{
+		// quits the game if player hits the escape key
+		if (g_abKeyPressed[K_ESCAPE])
+			g_bQuitGame = true;
+		// start game if player hits the space key
+		if (g_abKeyPressed[K_SPACE])
+			g_eGameState = S_GAME;
+		// Go to the level editor mode (TO DO)
+		/*if (g_abKeyPressed[K_E])
+			g_eGameState = S_EDITOR*/
+	}
+	if (g_eGameState == S_EDITOR)
+	{
+		if (g_abKeyPressed[K_M])
+			g_eGameState = S_MENU;
+	}
 }
 
 void clearScreen()
@@ -276,6 +309,7 @@ void renderFramerate()
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str(), 0x59);
 }
+
 void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
