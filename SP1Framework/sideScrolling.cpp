@@ -16,12 +16,12 @@ void Camera()
 	if (g_sChar.m_cLocation.Y > maxBorderY)
 		OffsetY = g_sChar.m_cLocation.Y - maxBorderY;
 
-	for (int X = 0 + OffsetX; X < 40 - OffsetX; X++)
+	for (int Y = 0 + OffsetX; Y < 12 + OffsetY; Y++)		// -------- RENDER THE MAP FOR THE VALUE OF Y -------- //
 	{
 
 
 
-		for (int Y = 0 + OffsetY; Y < 12 - OffsetY; Y++)
+		for (int X = 0 + OffsetX; X < 40 + OffsetY; X++)		// -------- RENDER THE MAP FOR THE VALUE OF X -------- //
 		{
 
 		}
