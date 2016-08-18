@@ -5,6 +5,8 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+#include "sideScrolling.h"
+
 //#include "menu.h"
 #include <iostream>
 #include <iomanip>
