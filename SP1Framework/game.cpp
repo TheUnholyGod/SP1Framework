@@ -109,6 +109,8 @@ void update(double dt)
             break;
 		case S_MENU: mainmenu(), processUserInput();
 			break;
+		/*case S_COMBAT: combat();
+			break;*/
     }
 }
 //--------------------------------------------------------------
@@ -129,6 +131,9 @@ void render()
         case S_GAME: renderGame();
             break;
 		case S_MENU: renderMenu();
+			break;
+		/*case S_COMBAT: combat();
+			break;*/
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -144,10 +149,10 @@ void gameplay()            // gameplay logic
 {
 	//TODO
 	//make individual cpp for level completion checks and level updating
-	g_CurrentLevel = 1;
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
+	checkGameGoal();    // check wether the level is completed
 }
 
 void moveCharacter()
