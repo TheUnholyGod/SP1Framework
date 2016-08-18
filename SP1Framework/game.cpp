@@ -84,6 +84,8 @@ void getInput( void )
 	g_abKeyPressed[K_M]      = isKeyPressed(0x4D);
 	g_abKeyPressed[K_E]      = isKeyPressed(0x45);
 	g_abKeyPressed[K_L]      = isKeyPressed(0x4C);
+	g_abKeyPressed[K_W]      = isKeyPressed(0x57);
+	g_abKeyPressed[K_D]      = isKeyPressed(0x44);
 }
 
 //--------------------------------------------------------------

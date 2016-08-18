@@ -7,5 +7,7 @@ void renderEditor();
 void editor();
 void moveCursor();
 void renderCursor();
+void editmap(int levelnumber,char change);
+void edits();
 
 #endif // !_EDITOR_H

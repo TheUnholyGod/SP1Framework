@@ -1,19 +1,24 @@
 #include "editor.h"
 
+extern unsigned int maxMapWidth;
+extern unsigned int maxMapHeight;
+char ch = 'A';
 extern SEditor g_sCursor;
 extern double  g_dBounceTime;
 extern double  g_dElapsedTime;
 extern bool    g_abKeyPressed[K_COUNT];
+extern int	   g_CurrentLevel;
 
 void renderEditor()
 {
-	//TO DO:
-	//read the maps
-	g_Console.writeToBuffer(1, 1, "THIS IS THE INTERFACE OF EDITOR");
+	char** currentMap = new char*[100];
+	currentMap = store_map(currentMap, g_CurrentLevel);
+	print_map(currentMap);
 	renderCursor();
 }
 void editor()
 {
+	edits();
 	moveCursor();
 	processUserInput();
 }
@@ -78,5 +83,121 @@ void renderCursor()
 {
 	// Draw the location of the cursor
 	WORD charColor = 0x0C;
-	g_Console.writeToBuffer(g_sCursor.m_cEditorLocation, (char)220, charColor);
+	g_Console.writeToBuffer(g_sCursor.m_cEditorLocation, (char)178, charColor);
+}
+void editmap(int levelnumber,char change)
+{
+	char txt[80][25];
+	char replacement[80][25];
+	int height = 0;
+	int width = 0;
+	ifstream file;
+
+	if (levelnumber == 1)
+		file.open("Level_1.txt");
+	if (levelnumber == 2)
+		file.open("Level_2.txt");
+	if (levelnumber == 3)
+		file.open("Level_3.txt");
+	if (levelnumber == 4)
+		file.open("Level_4.txt");
+	if (levelnumber == 5)
+		file.open("Level_5.txt");
+	if (levelnumber == 6)
+		file.open("Level_6.txt");
+
+	if (file.is_open())
+	{
+		while (height < 25)
+		{
+			while (width < 80)
+			{
+				file >> txt[width][height];
+				width++;
+			}
+			width = 0;
+			height++;
+		}
+		file.close();
+	}
+
+	// opens/creates new file
+	ofstream newfile("temp.txt");
+	char oldname[] = "temp.txt";
+
+	txt[g_sCursor.m_cEditorLocation.X][g_sCursor.m_cEditorLocation.Y-1] = change;
+	//if (g_abKeyPressed[K_L]) 
+	{
+		height = 0;
+		width = 0;
+		if (newfile.is_open())
+		{
+			while (height < 25)
+			{
+				while (width < 80)
+				{
+					newfile << txt[width][height];
+					width++;
+				}
+				newfile << "\n";
+				width = 0;
+				height++;
+			}
+			newfile.close();
+		}
+		if (levelnumber == 1)
+		{
+			char newname[] = "Level_1.txt";
+			remove(newname);
+			rename(oldname, newname);
+		}
+		if (levelnumber == 2)
+		{
+			char newname[] = "Level_2.txt";
+			remove(newname);
+			rename(oldname, newname);
+		}
+		if (levelnumber == 3)
+		{
+			char newname[] = "Level_3.txt";
+			remove(newname);
+			rename(oldname, newname);
+		}
+		if (levelnumber == 4)
+		{
+			char newname[] = "Level_4.txt";
+			remove(newname);
+			rename(oldname, newname);
+		}
+		if (levelnumber == 5)
+		{
+			char newname[] = "Level_5.txt";
+			remove(newname);
+			rename(oldname, newname);
+		}
+		if (levelnumber == 6)
+		{
+			char newname[] = "Level_6.txt";
+			remove(newname);
+			rename(oldname, newname);
+		}
+	}
+}
+void edits()
+{
+	if (g_abKeyPressed[K_SPACE])
+	{
+		ch = '-';
+		editmap(g_CurrentLevel, ch);
+	}
+	if (g_abKeyPressed[K_W])
+	{
+		ch = 'W';
+		editmap(g_CurrentLevel, ch);
+	}
+	if (g_abKeyPressed[K_D])
+	{
+		ch = 'D';
+		editmap(g_CurrentLevel, ch);
+	}
 }
