@@ -42,7 +42,11 @@
     <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="levelTransition.cpp">
+=======
+    <ClCompile Include="combat.cpp">
+>>>>>>> 5057fc65b560d4a3213c179b19a169da477e74d1
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +69,11 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="levelTransition.h">
+=======
+    <ClInclude Include="combat.h">
+>>>>>>> 5057fc65b560d4a3213c179b19a169da477e74d1
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
