@@ -23,7 +23,7 @@ bool colDetection(int levelnumber)
 	if (levelnumber == 6)
 		file.open("Level_6.txt");
 
-	COORD c;
+	//COORD c;
 	if (file.is_open())
 	{
 		while (height < 25)
@@ -43,7 +43,7 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != 'i')
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != '-')
 		{
 			return false;
 		}
@@ -53,7 +53,7 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
-		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != 'i')
+		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != '-')
 		{
 			return false;
 		}
@@ -63,7 +63,7 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != 'i')
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != '-')
 		{
 			return false;
 		}
@@ -72,7 +72,7 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
-		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != 'i')
+		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != '-')
 		{
 			return false;
 		}

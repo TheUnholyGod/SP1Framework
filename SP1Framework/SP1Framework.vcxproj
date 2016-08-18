@@ -81,6 +81,7 @@
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="levelTransition.cpp" />
     <ClCompile Include="loadlevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="levelTransition.h" />
     <ClInclude Include="loadlevel.h" />
     <ClInclude Include="menu.h" />
   </ItemGroup>
