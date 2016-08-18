@@ -4,16 +4,11 @@
 #include "Framework\timer.h"
 #include "Framework\console.h"
 #include "loadlevel.h"
-<<<<<<< HEAD
-#include "levelSelection.h"
-#include "sideScrolling.h"
-
-=======
-//#include "collision.h"
+#include "collision.h"
+//#include "menu.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
->>>>>>> 7b733910925eae026535d4cdafcc2bd846e4f88e
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
@@ -35,6 +30,7 @@ enum EGAMESTATES
 {
     S_SPLASHSCREEN,
     S_GAME,
+	S_MENU,
     S_COUNT
 };
 
