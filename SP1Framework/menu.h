@@ -8,7 +8,7 @@
 #include "game.h"
 #include <windows.h>
 
-void
-
+void renderMenu();
+void mainmenu();
 
 #endif 

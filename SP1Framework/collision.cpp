@@ -23,7 +23,7 @@ bool colDetection(int levelnumber)
 	if (levelnumber == 6)
 		file.open("Level_6.txt");
 
-	COORD c;
+	//COORD c;
 	if (file.is_open())
 	{
 		while (height < 25)
