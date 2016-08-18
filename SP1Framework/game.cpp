@@ -104,10 +104,13 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
+		case S_COMBAT: combat();
+			break;
 		//case S_MENU: menu();
 		//	break;
     }
 }
+
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
 //            At this point, you should know exactly what to draw onto the screen.
@@ -125,6 +128,7 @@ void render()
             break;
         case S_GAME: renderGame();
             break;
+		case S_COMBAT: combat();
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -205,6 +209,7 @@ void moveCharacter()
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
     }
 }
+
 void processUserInput()
 {
     // quits the game if player hits the escape key
@@ -238,6 +243,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	//combat();
 }
 
 void renderMap()
@@ -275,6 +281,7 @@ void renderFramerate()
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str(), 0x59);
 }
+
 void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written

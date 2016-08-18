@@ -5,6 +5,7 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+#include "combat.h"
 //#include "menu.h"
 #include <iostream>
 #include <iomanip>
@@ -31,6 +32,7 @@ enum EGAMESTATES
     S_SPLASHSCREEN,
     S_GAME,
 	S_MENU,
+	S_COMBAT,
     S_COUNT
 };
 
