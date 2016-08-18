@@ -11,7 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 
 // Game specific variables here
-int g_CurrentLevel = 1;
+int g_CurrentLevel;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -34,6 +34,7 @@ void init( void )
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
+	g_CurrentLevel = 1;
 
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
@@ -107,7 +108,7 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-		case S_MENU: mainmenu(), processUserInput();
+		case S_MENU: mainmenu();
 			break;
     }
 }
@@ -144,7 +145,7 @@ void gameplay()            // gameplay logic
 {
 	//TODO
 	//make individual cpp for level completion checks and level updating
-	g_CurrentLevel = 1;
+	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
