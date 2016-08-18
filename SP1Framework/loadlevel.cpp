@@ -1,33 +1,76 @@
 #include "loadlevel.h"
 
+	unsigned int maxMapWidth;
+	unsigned int maxMapHeight;
+
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
 {
+
 	ifstream file;
 	if (levelnumber == 1)
+	{
 		file.open ("Level_1.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+		
 	if (levelnumber == 2)
+	{
 		file.open("Level_2.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+		
 	if (levelnumber == 3)
+	{
 		file.open("Level_3.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+
 	if (levelnumber == 4)
+	{
 		file.open("Level_4.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+
 	if (levelnumber == 5)
+	{
 		file.open("Level_5.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+
 	if (levelnumber == 6)
+	{
 		file.open("Level_6.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+
 	if (levelnumber == 1000)
+	{
 		file.open("StartUp.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
+
 	if (levelnumber == 100)
+	{
 		file.open("MainMenu.txt");
+		maxMapWidth = 80;
+		maxMapHeight = 25;
+	}
 
 	if (file.is_open())
 	{
-		for (int i = 0; i < 25; i++)
+		for (int i = 0; i < maxMapHeight; i++)
 		{
-			field[i] = new char[80];
+			field[i] = new char[maxMapWidth];
 
-			for (int j = 0; j < 80; j++)
+			for (int j = 0; j < maxMapWidth; j++)
 			{
 				file >> field[i][j];
 			}
@@ -39,10 +82,10 @@ char** store_map(char** field,int levelnumber)
 void print_map(char ** field)
 {
 	COORD c;
-	for (int i = 0; i < 25; ++i)
+	for (int i = 0; i < maxMapHeight; ++i)
 	{
 		c.Y = i + 1;
-		for (int j = 0; j < 80; ++j)
+		for (int j = 0; j < maxMapWidth; ++j)
 		{
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-')
@@ -53,7 +96,7 @@ void print_map(char ** field)
 			{
 				field[i][j] = (char)178;
 			}
-			if (field[i][j] == 'A')
+			if (field[i][j] == '*')
 			{
 				field[i][j] = ' ';
 			}

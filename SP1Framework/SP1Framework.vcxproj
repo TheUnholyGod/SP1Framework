@@ -87,6 +87,7 @@
     <ClCompile Include="loadlevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="sideScrolling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collision.h" />
@@ -95,7 +96,11 @@
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+<<<<<<< HEAD
+    <ClInclude Include="sideScrolling.h" />
+=======
     <ClInclude Include="levelTransition.h" />
+>>>>>>> 1da72531a2bb76d175ca021bc3f0cea74decae2d
     <ClInclude Include="loadlevel.h" />
     <ClInclude Include="menu.h" />
   </ItemGroup>

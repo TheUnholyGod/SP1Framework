@@ -275,6 +275,7 @@ void renderGame()
 
 void renderMap()
 {
+	// -------- TO STOP FLICKERING, DO CHECK CONDITION! IF CHARACTER IS NOT MOVING: STOP RENDERING, ELSE RENDER AGAIN! -------- //
 	txt = store_map(txt, g_CurrentLevel);
 	print_map(txt);
 }
