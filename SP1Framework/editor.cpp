@@ -87,8 +87,8 @@ void renderCursor()
 }
 void editmap(int levelnumber,char change)
 {
-	char txt[80][25];
-	char replacement[80][25];
+	char txt[130][25];
+	char replacement[130][25];
 	int height = 0;
 	int width = 0;
 	ifstream file;
@@ -110,7 +110,7 @@ void editmap(int levelnumber,char change)
 	{
 		while (height < 25)
 		{
-			while (width < 80)
+			while (width < 130)
 			{
 				file >> txt[width][height];
 				width++;
@@ -134,7 +134,7 @@ void editmap(int levelnumber,char change)
 		{
 			while (height < 25)
 			{
-				while (width < 80)
+				while (width < 130)
 				{
 					newfile << txt[width][height];
 					width++;

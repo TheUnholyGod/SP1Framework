@@ -6,7 +6,6 @@
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
 {
-
 	ifstream file;
 	if (levelnumber == 1)
 	{
@@ -53,14 +52,14 @@ char** store_map(char** field,int levelnumber)
 	if (levelnumber == 1000)
 	{
 		file.open("StartUp.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 100)
 	{
 		file.open("MainMenu.txt");
-		maxMapWidth = 80;
+		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
