@@ -236,6 +236,24 @@ public:
 
 			if (i == 118)
 				cout << "]" << endl;
+
+		if (i == 1)
+		{
+		cout << "[";
+		}
+
+		if (i <= counthash)
+		{
+		cout << "#";
+		}
+		else
+		{
+		cout << "-";
+		}
+
+		if (i == 118)
+		cout << "]" << endl;
+
 		}
 
 		cout << "Boss Attack: " << boss.Attack << endl;

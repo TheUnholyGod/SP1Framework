@@ -11,13 +11,14 @@ bool    g_abKeyPressed[K_COUNT];
 char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 
 // Game specific variables here
-int g_CurrentLevel = 1;
+int g_CurrentLevel;
 SGameChar   g_sChar;
+SEditor     g_sCursor;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "KB Hunter");
+Console g_Console(130, 40, "SP1 Framework");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -34,10 +35,14 @@ void init( void )
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
-
+	g_CurrentLevel = 1;
+	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
-	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
+	g_sChar.m_cLocation.Y = 2; //g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
+	// sets the initial position of the cursor
+	g_sCursor.m_cEditorLocation.X = g_Console.getConsoleSize().X / 2;
+	g_sCursor.m_cEditorLocation.Y = g_Console.getConsoleSize().Y / 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
 }
@@ -107,7 +112,9 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-		case S_MENU: mainmenu(), processUserInput();
+		case S_MENU: mainmenu();
+			break;
+		case S_EDITOR: editor();
 			break;
     }
 }
@@ -129,6 +136,9 @@ void render()
         case S_GAME: renderGame();
             break;
 		case S_MENU: renderMenu();
+			break;
+		case S_EDITOR: renderEditor();
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -142,9 +152,7 @@ void splashScreenWait()    // waits for time to pass in splash screen
 
 void gameplay()            // gameplay logic
 {
-	//TODO
-	//make individual cpp for level completion checks and level updating
-	g_CurrentLevel = 1;
+	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
@@ -229,8 +237,13 @@ void processUserInput()
 		if (g_abKeyPressed[K_SPACE])
 			g_eGameState = S_GAME;
 		// Go to the level editor mode (TO DO)
-		/*if (g_abKeyPressed[K_E])
-			g_eGameState = S_EDITOR*/
+		if (g_abKeyPressed[K_E])
+			g_eGameState = S_EDITOR;
+	}
+	if (g_eGameState == S_EDITOR)
+	{
+		if (g_abKeyPressed[K_M])
+			g_eGameState = S_MENU;
 	}
 }
 
@@ -264,6 +277,7 @@ void renderGame()
 
 void renderMap()
 {
+	// -------- TO STOP FLICKERING, DO CHECK CONDITION! IF CHARACTER IS NOT MOVING: STOP RENDERING, ELSE RENDER AGAIN! -------- //
 	txt = store_map(txt, g_CurrentLevel);
 	print_map(txt);
 }

@@ -5,8 +5,14 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+#include "sideScrolling.h"
+
+//#include "menu.h"
+
 #include "menu.h"
 #include "levelTransition.h"
+#include "editor.h"
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -36,7 +42,7 @@ enum EGAMESTATES
     S_GAME,
 	S_MENU,
     S_COUNT,
-	//S_EDITOR
+	S_EDITOR
 };
 
 // struct for the game character
@@ -44,6 +50,11 @@ struct SGameChar
 {
     COORD m_cLocation;
     bool  m_bActive;
+};
+// struct for the editor cursor
+struct SEditor
+{
+	COORD m_cEditorLocation;
 };
 
 void init        ( void );      // initialize your variables, allocate memory, etc

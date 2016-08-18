@@ -26,17 +26,34 @@ void combat()
 			}
 		}
 */
+		/* if (i >= 1)
+		{
+		if (Victory != 2)
+		{
+		break;
+		}
+		}
+		*/
+
 		//cout << ">Action: ";
 		//cin >> action;
 
 		/*if (action == 1)
 		{
+
 			attackProcess();
+
+		attackProcess();
+
 		}
 
 		else if (action == 2)
 		{
+
 			return 0;
+
+		return 0;
+
 		}*/
 
 		//Victory = checkVictory(player1.character.Health, enemy1.boss.Health);
@@ -44,6 +61,7 @@ void combat()
 
 	//if (Victory == 1)
 	//{
+
 	//	system("CLS");
 
 	//	fstream Victory;
@@ -73,6 +91,37 @@ void combat()
 	//		}
 	//		Lose.close();
 	//	}
+
+	// system("CLS");
+
+	// fstream Victory;
+	// Victory.open("Victory.txt");
+	// if (Victory.is_open())
+	// {
+	//  system("COLOR 0B");
+	//  while (getline(Victory, line))
+	//  {
+	//   //cout << line << '\n';
+	//  }
+	//  Victory.close();
+	// }
+	//}
+	//else if (Victory == 0)
+	//{
+	// system("CLS");
+
+	// fstream Lose;
+	// Lose.open("Lose.txt");
+	// if (Lose.is_open())
+	// {
+	//  system("COLOR 0B");
+	//  while (getline(Lose, line))
+	//  {
+	//   //cout << line << '\n';
+	//  }
+	//  Lose.close();
+	// }
+
 	//}
 }
 
@@ -92,6 +141,7 @@ void display()
 	system("CLS");
 
 	enemy1.display(combatdisplaycoord);
+
 //	fstream myEnemy;
 //	myEnemy.open("Spider.txt");
 //	if (myEnemy.is_open())
@@ -104,6 +154,20 @@ void display()
 //		myEnemy.close();
 //	}
 //
+
+	// fstream myEnemy;
+	// myEnemy.open("Spider.txt");
+	// if (myEnemy.is_open())
+	// {
+	//  system("COLOR 0B");
+	//  while (getline(myEnemy, line))
+	//  {
+	//   //cout << line << '\n';
+	//  }
+	//  myEnemy.close();
+	// }
+	//
+
 	player1.display(combatdisplaycoord);
 }
 

@@ -1,10 +1,14 @@
 #include "menu.h"
 extern int g_CurrentLevel;
+
+
 void renderMenu()
 {
-	renderMap();
+	char** txt = new char*[100];
+	txt = store_map(txt, 100);
+	print_map(txt);
 }
 void mainmenu()
 {
-	g_CurrentLevel = 100;
+	processUserInput();
 }
