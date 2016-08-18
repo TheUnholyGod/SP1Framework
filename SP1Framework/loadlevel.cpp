@@ -36,7 +36,6 @@ char** store_map(char** field,int levelnumber)
 	}
 	return field;
 }
-
 void print_map(char ** field)
 {
 	COORD c;
@@ -46,7 +45,7 @@ void print_map(char ** field)
 		for (int j = 0; j < 80; ++j)
 		{
 			//convert legend to actual ascii characters
-			if (field[i][j] == 'i')
+			if (field[i][j] == '-')
 			{
 				field[i][j] = (char)176;
 			}

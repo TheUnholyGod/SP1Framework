@@ -5,8 +5,8 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
-#include "combat.h"
-//#include "menu.h"
+#include "menu.h"
+#include "levelTransition.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -23,6 +23,9 @@ enum EKEYS
     K_RIGHT,
     K_ESCAPE,
     K_SPACE,
+	K_M,
+	K_E,
+	K_L,
     K_COUNT
 };
 
@@ -32,8 +35,8 @@ enum EGAMESTATES
     S_SPLASHSCREEN,
     S_GAME,
 	S_MENU,
-	S_COMBAT,
-    S_COUNT
+    S_COUNT,
+	//S_EDITOR
 };
 
 // struct for the game character
