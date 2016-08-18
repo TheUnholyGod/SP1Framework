@@ -13,11 +13,12 @@ char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 // Game specific variables here
 int g_CurrentLevel;
 SGameChar   g_sChar;
+SEditor     g_sCursor;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(130, 40, "SP1 Framework");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -35,10 +36,13 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
-
+	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
-	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
+	g_sChar.m_cLocation.Y = 2; //g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
+	// sets the initial position of the cursor
+	g_sCursor.m_cEditorLocation.X = g_Console.getConsoleSize().X / 2;
+	g_sCursor.m_cEditorLocation.Y = g_Console.getConsoleSize().Y / 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
 }
@@ -148,8 +152,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 
 void gameplay()            // gameplay logic
 {
-	//TODO
-	//make individual cpp for level completion checks and level updating
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -235,8 +237,8 @@ void processUserInput()
 		if (g_abKeyPressed[K_SPACE])
 			g_eGameState = S_GAME;
 		// Go to the level editor mode (TO DO)
-		/*if (g_abKeyPressed[K_E])
-			g_eGameState = S_EDITOR*/
+		if (g_abKeyPressed[K_E])
+			g_eGameState = S_EDITOR;
 	}
 	if (g_eGameState == S_EDITOR)
 	{

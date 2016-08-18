@@ -5,5 +5,7 @@
 
 void renderEditor();
 void editor();
+void moveCursor();
+void renderCursor();
 
 #endif // !_EDITOR_H

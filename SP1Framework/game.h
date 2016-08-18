@@ -46,6 +46,11 @@ struct SGameChar
     COORD m_cLocation;
     bool  m_bActive;
 };
+// struct for the editor cursor
+struct SEditor
+{
+	COORD m_cEditorLocation;
+};
 
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
