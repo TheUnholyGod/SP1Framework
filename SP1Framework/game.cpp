@@ -45,6 +45,7 @@ void init( void )
 	g_sCursor.m_cEditorLocation.Y = g_Console.getConsoleSize().Y / 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
+
 }
 
 //--------------------------------------------------------------
@@ -87,6 +88,7 @@ void getInput( void )
 	g_abKeyPressed[K_W]      = isKeyPressed(0x57);
 	g_abKeyPressed[K_D]      = isKeyPressed(0x44);
 	g_abKeyPressed[K_Q]      = isKeyPressed(0x51);
+	g_abKeyPressed[K_K]      = isKeyPressed(0x4B);
 
 }
 
@@ -145,7 +147,7 @@ void render()
 			break;
 		case S_EDITOR: renderEditor();
 			break;
-		case S_COMBAT: combatdisplay();
+		case S_COMBAT: enemyinit(), combatdisplay();
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -247,6 +249,8 @@ void processUserInput()
 		// Go to the level editor mode (TO DO)
 		if (g_abKeyPressed[K_E])
 			g_eGameState = S_EDITOR;
+		if (g_abKeyPressed[K_K])
+			g_eGameState = S_COMBAT;
 	}
 	if (g_eGameState == S_EDITOR)
 	{

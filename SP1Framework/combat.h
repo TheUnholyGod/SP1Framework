@@ -46,6 +46,7 @@ public:
 	}
 
 	//---Display Update---//
+	
 	void display(COORD a)
 	{
 		unsigned int number_of_digits = 0;
@@ -134,70 +135,81 @@ class Enemy
 {
 public:
 	//---Enemy Stats---//
+
 	struct boss
 	{
 		int MaxHealth;
 		int Health;
 		int Attack;
+		int MaxAttack;
+		int MinAttack;
 		int Defence;
-	}boss;
+	}boss1;
 
 	//---Initialisation---//
-	void init()
+	void init(int baseatt, int maxatt)
 	{
-		setAttack();
-		setDefence();
-		setHealth();
+		boss1.Attack = setAttack(baseatt, maxatt);
+		boss1.Defence = setDefence();
+		boss1.MaxHealth = setHealth();
+		boss1.Health = boss1.MaxHealth;
 	}
 
 	//---Getting Random Attack Stat---//
-	void setAttack()
+	int setAttack(int base, int maxatt)
 	{
 		srand(time(NULL));
 		int basedmg;
-		for (basedmg = 0; basedmg < 30;)
+		for (basedmg = 0; basedmg >= maxatt;)
 		{
-			basedmg = rand() % 60;
+			basedmg = rand() % maxatt;
 		}
-		int max = rand() % 10;
-		max += basedmg;
+		maxatt = rand() % 10;
+		if (maxatt < 1)
+			maxatt = 1;
+		maxatt += basedmg;
+		boss1.MaxAttack = maxatt;
 		int min = rand() % 10;
 		min = basedmg - min;
+		boss1.MinAttack = min;
 		for (;;)
 		{
-			boss.Attack = rand() % max;
-			if (boss.Attack >= min && boss.Attack <= max)
+			boss1.Attack = rand() % maxatt;
+			if (boss1.Attack >= min && boss1.Attack <= maxatt)
 			{
 				break;
 			}
 		}
+		return boss1.Attack;
 	}
 
 	//---Formula for Defence Stat---//
-	void setDefence()
+	int setDefence()
 	{
-		boss.Defence = boss.Attack * 4 / 3;
+		boss1.Defence = boss1.Attack * 4 / 3;
+		return boss1.Defence;
 	}
 
 	//---Formula for Health Stat---//
-	void setHealth()
+	int setHealth()
 	{
-		boss.Health = boss.Defence * 3;
-		boss.MaxHealth = boss.Health;
+		boss1.Health = boss1.Defence * 3;
+		boss1.MaxHealth = boss1.Health;
+		return boss1.MaxHealth;
 	}
 
 	//---Display Update---//
-	void display(COORD a)
+	void display(COORD a, int i, int i1, int i2, int i3)
 	{
-		double oneUnit = boss.MaxHealth / 118.0f;
-		int counthash = boss.Health * oneUnit;
+		double oneUnit = i1 / 100.0f;
+		int counthash = i * oneUnit;
 
 		a.X = 0;
 		a.Y = 1;
 		g_Console.writeToBuffer(a, "Boss Health:");
 
-		a.Y = 2;
-		for (a.X = 0; a.X <= 118; a.X++)
+		a.Y++;
+		for (a.X = 0; a.X <= 119; a.X++)
 		{
 			if (a.X == 0)
 			{
@@ -208,15 +220,22 @@ public:
 			{
 				g_Console.writeToBuffer(a, "#");
 			}
-			else if (a.X == 119)
-			{
-				g_Console.writeToBuffer(a, "]");
-			}
 			else
 			{
 				g_Console.writeToBuffer(a, "-");
 			}
-		}
+ 		}
+		g_Console.writeToBuffer(a, "]");
+		a.X = 0;
+		a.Y++;
+		g_Console.writeToBuffer(a, "Boss Attack: ");
+		a.X += 13;
+		g_Console.writeToBuffer(a, i2);
+		a.X = 0;
+		a.Y++;
+		g_Console.writeToBuffer(a, "Boss Defence: ");
+		a.X += 14;
+		g_Console.writeToBuffer(a, i3);
 		/*cout << "Boss Health" << endl;
 		for (int i = 1; i <= 118; i++)
 		{
@@ -261,21 +280,29 @@ public:
 	}
 
 	//---Calling for the attack---//
-	int getAttack()
+	int getAttack(int max ,int min)
 	{
-		return boss.Attack; //This may be changed
+		for (;;)
+		{
+			boss1.Attack = rand() % max;
+			if (boss1.Attack >= min && boss1.Attack <= max)
+			{
+				break;
+			}
+		}
+		return boss1.Attack;
 	}
 
 	//---Update of Health Stat after getting hit---//
 	void healthUpdate(int damageDone)
 	{
-		if (damageDone > boss.Health)
+		if (damageDone > boss1.Health)
 		{
-			boss.Health = 0;
+			boss1.Health = 0;
 		}
 		else
 		{
-			boss.Health -= damageDone;
+			boss1.Health -= damageDone;
 		}
 	}
 };
@@ -286,5 +313,6 @@ void combat();
 void combatdisplay();
 void attackProcess();
 int checkVictory(int playerhealth, int enemyhealth);
+void enemyinit();
 
 #endif //End of _COMBAT_H
