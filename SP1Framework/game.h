@@ -5,6 +5,7 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+#include "AI Pathfinding.h"
 //#include "menu.h"
 #include <iostream>
 #include <iomanip>
@@ -40,6 +41,7 @@ struct SGameChar
     COORD m_cLocation;
     bool  m_bActive;
 };
+
 
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
