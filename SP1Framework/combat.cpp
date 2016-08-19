@@ -16,7 +16,6 @@ void combat()
 
 	for (int i = 0;; i++)
 	{
-		display();
 
 	/*	if (i >= 1)
 		{
@@ -134,7 +133,7 @@ void attackProcess()
 	player1.healthUpdate(hold);
 }
 
-void display()
+void combatdisplay()
 {
 	string line;
 

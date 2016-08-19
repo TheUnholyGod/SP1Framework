@@ -6,13 +6,10 @@
 #include "loadlevel.h"
 #include "collision.h"
 #include "sideScrolling.h"
-
-//#include "menu.h"
-
 #include "menu.h"
 #include "levelTransition.h"
 #include "editor.h"
-
+#include "combat.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -34,6 +31,7 @@ enum EKEYS
 	K_L,
 	K_W,
 	K_D,
+	K_K,
     K_COUNT
 };
 
@@ -43,6 +41,7 @@ enum EGAMESTATES
     S_SPLASHSCREEN,
     S_GAME,
 	S_MENU,
+	S_COMBAT,
     S_COUNT,
 	S_EDITOR
 };

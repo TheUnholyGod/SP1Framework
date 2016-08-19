@@ -283,7 +283,7 @@ public:
 
 //-----Function Declaration-----//
 void combat();
-void display();
+void combatdisplay();
 void attackProcess();
 int checkVictory(int playerhealth, int enemyhealth);
 

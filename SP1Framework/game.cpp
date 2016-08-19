@@ -118,6 +118,8 @@ void update(double dt)
 			break;
 		case S_EDITOR: editor();
 			break;
+		case S_COMBAT: combat();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -140,6 +142,8 @@ void render()
 		case S_MENU: renderMenu();
 			break;
 		case S_EDITOR: renderEditor();
+			break;
+		case S_COMBAT: combatdisplay();
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
