@@ -11,6 +11,8 @@ bool    g_abKeyPressed[K_COUNT];
 char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 
 // Game specific variables here
+extern int character_X;
+extern int character_Y;
 int g_CurrentLevel;
 SGameChar   g_sChar;
 SEditor     g_sCursor;
@@ -265,16 +267,6 @@ void renderSplashScreen()  // renders the splash screen
 {
 	txt = store_map(txt, 1000);
 	print_map(txt);
-    /*COORD c = g_Console.getConsoleSize();
-    c.Y /= 3;
-    c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "A game in 3 seconds", 0x03);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 20;
-    g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);*/
 }
 
 void renderGame()

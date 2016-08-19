@@ -32,11 +32,6 @@ void checkGameGoal()
 		{
 			while (width < 130)
 			{
-				if (txt[width][height]=='+')
-				{
-					character_X = width;
-					character_Y = height;
-				}
 				file >> txt[width][height];
 				width++;
 			}
