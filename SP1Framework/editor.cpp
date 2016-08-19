@@ -126,7 +126,6 @@ void editmap(int levelnumber,char change)
 	char oldname[] = "temp.txt";
 
 	txt[g_sCursor.m_cEditorLocation.X][g_sCursor.m_cEditorLocation.Y-1] = change;
-	//if (g_abKeyPressed[K_L]) 
 	{
 		height = 0;
 		width = 0;
@@ -198,6 +197,11 @@ void edits()
 	if (g_abKeyPressed[K_D])
 	{
 		ch = 'D';
+		editmap(g_CurrentLevel, ch);
+	}
+	if (g_abKeyPressed[K_Q])
+	{
+		ch = '+';
 		editmap(g_CurrentLevel, ch);
 	}
 }
