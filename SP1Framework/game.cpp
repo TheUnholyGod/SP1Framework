@@ -13,12 +13,9 @@ char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 // Game specific variables here
 int g_CurrentLevel;
 SGameChar   g_sChar;
-<<<<<<< HEAD
 Enemy	g_sEnemy;
 Enemy enemies[100];
-=======
 SEditor     g_sCursor;
->>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -43,20 +40,16 @@ void init( void )
 	g_CurrentLevel = 1;
 	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
-<<<<<<< HEAD
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
-	g_sEnemy.m_eLocation.X = 25;
-	g_sEnemy.m_eLocation.Y = 16;
+	//g_sEnemy.m_eLocation.X = 25;
+	//g_sEnemy.m_eLocation.Y = 16;
     g_sChar.m_bActive = true;
-	g_sEnemy.m_bActive = true;
-	
-=======
+	//g_sEnemy.m_bActive = true;
 	g_sChar.m_cLocation.Y = 2; //g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
 	// sets the initial position of the cursor
 	g_sCursor.m_cEditorLocation.X = g_Console.getConsoleSize().X / 2;
 	g_sCursor.m_cEditorLocation.Y = g_Console.getConsoleSize().Y / 2;
->>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
 }
@@ -168,13 +161,8 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-<<<<<<< HEAD
-    if (g_dElapsedTime > 0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_GAME;
-=======
     if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
         g_eGameState = S_MENU;
->>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 }
 
 void gameplay()            // gameplay logic
@@ -320,11 +308,11 @@ void renderCharacter()
     }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
-	if (g_sEnemy.m_bActive)
-	{
-		enemies[KAMBENG].EnemyMove(g_sChar.m_cLocation.Y, g_sChar.m_cLocation.X);
-	}
-	g_Console.writeToBuffer(g_sEnemy.m_eLocation, (char)178, enemyColor);
+	//if (g_sEnemy.m_bActive)
+	//{
+	//	enemies[KAMBENG].EnemyMove(g_sChar.m_cLocation.Y, g_sChar.m_cLocation.X);
+	//}
+	//g_Console.writeToBuffer(g_sEnemy.m_eLocation, (char)178, enemyColor);
 }
 
 void renderFramerate()

@@ -5,16 +5,12 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
-<<<<<<< HEAD
-#include "AI Pathfinding.h"
-//#include "menu.h"
-=======
+//#include "AI Pathfinding.h"
 #include "sideScrolling.h"
 #include "menu.h"
 #include "levelTransition.h"
 #include "editor.h"
 #include "combat.h"
->>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 #include <iostream>
 #include <iomanip>
 #include <sstream>
