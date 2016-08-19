@@ -53,6 +53,11 @@ void init( void )
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
 
+	//Initializes the Enemies
+	enemyinit();
+	//Initializes the Player
+	playerinit();
+
 }
 
 //--------------------------------------------------------------
@@ -154,7 +159,7 @@ void render()
 			break;
 		case S_EDITOR: renderEditor();
 			break;
-		case S_COMBAT: enemyinit(), combatdisplay();
+		case S_COMBAT: combatdisplay();
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
