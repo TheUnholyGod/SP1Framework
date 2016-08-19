@@ -79,21 +79,29 @@
   <ItemGroup>
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="Enemy AI.cpp" />
+    <ClCompile Include="combat.cpp" />
+    <ClCompile Include="editor.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="levelTransition.cpp" />
     <ClCompile Include="loadlevel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="sideScrolling.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI Pathfinding.h" />
     <ClInclude Include="collision.h" />
+    <ClInclude Include="combat.h" />
+    <ClInclude Include="editor.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="levelTransition.h" />
     <ClInclude Include="loadlevel.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="sideScrolling.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

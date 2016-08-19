@@ -5,8 +5,16 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+<<<<<<< HEAD
 #include "AI Pathfinding.h"
 //#include "menu.h"
+=======
+#include "sideScrolling.h"
+#include "menu.h"
+#include "levelTransition.h"
+#include "editor.h"
+#include "combat.h"
+>>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -17,12 +25,19 @@ extern bool g_bQuitGame;
 // Enumeration to store the control keys that your game will have
 enum EKEYS
 {
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
-    K_ESCAPE,
-    K_SPACE,
+	K_UP,
+	K_DOWN,
+	K_LEFT,
+	K_RIGHT,
+	K_ESCAPE,
+	K_SPACE,
+	K_M,
+	K_E,
+	K_L,
+	K_W,
+	K_D,
+	K_K,
+	K_Q,
     K_COUNT
 };
 
@@ -32,7 +47,9 @@ enum EGAMESTATES
     S_SPLASHSCREEN,
     S_GAME,
 	S_MENU,
-    S_COUNT
+	S_COMBAT,
+    S_COUNT,
+	S_EDITOR
 };
 
 // struct for the game character
@@ -40,6 +57,11 @@ struct SGameChar
 {
     COORD m_cLocation;
     bool  m_bActive;
+};
+// struct for the editor cursor
+struct SEditor
+{
+	COORD m_cEditorLocation;
 };
 
 

@@ -5,7 +5,7 @@ extern bool    g_abKeyPressed[K_COUNT];
 
 bool colDetection(int levelnumber)
 {
-	char txt[100][100];
+	char txt[130][25];
 	int height = 0;
 	int width = 0;
 	ifstream file;
@@ -23,12 +23,12 @@ bool colDetection(int levelnumber)
 	if (levelnumber == 6)
 		file.open("Level_6.txt");
 
-	COORD c;
+	//COORD c;
 	if (file.is_open())
 	{
 		while (height < 25)
 		{
-			while (width < 80)
+			while (width < 130)
 			{
 				file >> txt[width][height];
 				width++;
@@ -43,7 +43,11 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != '-')
+=======
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != '-' && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] != '+')
+>>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 		{
 			return false;
 		}
@@ -53,7 +57,11 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != '-')
+=======
+		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != '-' && txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] != '+')
+>>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 		{
 			return false;
 		}
@@ -63,7 +71,11 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != '-')
+=======
+		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != '-' && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] != '+')
+>>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 		{
 			return false;
 		}
@@ -72,7 +84,11 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
+<<<<<<< HEAD
 		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != '-')
+=======
+		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != '-' && txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] != '+')
+>>>>>>> 12794af1bca7b54a3e90e27e6f3a265444212145
 		{
 			return false;
 		}
