@@ -99,8 +99,12 @@ void print_map(char ** field)
 			{
 				field[i][j] = ' ';
 			}
+			if (field[i][j] == '+')
+			{
+				field[i][j] = (char)177;
+			}
 			c.X = j;
-			g_Console.writeToBuffer(c, field[i][j]);
+				g_Console.writeToBuffer(c, field[i][j]);
 		}
 	}
 }
