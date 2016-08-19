@@ -13,10 +13,12 @@ char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
 // Game specific variables here
 int g_CurrentLevel;
 SGameChar   g_sChar;
+Enemy	g_sEnemy;
+Enemy enemies[100];
 SEditor     g_sCursor;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
+double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 // Console object
 Console g_Console(130, 40, "SP1 Framework");
 
@@ -38,6 +40,11 @@ void init( void )
 	g_CurrentLevel = 1;
 	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
+	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
+	//g_sEnemy.m_eLocation.X = 25;
+	//g_sEnemy.m_eLocation.Y = 16;
+    g_sChar.m_bActive = true;
+	//g_sEnemy.m_bActive = true;
 	g_sChar.m_cLocation.Y = 2; //g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
 	// sets the initial position of the cursor
@@ -295,14 +302,21 @@ void renderMap()
 }
 
 void renderCharacter()
-{
+{ 
     // Draw the location of the character
     WORD charColor = 0x0C;
+	WORD enemyColor = 0xFF;
     if (g_sChar.m_bActive)
     {
         charColor = 0x0A;
     }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
+
+	//if (g_sEnemy.m_bActive)
+	//{
+	//	enemies[KAMBENG].EnemyMove(g_sChar.m_cLocation.Y, g_sChar.m_cLocation.X);
+	//}
+	//g_Console.writeToBuffer(g_sEnemy.m_eLocation, (char)178, enemyColor);
 }
 
 void renderFramerate()

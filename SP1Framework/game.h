@@ -5,6 +5,7 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
+//#include "AI Pathfinding.h"
 #include "sideScrolling.h"
 #include "menu.h"
 #include "levelTransition.h"
@@ -58,6 +59,7 @@ struct SEditor
 {
 	COORD m_cEditorLocation;
 };
+
 
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
