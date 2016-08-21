@@ -94,5 +94,7 @@ void attackProcess();
 int checkVictory(int playerhealth, int enemyhealth);
 void enemyinit();
 void playerinit();
+char** enemyselector(char** dp, int enemyno);
+char** buttonsdisplay(char** buttonfill);
 
 #endif //End of _COMBAT_H

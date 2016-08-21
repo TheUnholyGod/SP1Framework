@@ -4,252 +4,352 @@
 Player player1;
 Enemy enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemynonboss;
 COORD combatdisplaycoord;
-char** display = new char*[115];
+char** display = new char*[53];
+char** buttonfiller = new char*[63];
+int enemySelector = 0;
+bool isUpPressed = true;
 
 /*/
 -Functions from Main Combat File-
 /*/
 
-//-----Main Combat File-----//
-void combat()
-{
-	string line;
-	int Victory;
-	int action;
+//--------Main Code Runs-------//
 
-	//for (int i = 0;; i++)
-	//{
+	//-----Main Combat File-----//
+	void combat()
+	{
+		string line;
+		int Victory;
+		int action;
 
-	/*	if (i >= 1)
-		{
+		//for (int i = 0;; i++)
+		//{
+
+		/*	if (i >= 1)
+			{
+				if (Victory != 2)
+				{
+					break;
+				}
+			}
+	*/
+			/* if (i >= 1)
+			{
 			if (Victory != 2)
 			{
-				break;
+			break;
 			}
-		}
-*/
-		/* if (i >= 1)
-		{
-		if (Victory != 2)
-		{
-		break;
-		}
-		}
-		*/
+			}
+			*/
 
-		//cout << ">Action: ";
-		//cin >> action;
+			//cout << ">Action: ";
+			//cin >> action;
 
-		/*if (action == 1)
-		{
+			/*if (action == 1)
+			{
+
+				attackProcess();
 
 			attackProcess();
 
-		attackProcess();
+			}
 
-		}
+			else if (action == 2)
+			{
 
-		else if (action == 2)
-		{
+				return 0;
 
 			return 0;
 
-		return 0;
+			}*/
 
-		}*/
+			//Victory = checkVictory(player1.character.Health, enemy1.boss.Health);
+		//}
 
-		//Victory = checkVictory(player1.character.Health, enemy1.boss.Health);
-	//}
+		//if (Victory == 1)
+		//{
 
-	//if (Victory == 1)
-	//{
+		//	system("CLS");
 
-	//	system("CLS");
+		//	fstream Victory;
+		//	Victory.open("Victory.txt");
+		//	if (Victory.is_open())
+		//	{
+		//		system("COLOR 0B");
+		//		while (getline(Victory, line))
+		//		{
+		//			//cout << line << '\n';
+		//		}
+		//		Victory.close();
+		//	}
+		//}
+		//else if (Victory == 0)
+		//{
+		//	system("CLS");
 
-	//	fstream Victory;
-	//	Victory.open("Victory.txt");
-	//	if (Victory.is_open())
-	//	{
-	//		system("COLOR 0B");
-	//		while (getline(Victory, line))
-	//		{
-	//			//cout << line << '\n';
-	//		}
-	//		Victory.close();
-	//	}
-	//}
-	//else if (Victory == 0)
-	//{
-	//	system("CLS");
+		//	fstream Lose;
+		//	Lose.open("Lose.txt");
+		//	if (Lose.is_open())
+		//	{
+		//		system("COLOR 0B");
+		//		while (getline(Lose, line))
+		//		{
+		//			//cout << line << '\n';
+		//		}
+		//		Lose.close();
+		//	}
 
-	//	fstream Lose;
-	//	Lose.open("Lose.txt");
-	//	if (Lose.is_open())
-	//	{
-	//		system("COLOR 0B");
-	//		while (getline(Lose, line))
-	//		{
-	//			//cout << line << '\n';
-	//		}
-	//		Lose.close();
-	//	}
+		// system("CLS");
 
-	// system("CLS");
+		// fstream Victory;
+		// Victory.open("Victory.txt");
+		// if (Victory.is_open())
+		// {
+		//  system("COLOR 0B");
+		//  while (getline(Victory, line))
+		//  {
+		//   //cout << line << '\n';
+		//  }
+		//  Victory.close();
+		// }
+		//}
+		//else if (Victory == 0)
+		//{
+		// system("CLS");
 
-	// fstream Victory;
-	// Victory.open("Victory.txt");
-	// if (Victory.is_open())
-	// {
-	//  system("COLOR 0B");
-	//  while (getline(Victory, line))
-	//  {
-	//   //cout << line << '\n';
-	//  }
-	//  Victory.close();
-	// }
-	//}
-	//else if (Victory == 0)
-	//{
-	// system("CLS");
+		// fstream Lose;
+		// Lose.open("Lose.txt");
+		// if (Lose.is_open())
+		// {
+		//  system("COLOR 0B");
+		//  while (getline(Lose, line))
+		//  {
+		//   //cout << line << '\n';
+		//  }
+		//  Lose.close();
+		// }
 
-	// fstream Lose;
-	// Lose.open("Lose.txt");
-	// if (Lose.is_open())
-	// {
-	//  system("COLOR 0B");
-	//  while (getline(Lose, line))
-	//  {
-	//   //cout << line << '\n';
-	//  }
-	//  Lose.close();
-	// }
+		//}
+	}
 
-	//}
-}
-
-//-----Process of Attack-----//
-void attackProcess()
-{
-	int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
-	enemy1.healthUpdate(holddamage);
-	int hold = player1.damageSustained(enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack), player1.character.Defence);
-	player1.healthUpdate(hold);
-}
-
-//-----Combat Render-----//
-void combatdisplay()
-{
-	enemy1.display(combatdisplaycoord, enemy1.boss1.Health, enemy1.boss1.MaxHealth, enemy1.boss1.Attack, enemy1.boss1.Defence);
-	display = store_map(display, 69);
-
-	combatdisplaycoord.X = 0;
-	combatdisplaycoord.Y = 5;
-
-	for (int i = 0; i < 24; ++i)
+	//-----Process of Attack-----//
+	void attackProcess()	
 	{
-		for (int j = 0; j <= 115; ++j)
+		int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
+		enemy1.healthUpdate(holddamage);
+		int hold = player1.damageSustained(enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack), player1.character.Defence);
+		player1.healthUpdate(hold);
+	}
+
+	//-----Checking for Victory-----//
+	int checkVictory(int playerhealth, int enemyhealth)
+	{
+		if (enemyhealth <= 0)
 		{
-			if (display[i][j] == '-')
-			{
-				display[i][j] = (char)(32);
-			}
-			g_Console.writeToBuffer(combatdisplaycoord, display[i][j]);
-			combatdisplaycoord.X++;
+			return 1;
 		}
+		else if (playerhealth <= 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return 2;
+		}
+	}
+
+//-------Combat Render-------//
+
+	//-----Combat Render-----//
+	void combatdisplay()
+	{
+		enemy1.display(combatdisplaycoord, enemy1.boss1.Health, enemy1.boss1.MaxHealth, enemy1.boss1.Attack, enemy1.boss1.Defence);
+		display = enemyselector(display, enemySelector);
+
 		combatdisplaycoord.X = 0;
-		combatdisplaycoord.Y++;
+		combatdisplaycoord.Y = 5;
+
+		for (int i = 0; i < 24; ++i)
+		{
+			for (int j = 0; j < 53; ++j)
+			{
+				if (display[i][j] == '-')
+				{
+					display[i][j] = (char)(32);
+				}
+				g_Console.writeToBuffer(combatdisplaycoord, display[i][j]);
+				combatdisplaycoord.X++;
+			}
+			combatdisplaycoord.X = 0;
+			combatdisplaycoord.Y++;
+		}
+
+		buttonfiller = buttonsdisplay(buttonfiller);
+
+
+		combatdisplaycoord.X = 53;
+		combatdisplaycoord.Y = 5;
+
+		for (int i = 0; i < 24; ++i)
+		{
+			for (int j = 0; j < 63; ++j)
+			{
+				if (buttonfiller[i][j] == '-')
+				{
+					buttonfiller[i][j] = (char)(32);
+				}
+				g_Console.writeToBuffer(combatdisplaycoord, buttonfiller[i][j]);
+				combatdisplaycoord.X++;
+			}
+			combatdisplaycoord.X = 53;
+			combatdisplaycoord.Y++;
+		}
+
+		player1.display(combatdisplaycoord);
 	}
 
-	player1.display(combatdisplaycoord);
-}
-
-//-----Checking for Victory-----//
-int checkVictory(int playerhealth, int enemyhealth)
-{
-	if (enemyhealth <= 0)
+	//-----Choosing Enemy For Combat-----//
+	char** enemyselector(char** dp, int enemyno)
 	{
-		return 1;
+		int monsterHeight = 24;
+		int monsterLength = 53;
+		ifstream monster;
+
+		if (enemyno == 0)
+			monster.open("Combat/Goat1.txt");
+		else if (enemyno == 1)
+			monster.open("Combat/Spider.txt");
+
+		if (monster.is_open())
+		{
+			for (int i = 0; i < monsterHeight; i++)
+			{
+				dp[i] = new char[monsterLength];
+
+				for (int j = 0; j < monsterLength; j++)
+				{
+					monster >> dp[i][j];
+				}
+			}
+			monster.close();
+		}
+		return dp;
 	}
-	else if (playerhealth <= 0)
+
+	//-----Rendering The Buttons-----//
+	char** buttonsdisplay(char** buttonfill)
 	{
-		return 0;
+		int buttonHeight = 24;
+		int buttonLength = 63;
+
+		if (isKeyPressed(VK_UP))
+		{
+			isUpPressed = true;
+		}
+		else if (isKeyPressed(VK_DOWN))
+		{
+			isUpPressed = false;
+		}
+		
+		ifstream  buttons;
+
+		if (isUpPressed == true)
+		{
+			buttons.open("Combat/Attack_Defend_Buttons_if_Att.txt");
+		}
+		else if (isUpPressed == false)
+		{
+			buttons.open("Combat/Attack_Defend_Buttons_if_Def.txt");
+		}
+
+		if (buttons.is_open())
+		{
+			for (int i = 0; i < buttonHeight; i++)
+			{
+				buttonfill[i] = new char[buttonLength];
+
+				for (int j = 0; j < buttonLength; j++)
+				{
+					buttons >> buttonfill[i][j];
+				}
+			}
+			buttons.close();
+		}
+		return buttonfill;
 	}
-	else
+
+//-------Initalization of All Characters/Enemies-------//
+
+	//-----Initalizing for all enemies from Init-----//
+	void enemyinit()
 	{
-		return 2;
-	}
-}
+		int i = 0;
+		int att = 0;
+		int max = 0;
 
-//-----Initalizing for all enemies from Init-----//
-void enemyinit()
-{
-	int i = 0;
-	int att = 0;
-	int max = 0;
+		for (i = 0; i <= 7;)
+		{
+			if (i == 0) //For First Boss
+			{
+				att = 1;
+				max = 1;
+				i++;
+				enemy1.init(att, max);
+			}
+			else if (i == 1) //For Second Boss
+			{
+				att = 30;
+				max = 50;
+				i++;
+				enemy2.init(att, max);
+			}
+			else if (i == 2) //For Third Boss
+			{
+				att = 75;
+				max = 90;
+				i++;
+				enemy3.init(att, max);
+			}
+			else if (i == 3) //For Fourth Boss
+			{
+				att = 100;
+				max = 125;
+				i++;
+				enemy4.init(att, max);
+			}
+			else if (i == 4) //For Fifth Boss
+			{
+				att = 1000;
+				max = 1000;
+				i++;
+				enemy5.init(att, max);
+			}
+			else if (i == 5) //For Sixth Boss
+			{
+				att = 250;
+				max = 450;
+				enemy6.init(att, max);
+				i++;
+			}
+			else //For Normal AI
+			{
+				att = 10;
+				max = 120;
+				enemynonboss.init(att, max);
+				i++;
+			}
+		}
+	} 
 
-	for (i = 0; i <= 7;)
+	//-----Initilasing Player Stats-----//
+	void playerinit()
 	{
-		if (i == 0) //For First Boss
-		{
-			att = 1;
-			max = 1;
-			i++;
-			enemy1.init(att, max);
-		}
-		else if (i == 1) //For Second Boss
-		{
-			att = 30;
-			max = 50;
-			i++;
-			enemy2.init(att, max);
-		}
-		else if (i == 2) //For Third Boss
-		{
-			att = 75;
-			max = 90;
-			i++;
-			enemy3.init(att, max);
-		}
-		else if (i == 3) //For Fourth Boss
-		{
-			att = 100;
-			max = 125;
-			i++;
-			enemy4.init(att, max);
-		}
-		else if (i == 4) //For Fifth Boss
-		{
-			att = 1000;
-			max = 1000;
-			i++;
-			enemy5.init(att, max);
-		}
-		else if (i == 5) //For Sixth Boss
-		{
-			att = 250;
-			max = 450;
-			enemy6.init(att, max);
-			i++;
-		}
-		else //For Normal AI
-		{
-			att = 10;
-			max = 120;
-			enemynonboss.init(att, max);
-			i++;
-		}
+		int Health = 100;
+		int Attack = 10;
+		int Defence = 10;
+
+		player1.playerBase(Health, Attack, Defence);
 	}
-} 
-
-//-----Initilasing Player Stats-----//
-void playerinit()
-{
-	int Health = 100;
-	int Attack = 10;
-	int Defence = 10;
-
-	player1.playerBase(Health, Attack, Defence);
-}
 
 /*/
 -End of Main Function-
@@ -273,33 +373,32 @@ int Enemy::setAttack(int base, int maxatt)
 {
 	srand(time(NULL));
 	int basedmg;
-	for (basedmg = 0; basedmg >= maxatt;)
+	for (basedmg = base; basedmg >= maxatt;)
 	{
 		basedmg = rand() % maxatt;
 	}
 	maxatt = rand() % 10;
 	if (maxatt < 1)
+	{
 		maxatt = 1;
+	}
 	maxatt += basedmg;
 	boss1.MaxAttack = maxatt;
 	int min = rand() % 10;
 	min = basedmg - min;
-	boss1.MinAttack = min;
-	for (;;)
+	if (min <= 0)
 	{
-		boss1.Attack = rand() % maxatt;
-		if (boss1.Attack >= min && boss1.Attack <= maxatt)
-		{
-			break;
-		}
+		min = 1;
 	}
+	boss1.MinAttack = min;
+	boss1.Attack = rand() % maxatt + min;
 	return boss1.Attack;
 }
 
 //---Formula for Defence Stat---//
 int Enemy::setDefence()
 {
-	boss1.Defence = boss1.Attack * 4 / 3;
+	boss1.Defence = (boss1.Attack * 4) / 3;
 	return boss1.Defence;
 }
 
@@ -314,8 +413,8 @@ int Enemy::setHealth()
 //---Display Update---//
 void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 {
-	double oneUnit = i1 / 100.0f;
-	int counthash = i * oneUnit;
+	double oneUnit = i1 / 115.0f;
+	int counthash = i / oneUnit;
 
 	string Attack = static_cast<ostringstream*>(&(ostringstream() << i2))->str();
 	string Defence = static_cast<ostringstream*>(&(ostringstream() << i3))->str();
@@ -332,7 +431,7 @@ void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 			g_Console.writeToBuffer(a, "[");
 		}
 
-		else if (a.X <= counthash + 1)
+		else if (a.X <= counthash + 2)
 		{
 			g_Console.writeToBuffer(a, "#");
 		}

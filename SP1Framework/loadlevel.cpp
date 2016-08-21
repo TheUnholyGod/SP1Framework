@@ -63,13 +63,6 @@ char** store_map(char** field,int levelnumber)
 		maxMapHeight = 25;
 	}
 
-	if (levelnumber == 69)
-	{
-		file.open("Spider.txt");
-		maxMapWidth = 115;
-		maxMapHeight = 24;
-	}
-
 	if (file.is_open())
 	{
 		for (int i = 0; i < maxMapHeight; i++)
