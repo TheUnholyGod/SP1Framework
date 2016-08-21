@@ -9,8 +9,11 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
+bool g_isUpdated;
 
 // Game specific variables here
+extern int character_X;
+extern int character_Y;
 int g_CurrentLevel;
 SGameChar   g_sChar;
 Enemy	g_sEnemy;
@@ -36,6 +39,7 @@ void init( void )
     g_dBounceTime = 0.0;
 
     // sets the initial state for the game
+	g_isUpdated = false;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	// sets the initial position of the character
@@ -123,7 +127,7 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
+	txt = store_map(txt, g_CurrentLevel);
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -281,16 +285,6 @@ void renderSplashScreen()  // renders the splash screen
 {
 	txt = store_map(txt, 1000);
 	print_map(txt);
-    /*COORD c = g_Console.getConsoleSize();
-    c.Y /= 3;
-    c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "A game in 3 seconds", 0x03);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 20;
-    g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);*/
 }
 
 void renderGame()
@@ -302,19 +296,14 @@ void renderGame()
 void renderMap()
 {
 	// -------- TO STOP FLICKERING, DO CHECK CONDITION! IF CHARACTER IS NOT MOVING: STOP RENDERING, ELSE RENDER AGAIN! -------- //
-	txt = store_map(txt, g_CurrentLevel);
 	print_map(txt);
 }
 
 void renderCharacter()
 { 
     // Draw the location of the character
-    WORD charColor = 0x0C;
+    WORD charColor = 0x0A;
 	WORD enemyColor = 0xFF;
-    if (g_sChar.m_bActive)
-    {
-        charColor = 0x0A;
-    }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
 	//if (g_sEnemy.m_bActive)
