@@ -147,7 +147,6 @@ void combatdisplay()
 
 	for (int i = 0; i < 24; ++i)
 	{
-		combatdisplaycoord.Y = i + 1;
 		for (int j = 0; j <= 115; ++j)
 		{
 			if (display[i][j] == '-')
@@ -155,7 +154,10 @@ void combatdisplay()
 				display[i][j] = (char)(32);
 			}
 			g_Console.writeToBuffer(combatdisplaycoord, display[i][j]);
+			combatdisplaycoord.X++;
 		}
+		combatdisplaycoord.X = 0;
+		combatdisplaycoord.Y++;
 	}
 
 	player1.display(combatdisplaycoord);
@@ -316,13 +318,14 @@ void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 	int counthash = i * oneUnit;
 
 	string Attack = static_cast<ostringstream*>(&(ostringstream() << i2))->str();
+	string Defence = static_cast<ostringstream*>(&(ostringstream() << i3))->str();
 
 	a.X = 0;
 	a.Y = 1;
 	g_Console.writeToBuffer(a, "Boss Health:");
 
 	a.Y++;
-	for (a.X = 0; a.X <= 119; a.X++)
+	for (a.X = 0; a.X <= 117; a.X++)
 	{
 		if (a.X == 0)
 		{
@@ -348,7 +351,7 @@ void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 	a.Y++;
 	g_Console.writeToBuffer(a, "Boss Defence: ");
 	a.X += 14;
-	g_Console.writeToBuffer(a, i3);
+	g_Console.writeToBuffer(a, Defence);
 }
 
 //---Calling for the attack---//
@@ -393,35 +396,42 @@ void Player::playerBase(int health, int attack, int defence)
 void Player::display(COORD a)
 {
 	unsigned int number_of_digits = 0;
+	int tempHealth = character.Health;
+	
+	string Health = static_cast<ostringstream*>(&(ostringstream() << character.Health))->str();
+	string MaxHealth = static_cast<ostringstream*>(&(ostringstream() << character.MaxHealth))->str();
+	string Attack = static_cast<ostringstream*>(&(ostringstream() << character.Attack))->str();
+	string Defence = static_cast<ostringstream*>(&(ostringstream() << character.Defence))->str();
 
-	for (int tempHealth = character.Health; tempHealth <= 0; number_of_digits++)
+	for (tempHealth = character.Health; tempHealth >= 0; number_of_digits++)
 	{
-		tempHealth = character.Health / 10;
+		tempHealth /= 10;
 		if (tempHealth == 0)
 		{
+			number_of_digits++;
 			break;
 		}
 	}
 
 	a.X = 0;
-	a.Y = 38;
+	a.Y = 37;
 	g_Console.writeToBuffer(a, "Player Health: ");
 	a.X += 15;
-	g_Console.writeToBuffer(a, character.Health);
+	g_Console.writeToBuffer(a, Health);
 	a.X += number_of_digits;
 	g_Console.writeToBuffer(a, "/");
 	a.X++;
-	g_Console.writeToBuffer(a, character.MaxHealth);
+	g_Console.writeToBuffer(a, MaxHealth);
 	a.X = 0;
 	a.Y++;
 	g_Console.writeToBuffer(a, "Player Attack: ");
 	a.X += 15;
-	g_Console.writeToBuffer(a, character.Attack);
+	g_Console.writeToBuffer(a, Attack);
 	a.X = 0;
 	a.Y++;
 	g_Console.writeToBuffer(a, "Player Defence: ");
 	a.X += 15;
-	g_Console.writeToBuffer(a, character.Defence);
+	g_Console.writeToBuffer(a, Defence);
 }
 
 //---Damage Done Calculation---//
