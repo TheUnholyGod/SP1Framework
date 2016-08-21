@@ -567,13 +567,13 @@ void Player::display(COORD a)
 	g_Console.writeToBuffer(a, "/");
 	a.X++;
 	g_Console.writeToBuffer(a, MaxHealth);
-	a.X = 25;
+	a.X += 10;
 	g_Console.writeToBuffer(a, "Player Attack: ");
 	a.X += 15;
 	g_Console.writeToBuffer(a, Attack);
-	a.X = 0;
+	a.X += 10;
 	g_Console.writeToBuffer(a, "Player Defence: ");
-	a.X += 60;
+	a.X += 16;
 	g_Console.writeToBuffer(a, Defence);
 }
 
