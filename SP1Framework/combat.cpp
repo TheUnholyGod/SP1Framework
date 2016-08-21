@@ -6,6 +6,7 @@ Enemy enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemynonboss;
 COORD combatdisplaycoord;
 char** display = new char*[53];
 char** buttonfiller = new char*[63];
+char** textboxfiller = new char*[75];
 int enemySelector = 0;
 bool isUpPressed = true;
 
@@ -186,7 +187,6 @@ bool isUpPressed = true;
 
 		buttonfiller = buttonsdisplay(buttonfiller);
 
-
 		combatdisplaycoord.X = 53;
 		combatdisplaycoord.Y = 5;
 
@@ -202,6 +202,26 @@ bool isUpPressed = true;
 				combatdisplaycoord.X++;
 			}
 			combatdisplaycoord.X = 53;
+			combatdisplaycoord.Y++;
+		}
+
+		textboxfiller = textboxdisplay(textboxfiller);
+
+		combatdisplaycoord.X = 0;
+		combatdisplaycoord.Y = 30;
+
+		for (int i = 0; i < 11; ++i)
+		{
+			for (int j = 0; j < 117; ++j)
+			{
+				if (textboxfiller[i][j] == '-')
+				{
+					textboxfiller[i][j] = (char)(32);
+				}
+				g_Console.writeToBuffer(combatdisplaycoord, textboxfiller[i][j]);
+				combatdisplaycoord.X++;
+			}
+			combatdisplaycoord.X = 0;
 			combatdisplaycoord.Y++;
 		}
 
@@ -276,6 +296,32 @@ bool isUpPressed = true;
 			buttons.close();
 		}
 		return buttonfill;
+	}
+
+	//-----Displaying Textbox-----//
+	char** textboxdisplay(char** textboxfill)
+	{
+		int textboxHeight = 11;
+		int textboxLength = 117;
+
+		ifstream textbox;
+
+		textbox.open("Textbox.txt");
+
+		if (textbox.is_open())
+		{
+			for (int i = 0; i < textboxHeight; i++)
+			{
+				textboxfill[i] = new char[textboxLength];
+
+				for (int j = 0; j < textboxLength; j++)
+				{
+					textbox >> textboxfill[i][j];
+				}
+			}
+			textbox.close();
+		}
+		return textboxfill;
 	}
 
 //-------Initalization of All Characters/Enemies-------//
@@ -512,7 +558,7 @@ void Player::display(COORD a)
 		}
 	}
 
-	a.X = 0;
+	a.X = 4;
 	a.Y = 37;
 	g_Console.writeToBuffer(a, "Player Health: ");
 	a.X += 15;
@@ -521,15 +567,13 @@ void Player::display(COORD a)
 	g_Console.writeToBuffer(a, "/");
 	a.X++;
 	g_Console.writeToBuffer(a, MaxHealth);
-	a.X = 0;
-	a.Y++;
+	a.X = 25;
 	g_Console.writeToBuffer(a, "Player Attack: ");
 	a.X += 15;
 	g_Console.writeToBuffer(a, Attack);
 	a.X = 0;
-	a.Y++;
 	g_Console.writeToBuffer(a, "Player Defence: ");
-	a.X += 15;
+	a.X += 60;
 	g_Console.writeToBuffer(a, Defence);
 }
 

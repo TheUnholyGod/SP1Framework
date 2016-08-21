@@ -96,5 +96,6 @@ void enemyinit();
 void playerinit();
 char** enemyselector(char** dp, int enemyno);
 char** buttonsdisplay(char** buttonfill);
+char** textboxdisplay(char** textboxfill);
 
 #endif //End of _COMBAT_H
