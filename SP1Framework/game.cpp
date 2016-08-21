@@ -8,7 +8,8 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** map = new char*[100]; // <------- Read levels from txt into this 2d array
+char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
+bool g_isUpdated;
 
 // Game specific variables here
 extern int character_X;
@@ -38,6 +39,7 @@ void init( void )
     g_dBounceTime = 0.0;
 
     // sets the initial state for the game
+	g_isUpdated = false;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	// sets the initial position of the character
@@ -125,7 +127,7 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
+	txt = store_map(txt, g_CurrentLevel);
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -294,19 +296,14 @@ void renderGame()
 void renderMap()
 {
 	// -------- TO STOP FLICKERING, DO CHECK CONDITION! IF CHARACTER IS NOT MOVING: STOP RENDERING, ELSE RENDER AGAIN! -------- //
-	txt = store_map(txt, g_CurrentLevel);
 	print_map(txt);
 }
 
 void renderCharacter()
 { 
     // Draw the location of the character
-    WORD charColor = 0x0C;
+    WORD charColor = 0x0A;
 	WORD enemyColor = 0xFF;
-    if (g_sChar.m_bActive)
-    {
-        charColor = 0x0A;
-    }
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
 	//if (g_sEnemy.m_bActive)

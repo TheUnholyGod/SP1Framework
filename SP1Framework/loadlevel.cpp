@@ -2,6 +2,8 @@
 
 	unsigned int maxMapWidth;
 	unsigned int maxMapHeight;
+	extern int character_X;
+	extern int character_Y;
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
@@ -93,6 +95,7 @@ void print_map(char ** field)
 		c.Y = i + 1;
 		for (int j = 0; j < maxMapWidth; ++j)
 		{
+			WORD color = 0x7F;
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-')
 			{
@@ -108,10 +111,13 @@ void print_map(char ** field)
 			}
 			if (field[i][j] == '+')
 			{
+				character_X = i;
+				character_Y = j;
 				field[i][j] = (char)177;
+				color = 0x4C;
 			}
 			c.X = j;
-				g_Console.writeToBuffer(c, field[i][j]);
+				g_Console.writeToBuffer(c, field[i][j],color);
 		}
 	}
 }

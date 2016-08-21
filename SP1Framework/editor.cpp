@@ -1,5 +1,7 @@
 #include "editor.h"
 
+extern bool g_isUpdated;
+extern char** txt;
 extern int character_X;
 extern int character_Y;
 extern unsigned int maxMapWidth;
@@ -13,9 +15,9 @@ extern int	   g_CurrentLevel;
 
 void renderEditor()
 {
-	char** currentMap = new char*[100];
-	currentMap = store_map(currentMap, g_CurrentLevel);
-	print_map(currentMap);
+	//char** currentMap = new char*[100];
+	//currentMap = store_map(currentMap, g_CurrentLevel);
+	print_map(txt);
 	renderCursor();
 	renderEndpoint();
 }
@@ -40,6 +42,7 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.Y--;
 			bSomethingHappened = true;
+			g_isUpdated = false;
 		}
 
 	}
@@ -204,8 +207,8 @@ void edits()
 	}
 	if (g_abKeyPressed[K_Q])
 	{
-		character_Y = g_sCursor.m_cEditorLocation.Y;
-		character_X = g_sCursor.m_cEditorLocation.X;
+		/*character_Y = g_sCursor.m_cEditorLocation.Y;
+		character_X = g_sCursor.m_cEditorLocation.X;*/
 		ch = '+';
 		editmap(g_CurrentLevel, ch);
 	}
