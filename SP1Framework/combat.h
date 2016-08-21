@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include "Framework\console.h"
 #include "game.h"
 
@@ -31,102 +32,20 @@ public:
 	}character;
 
 	//---Setting Player Stats---//
-	void playerBase(int health, int attack, int defence)
-	{
-		character.Health = health;
-		character.MaxHealth = health;
-		character.Attack = attack;
-		character.Defence = defence;
-	}
-
-	//---Initialisation---//
-	void init()
-	{
-		playerBase(character.Health, character.Attack, character.Defence);
-	}
+	void playerBase(int health, int attack, int defence);
 
 	//---Display Update---//
-	void display(COORD a)
-	{
-		unsigned int number_of_digits = 0;
-
-		for (int tempHealth = character.Health; tempHealth <= 0; number_of_digits++)
-		{
-			tempHealth = character.Health / 10;
-			if (tempHealth == 0)
-			{
-				break;
-			}
-		}
-
-		a.X = 0;
-		a.Y = 38;
-		g_Console.writeToBuffer(a, "Player Health: "); // character.Health "/" character.MaxHealth);
-		a.X += 15;
-		g_Console.writeToBuffer(a, character.Health);
-		a.X += number_of_digits;
-		g_Console.writeToBuffer(a, "/");
-		a.X++;
-		g_Console.writeToBuffer(a, character.MaxHealth);
-		a.X = 0;
-		a.Y++;
-		g_Console.writeToBuffer(a, "Player Attack: ");
-		a.X += 15;
-		g_Console.writeToBuffer(a, character.Attack);
-		a.X = 0;
-		a.Y++;
-		g_Console.writeToBuffer(a, "Player Defence: ");
-		a.X += 15;
-		g_Console.writeToBuffer(a, character.Defence);
-		/*cout << "Player Health: " << character.Health << "/" << character.MaxHealth << endl;
-		cout << "Player Attack: " << character.Attack << endl;
-		cout << "Player Defence: " << character.Defence << endl;*/
-	}
+	
+	void display(COORD a);
 
 	//---Damage Done Calculation---//
-	int damageDealt(int playerdamage, int enemydefence)
-	{
-		srand(time(NULL));
-		int max = rand() % 5;
-		max += playerdamage;
-		int min = rand() % 3;
-		min = playerdamage - min;
-
-		for (;;)
-		{
-			playerdamage = rand() % max;
-			if (playerdamage >= min && playerdamage <= max)
-			{
-				break;
-			}
-		}
-		playerdamage = playerdamage - (enemydefence / 2);
-		if (playerdamage <= 0)
-		{
-			playerdamage = 1;
-		}
-		return playerdamage;
-	}
+	int damageDealt(int playerdamage, int enemydefence);
 
 	//---Damage Taken Calculation---//
-	int damageSustained(int enemyattack, int playerdefence)
-	{
-		enemyattack = enemyattack - (playerdefence * (5 / 8));
-		return enemyattack;
-	}
+	int damageSustained(int enemyattack, int playerdefence);
 
 	//---Update of Health Stat after getting hit---//
-	void healthUpdate(int damageSustained)
-	{
-		if (damageSustained > character.Health)
-		{
-			character.Health = 0;
-		}
-		else
-		{
-			character.Health -= damageSustained;
-		}
-	}
+	void healthUpdate(int damageSustained);
 };
 
 //-----Enemy Class-----//
@@ -134,150 +53,37 @@ class Enemy
 {
 public:
 	//---Enemy Stats---//
+
 	struct boss
 	{
 		int MaxHealth;
 		int Health;
 		int Attack;
+		int MaxAttack;
+		int MinAttack;
 		int Defence;
-	}boss;
+	}boss1;
 
 	//---Initialisation---//
-	void init()
-	{
-		setAttack();
-		setDefence();
-		setHealth();
-	}
+	void init(int baseatt, int maxatt);
 
 	//---Getting Random Attack Stat---//
-	void setAttack()
-	{
-		srand(time(NULL));
-		int basedmg;
-		for (basedmg = 0; basedmg < 30;)
-		{
-			basedmg = rand() % 60;
-		}
-		int max = rand() % 10;
-		max += basedmg;
-		int min = rand() % 10;
-		min = basedmg - min;
-		for (;;)
-		{
-			boss.Attack = rand() % max;
-			if (boss.Attack >= min && boss.Attack <= max)
-			{
-				break;
-			}
-		}
-	}
+	int setAttack(int base, int maxatt);
 
 	//---Formula for Defence Stat---//
-	void setDefence()
-	{
-		boss.Defence = boss.Attack * 4 / 3;
-	}
+	int setDefence();
 
 	//---Formula for Health Stat---//
-	void setHealth()
-	{
-		boss.Health = boss.Defence * 3;
-		boss.MaxHealth = boss.Health;
-	}
+	int setHealth();
 
 	//---Display Update---//
-	void display(COORD a)
-	{
-		double oneUnit = boss.MaxHealth / 118.0f;
-		int counthash = boss.Health * oneUnit;
-
-		a.X = 0;
-		a.Y = 1;
-		g_Console.writeToBuffer(a, "Boss Health:");
-
-		a.Y = 2;
-		for (a.X = 0; a.X <= 118; a.X++)
-		{
-			if (a.X == 0)
-			{
-				g_Console.writeToBuffer(a, "[");
-			}
-
-			else if (a.X <= counthash + 1)
-			{
-				g_Console.writeToBuffer(a, "#");
-			}
-			else if (a.X == 119)
-			{
-				g_Console.writeToBuffer(a, "]");
-			}
-			else
-			{
-				g_Console.writeToBuffer(a, "-");
-			}
-		}
-		/*cout << "Boss Health" << endl;
-		for (int i = 1; i <= 118; i++)
-		{
-			if (i == 1)
-			{
-				cout << "[";
-			}
-
-			if (i <= counthash)
-			{
-				cout << "#";
-			}
-			else
-			{
-				cout << "-";
-			}
-
-			if (i == 118)
-				cout << "]" << endl;
-
-		if (i == 1)
-		{
-		cout << "[";
-		}
-
-		if (i <= counthash)
-		{
-		cout << "#";
-		}
-		else
-		{
-		cout << "-";
-		}
-
-		if (i == 118)
-		cout << "]" << endl;
-
-		}
-
-		cout << "Boss Attack: " << boss.Attack << endl;
-		cout << "Boss Defence: " << boss.Defence << endl;*/
-	}
+	void display(COORD a, int i, int i1, int i2, int i3);
 
 	//---Calling for the attack---//
-	int getAttack()
-	{
-		return boss.Attack; //This may be changed
-	}
+	int getAttack(int max, int min);
 
 	//---Update of Health Stat after getting hit---//
-	void healthUpdate(int damageDone)
-	{
-		if (damageDone > boss.Health)
-		{
-			boss.Health = 0;
-		}
-		else
-		{
-			boss.Health -= damageDone;
-		}
-	}
+	void healthUpdate(int damageDone);
 };
 
 
@@ -286,5 +92,7 @@ void combat();
 void combatdisplay();
 void attackProcess();
 int checkVictory(int playerhealth, int enemyhealth);
+void enemyinit();
+void playerinit();
 
 #endif //End of _COMBAT_H
