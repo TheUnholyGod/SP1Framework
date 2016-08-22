@@ -15,6 +15,7 @@ bool g_isUpdated;
 extern int character_X;
 extern int character_Y;
 int g_CurrentLevel;
+bool combattrue = false;
 SGameChar   g_sChar;
 Enemy	g_sEnemy;
 Enemy enemies[100];
@@ -58,7 +59,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Consolas");
 
 	//Initializes the Enemies
-	enemyinit();
+	enemyinit(0);
 	//Initializes the Player
 	playerinit();
 
@@ -137,7 +138,7 @@ void update(double dt)
 			break;
 		case S_EDITOR: editor();
 			break;
-		case S_COMBAT: combat();
+		case S_COMBAT: combat(), combattrue = true;
 			break;
     }
 }
@@ -154,6 +155,7 @@ void render()
 	if (g_isUpdated == false)
 	{
 		clearScreen();      // clears the current screen and draw from scratch 
+		renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 		switch (g_eGameState)
 		{
 		case S_SPLASHSCREEN: renderSplashScreen();
@@ -168,15 +170,19 @@ void render()
 		case S_EDITOR: renderEditor();
 			g_isUpdated = false;
 			break;
-		case S_COMBAT: combatdisplay();
+		case S_COMBAT: combatdisplay(), combattrue = true;
 			g_isUpdated = false;
 			break;
 		}
 		
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 		g_isUpdated = true;
+
+		if (combattrue == true)
+		{
+			g_isUpdated = false;
+		}
 	}
-	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -310,7 +316,7 @@ void processUserInput()
 void clearScreen()
 {
     // Clears the buffer with this colour attribute
-    g_Console.clearBuffer(0x1F);
+    g_Console.clearBuffer(0x0F);
 }
 
 void renderSplashScreen()  // renders the splash screen

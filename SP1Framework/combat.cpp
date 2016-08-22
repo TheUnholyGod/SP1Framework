@@ -1,14 +1,32 @@
 #include "combat.h"
 
+//-----Extern Block-----//
+extern Console g_Console;
+extern bool g_isUpdated;
+extern double g_dElapsedTime;
+extern double g_dDeltaTime;
+extern double g_dBounceTime;
+extern CStopWatch g_Timer;
+
 //-----Object and Identifier Declaration-----//
 Player player1;
-Enemy enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemynonboss;
+Enemy enemy1;
 COORD combatdisplaycoord;
+COORD characterspawn;
+COORD holdcoord;
+COORD a;
 char** display = new char*[53];
 char** buttonfiller = new char*[63];
 char** textboxfiller = new char*[75];
 int enemySelector = 0;
 bool isUpPressed = true;
+bool isEnemyAttActive = false;
+int victory = 2;
+double thisisatime;
+double thisisatime2;
+bool whenSpacePressed = false;
+bool charmoved = false;
+
 
 /*/
 -Functions from Main Combat File-
@@ -18,37 +36,179 @@ bool isUpPressed = true;
 
 	//-----Main Combat File-----//
 	void combat()
-	{
-		string line;
-		int Victory;
-		int action;
+{
+	characterspawn.X = 64;
+	characterspawn.Y = 35;
 
-		
+	if (isKeyPressed(VK_SPACE))
+	{
+		whenSpacePressed = true;
+		if (whenSpacePressed == true)
+		{
+			thisisatime = g_dElapsedTime + 1.0;
+		}
+
+		if (victory == 2)
+		{
+			if (isUpPressed == true) //Attack
+			{
+				attackProcess();
+				combatdisplay();
+				victory = checkVictory(player1.character.Health, enemy1.boss1.Health);
+			}
+			else //Defend
+			{
+				defendProcess();
+				victory = checkVictory(player1.character.Health, enemy1.boss1.Health);
+				isEnemyAttActive = false;
+			}
+		}
+		else if (victory == 0)
+		{
+			if (isKeyPressed(VK_SPACE))
+			{
+				enemySelector = 0;
+			}
+		}
+		else if (victory == 1)
+		{
+			if (isKeyPressed(VK_SPACE))
+			{
+				enemySelector += 1;
+				enemyinit(enemySelector);
+				enemyselector(display, enemySelector);
+				victory = 2;
+			}
+		}
 	}
+	whenSpacePressed = false;
+}
 
 	//-----Process of Attack-----//
 	void attackProcess()	
 	{
 		int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
 		enemy1.healthUpdate(holddamage);
-		int hold = player1.damageSustained(enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack), player1.character.Defence);
+		int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
+		int hold = player1.damageSustained(damage, player1.character.Defence);
 		player1.healthUpdate(hold);
+	}
+
+	//-----Process of Defend-----//
+	void defendProcess()
+	{
+		isEnemyAttActive = true;
+		combatdisplay();
+		holdtimer();
+
+		while (g_dElapsedTime < thisisatime2)
+		{
+			enemy1.enemyattackgame();
+			renderFramerate();
+			g_dElapsedTime += g_Timer.getElapsedTime();
+		}
 	}
 
 	//-----Checking for Victory-----//
 	int checkVictory(int playerhealth, int enemyhealth)
 	{
-		if (enemyhealth <= 0)
+		if (enemyhealth == 0) //Win
 		{
 			return 1;
 		}
-		else if (playerhealth <= 0)
+		else if (playerhealth == 0) //Lose
 		{
 			return 0;
 		}
-		else
+		else //Continue
 		{
 			return 2;
+		}
+	}
+
+	void holdtimer()
+	{
+		thisisatime2 = g_dElapsedTime + 30;
+	}
+
+	//---Spawning Character---//
+	void renderCharacterSymbol(COORD a)
+	{
+		WORD charColor = 0x0A;
+		g_Console.writeToBuffer(characterspawn, (char)178, charColor);
+		if (a.X != characterspawn.X&&a.Y != characterspawn.Y)
+		{
+			g_Console.writeToBuffer(a, (char)32);
+		}
+		renderToScreen();
+	}
+
+	//---Moving The Character---//
+	void symbolMovement()
+	{
+		bool bSomethingHappened = false;
+		holdcoord.Y = characterspawn.Y;
+		holdcoord.X = characterspawn.X;
+		if (thisisatime > g_dElapsedTime)
+			return;
+
+		if (isKeyPressed(0x57))
+		{
+			if (characterspawn.Y-- == 55)
+			{
+				characterspawn.Y = holdcoord.Y;
+			}
+			else
+			{
+				characterspawn.Y--;
+				bSomethingHappened = true;
+				renderCharacterSymbol(holdcoord);
+			}
+		}
+		else if (isKeyPressed(0x41))
+		{
+			if (characterspawn.X-- == 40)
+			{
+				characterspawn.X = holdcoord.X;
+			}
+			else
+			{
+				characterspawn.X--;
+				bSomethingHappened = true;
+				renderCharacterSymbol(holdcoord);
+			}
+		}
+		else if (isKeyPressed(0x53))
+		{
+			if (characterspawn.Y++ == 40)
+			{
+				characterspawn.Y = holdcoord.Y;
+			}
+			else
+			{
+				characterspawn.Y++;
+				bSomethingHappened = true;
+				renderCharacterSymbol(holdcoord);
+			}
+		}
+		else if (isKeyPressed(0x44))
+		{
+			if (characterspawn.X++ == 75)
+			{
+				characterspawn.X = holdcoord.X;
+			}
+			else
+			{
+				characterspawn.X++;
+				bSomethingHappened = true;
+				renderCharacterSymbol(holdcoord);
+			}
+		}
+
+		if (bSomethingHappened)
+		{
+			// set the bounce time to some time in the future to prevent accidental triggers
+			thisisatime = g_dElapsedTime + 0.125; // 125ms should be enough
 		}
 	}
 
@@ -57,6 +217,8 @@ bool isUpPressed = true;
 	//-----Combat Render-----//
 	void combatdisplay()
 	{
+		WORD color = 0x0B;
+		g_isUpdated = false;
 		enemy1.display(combatdisplaycoord, enemy1.boss1.Health, enemy1.boss1.MaxHealth, enemy1.boss1.Attack, enemy1.boss1.Defence);
 		display = enemyselector(display, enemySelector);
 
@@ -71,7 +233,7 @@ bool isUpPressed = true;
 				{
 					display[i][j] = (char)(32);
 				}
-				g_Console.writeToBuffer(combatdisplaycoord, display[i][j]);
+				g_Console.writeToBuffer(combatdisplaycoord, display[i][j],color);
 				combatdisplaycoord.X++;
 			}
 			combatdisplaycoord.X = 0;
@@ -91,7 +253,7 @@ bool isUpPressed = true;
 				{
 					buttonfiller[i][j] = (char)(32);
 				}
-				g_Console.writeToBuffer(combatdisplaycoord, buttonfiller[i][j]);
+				g_Console.writeToBuffer(combatdisplaycoord, buttonfiller[i][j],color);
 				combatdisplaycoord.X++;
 			}
 			combatdisplaycoord.X = 53;
@@ -111,14 +273,20 @@ bool isUpPressed = true;
 				{
 					textboxfiller[i][j] = (char)(32);
 				}
-				g_Console.writeToBuffer(combatdisplaycoord, textboxfiller[i][j]);
+				g_Console.writeToBuffer(combatdisplaycoord, textboxfiller[i][j],color);
 				combatdisplaycoord.X++;
 			}
 			combatdisplaycoord.X = 0;
 			combatdisplaycoord.Y++;
 		}
-
-		player1.display(combatdisplaycoord);
+		if (isEnemyAttActive == false)
+		{
+			player1.display(combatdisplaycoord);
+		}
+		else
+		{
+			renderCharacterSymbol(characterspawn);
+		}
 	}
 
 	//-----Choosing Enemy For Combat-----//
@@ -155,13 +323,16 @@ bool isUpPressed = true;
 		int buttonHeight = 24;
 		int buttonLength = 63;
 
-		if (isKeyPressed(VK_UP))
+		if (whenSpacePressed == false)
 		{
-			isUpPressed = true;
-		}
-		else if (isKeyPressed(VK_DOWN))
-		{
-			isUpPressed = false;
+			if (isKeyPressed(VK_UP) && !isEnemyAttActive)
+			{
+				isUpPressed = true;
+			}
+			else if (isKeyPressed(VK_DOWN) && !isEnemyAttActive)
+			{
+				isUpPressed = false;
+			}
 		}
 		
 		ifstream  buttons;
@@ -187,6 +358,7 @@ bool isUpPressed = true;
 				}
 			}
 			buttons.close();
+			
 		}
 		return buttonfill;
 	}
@@ -194,20 +366,31 @@ bool isUpPressed = true;
 	//-----Displaying Textbox-----//
 	char** textboxdisplay(char** textboxfill)
 	{
-		int textboxHeight = 11;
-		int textboxLength = 117;
+		int Height;
+		int Length;
 
 		ifstream textbox;
 
-		textbox.open("Textbox.txt");
+		if (isEnemyAttActive == false)
+		{
+			textbox.open("Textbox.txt");
+			Height = 11;
+			Length = 117;
+		}
+		else
+		{
+			textbox.open("Combat/AttackBox.txt");
+			Height = 11;
+			Length = 130;
+		}
 
 		if (textbox.is_open())
 		{
-			for (int i = 0; i < textboxHeight; i++)
+			for (int i = 0; i < Height; i++)
 			{
-				textboxfill[i] = new char[textboxLength];
+				textboxfill[i] = new char[Length];
 
-				for (int j = 0; j < textboxLength; j++)
+				for (int j = 0; j < Length; j++)
 				{
 					textbox >> textboxfill[i][j];
 				}
@@ -220,13 +403,13 @@ bool isUpPressed = true;
 //-------Initalization of All Characters/Enemies-------//
 
 	//-----Initalizing for all enemies from Init-----//
-	void enemyinit()
+	void enemyinit(int select)
 	{
-		int i = 0;
+		int i = select;
 		int att = 0;
 		int max = 0;
 
-		for (i = 0; i <= 7;)
+		for (; i <= 7;)
 		{
 			if (i == 0) //For First Boss
 			{
@@ -234,48 +417,55 @@ bool isUpPressed = true;
 				max = 1;
 				i++;
 				enemy1.init(att, max);
+				break;
 			}
 			else if (i == 1) //For Second Boss
 			{
 				att = 30;
 				max = 50;
 				i++;
-				enemy2.init(att, max);
+				enemy1.init(att, max);
+				break;
 			}
 			else if (i == 2) //For Third Boss
 			{
 				att = 75;
 				max = 90;
 				i++;
-				enemy3.init(att, max);
+				enemy1.init(att, max);
+				break;
 			}
 			else if (i == 3) //For Fourth Boss
 			{
 				att = 100;
 				max = 125;
 				i++;
-				enemy4.init(att, max);
+				enemy1.init(att, max);
+				break;
 			}
 			else if (i == 4) //For Fifth Boss
 			{
 				att = 1000;
 				max = 1000;
 				i++;
-				enemy5.init(att, max);
+				enemy1.init(att, max);
+				break;
 			}
 			else if (i == 5) //For Sixth Boss
 			{
 				att = 250;
 				max = 450;
-				enemy6.init(att, max);
+				enemy1.init(att, max);
 				i++;
+				break;
 			}
 			else //For Normal AI
 			{
 				att = 10;
 				max = 120;
-				enemynonboss.init(att, max);
+				enemy1.init(att, max);
 				i++;
+				break;
 			}
 		}
 	} 
@@ -370,7 +560,7 @@ void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 			g_Console.writeToBuffer(a, "[");
 		}
 
-		else if (a.X <= counthash + 2)
+		else if (a.X <= counthash)
 		{
 			g_Console.writeToBuffer(a, "#");
 		}
@@ -395,20 +585,31 @@ void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 //---Calling for the attack---//
 int Enemy::getAttack(int max, int min)
 {
-	boss1.Attack = rand() % max + min;
-	return boss1.Attack;
+	int dmg;
+	dmg = rand() % max + min;
+	return dmg;
 }
 
 //---Update of Health Stat after getting hit---//
 void Enemy::healthUpdate(int damageDone)
 {
-	if (damageDone > boss1.Health)
+	if (damageDone >= boss1.Health)
 	{
 		boss1.Health = 0;
 	}
 	else
 	{
 		boss1.Health -= damageDone;
+	}
+}
+
+//---Boss Attack/Defend MiniGame---//
+void Enemy::enemyattackgame()
+{
+	symbolMovement();
+	if (characterspawn.X != 64 || characterspawn.Y != 35)
+	{
+		renderToScreen();
 	}
 }
 

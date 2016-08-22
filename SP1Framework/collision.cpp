@@ -22,6 +22,11 @@ bool colDetection(int levelnumber)
 		file.open("Level_5.txt");
 	if (levelnumber == 6)
 		file.open("Level_6.txt");
+	if (levelnumber == 69)
+	{
+		file.open("Combat/AttackBox.txt");
+		height = 11;
+	}
 
 	//COORD c;
 	if (file.is_open())
@@ -39,7 +44,7 @@ bool colDetection(int levelnumber)
 		file.close();
 	}
 
-	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+	if ((isKeyPressed(0x57) || g_abKeyPressed[K_UP]) && g_sChar.m_cLocation.Y > 0)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
@@ -49,7 +54,7 @@ bool colDetection(int levelnumber)
 		}
 
 	}
-	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
+	if ((isKeyPressed(0x41) || g_abKeyPressed[K_LEFT]) && g_sChar.m_cLocation.X > 0)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
@@ -59,7 +64,7 @@ bool colDetection(int levelnumber)
 		}
 
 	}
-	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+	if ((isKeyPressed(0x53) || g_abKeyPressed[K_DOWN]) && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
@@ -68,7 +73,7 @@ bool colDetection(int levelnumber)
 			return false;
 		}
 	}
-	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+	if ((isKeyPressed(0x44) || g_abKeyPressed[K_RIGHT]) && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//

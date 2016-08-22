@@ -10,9 +10,7 @@
 #include <sstream>
 #include "Framework\console.h"
 #include "game.h"
-
-//-----Extern Block-----//
-extern Console g_Console;
+#include "collision.h"
 
 //-----Namespace Block-----//
 using namespace std;
@@ -84,6 +82,9 @@ public:
 
 	//---Update of Health Stat after getting hit---//
 	void healthUpdate(int damageDone);
+
+	//---Boss Attack/Defend MiniGame---//
+	void enemyattackgame();
 };
 
 
@@ -91,11 +92,15 @@ public:
 void combat();
 void combatdisplay();
 void attackProcess();
+void defendProcess();
 int checkVictory(int playerhealth, int enemyhealth);
-void enemyinit();
+void enemyinit(int select);
 void playerinit();
 char** enemyselector(char** dp, int enemyno);
 char** buttonsdisplay(char** buttonfill);
 char** textboxdisplay(char** textboxfill);
+void renderCharacterSymbol(COORD a);
+void symbolMovement();
+void holdtimer();
 
 #endif //End of _COMBAT_H
