@@ -1,6 +1,7 @@
 #include "combat.h"
 
 //-----Object and Identifier Declaration-----//
+extern bool g_isUpdated;
 Player player1;
 Enemy enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemynonboss;
 COORD combatdisplaycoord;
@@ -203,6 +204,7 @@ bool isUpPressed = true;
 			}
 			combatdisplaycoord.X = 53;
 			combatdisplaycoord.Y++;
+			g_isUpdated = false;
 		}
 
 		textboxfiller = textboxdisplay(textboxfiller);
@@ -265,10 +267,12 @@ bool isUpPressed = true;
 		if (isKeyPressed(VK_UP))
 		{
 			isUpPressed = true;
+			g_isUpdated = false;
 		}
 		else if (isKeyPressed(VK_DOWN))
 		{
 			isUpPressed = false;
+			g_isUpdated = false;
 		}
 		
 		ifstream  buttons;
@@ -276,10 +280,12 @@ bool isUpPressed = true;
 		if (isUpPressed == true)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Att.txt");
+			g_isUpdated = false;
 		}
 		else if (isUpPressed == false)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Def.txt");
+			g_isUpdated = false;
 		}
 
 		if (buttons.is_open())

@@ -151,7 +151,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	if (g_isUpdated == false)
+	//if (g_isUpdated == false)
 	{
 		clearScreen();      // clears the current screen and draw from scratch 
 		switch (g_eGameState)
