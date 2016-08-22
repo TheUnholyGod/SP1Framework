@@ -9,48 +9,91 @@
 char** store_map(char** field,int levelnumber)
 {
 	ifstream file;
+	//load campaign maps here
 	if (levelnumber == 1)
 	{
-		file.open ("Level_1.txt");
+		file.open ("CampaignLevels/Level_1.txt");
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 		
 	if (levelnumber == 2)
 	{
-		file.open("Level_2.txt");
+		file.open("CampaignLevels/Level_2.txt");
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 		
 	if (levelnumber == 3)
 	{
-		file.open("Level_3.txt");
+		file.open("CampaignLevels/Level_3.txt");
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 4)
 	{
-		file.open("Level_4.txt");
+		file.open("CampaignLevels/Level_4.txt");
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 5)
 	{
-		file.open("Level_5.txt");
+		file.open("CampaignLevels/Level_5.txt");
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
 	if (levelnumber == 6)
 	{
-		file.open("Level_6.txt");
+		file.open("CampaignLevels/Level_6.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 25;
+	}
+	//Load creative levels below
+	if (levelnumber == 101)
+	{
+		file.open("CreativeLevels/Level_1.txt");
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
 
+	if (levelnumber == 102)
+	{
+		file.open("CreativeLevels/Level_2.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 25;
+	}
+
+	if (levelnumber == 103)
+	{
+		file.open("CreativeLevels/Level_3.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 25;
+	}
+
+	if (levelnumber == 104)
+	{
+		file.open("CreativeLevels/Level_4.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 25;
+	}
+
+	if (levelnumber == 105)
+	{
+		file.open("CreativeLevels/Level_5.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 25;
+	}
+
+	if (levelnumber == 106)
+	{
+		file.open("CreativeLevels/Level_6.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 25;
+	}
+	//special numbers for menu and splashscreen
 	if (levelnumber == 1000)
 	{
 		file.open("StartUp.txt");
@@ -64,7 +107,7 @@ char** store_map(char** field,int levelnumber)
 		maxMapWidth = 130;
 		maxMapHeight = 25;
 	}
-
+	//stores the map data into a 2d array and returns it
 	if (file.is_open())
 	{
 		for (int i = 0; i < maxMapHeight; i++)

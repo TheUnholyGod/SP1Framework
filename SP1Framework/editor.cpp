@@ -1,7 +1,7 @@
 #include "editor.h"
 
 extern bool g_isUpdated;
-extern char** txt;
+extern char** creative;
 extern int character_X;
 extern int character_Y;
 extern unsigned int maxMapWidth;
@@ -11,15 +11,12 @@ extern SEditor g_sCursor;
 extern double  g_dBounceTime;
 extern double  g_dElapsedTime;
 extern bool    g_abKeyPressed[K_COUNT];
-extern int	   g_CurrentLevel;
+extern int	   g_CreativeLevel;
 
 void renderEditor()
 {
-	//char** currentMap = new char*[100];
-	//currentMap = store_map(currentMap, g_CurrentLevel);
-	print_map(txt);
+	print_map(creative);
 	renderCursor();
-	//renderEndpoint();
 }
 void editor()
 {
@@ -106,32 +103,19 @@ void editmap(int levelnumber,char change)
 
 	switch (levelnumber)
 	{
-	case 1: file.open("Level_1.txt");
+	case 101: file.open("CreativeLevels/Level_1.txt");
 		break;
-	case 2: file.open("Level_2.txt");
+	case 102: file.open("CreativeLevels/Level_2.txt");
 		break;
-	case 3: file.open("Level_3.txt");
+	case 103: file.open("CreativeLevels/Level_3.txt");
 		break;
-	case 4: file.open("Level_4.txt");
+	case 104: file.open("CreativeLevels/Level_4.txt");
 		break;
-	case 5: file.open("Level_5.txt");
+	case 105: file.open("CreativeLevels/Level_5.txt");
 		break;
-	case 6: file.open("Level_6.txt");
+	case 106: file.open("CreativeLevels/Level_6.txt");
 		break;
 	}
-	/*if (levelnumber == 1)
-		file.open("Level_1.txt");
-	if (levelnumber == 2)
-		file.open("Level_2.txt");
-	if (levelnumber == 3)
-		file.open("Level_3.txt");
-	if (levelnumber == 4)
-		file.open("Level_4.txt");
-	if (levelnumber == 5)
-		file.open("Level_5.txt");
-	if (levelnumber == 6)
-		file.open("Level_6.txt");*/
-
 	if (file.is_open())
 	{
 		while (height < 25)
@@ -150,7 +134,6 @@ void editmap(int levelnumber,char change)
 	// opens/creates new file
 	ofstream newfile("temp.txt");
 	char oldname[] = "temp.txt";
-	//char newname[] = "new";
 
 	txt[g_sCursor.m_cEditorLocation.X][g_sCursor.m_cEditorLocation.Y-1] = change;
 	{
@@ -162,7 +145,7 @@ void editmap(int levelnumber,char change)
 			{
 				while (width < 130)
 				{
-					newfile << txt[width][height];
+					newfile << txt[width][height]; //loads the map data into temp.txt
 					width++;
 				}
 				newfile << "\n";
@@ -171,39 +154,39 @@ void editmap(int levelnumber,char change)
 			}
 			newfile.close();
 		}
-		if (levelnumber == 1)
+		if (levelnumber == 101)
 		{
-			char newname[] = "Level_1.txt";
+			char newname[] = "CreativeLevels/Level_1.txt";
 			remove(newname);
 			rename(oldname, newname);
 		}
-		if (levelnumber == 2)
+		if (levelnumber == 102)
 		{
-			char newname[] = "Level_2.txt";
+			char newname[] = "CreativeLevels/Level_2.txt";
 			remove(newname);
 			rename(oldname, newname);
 		}
-		if (levelnumber == 3)
+		if (levelnumber == 103)
 		{
-			char newname[] = "Level_3.txt";
+			char newname[] = "CreativeLevels/Level_3.txt";
 			remove(newname);
 			rename(oldname, newname);
 		}
-		if (levelnumber == 4)
+		if (levelnumber == 104)
 		{
-			char newname[] = "Level_4.txt";
+			char newname[] = "CreativeLevels/Level_4.txt";
 			remove(newname);
 			rename(oldname, newname);
 		}
-		if (levelnumber == 5)
+		if (levelnumber == 105)
 		{
-			char newname[] = "Level_5.txt";
+			char newname[] = "CreativeLevels/Level_5.txt";
 			remove(newname);
 			rename(oldname, newname);
 		}
-		if (levelnumber == 6)
+		if (levelnumber == 106)
 		{
-			char newname[] = "Level_6.txt";
+			char newname[] = "CreativeLevels/Level_6.txt";
 			remove(newname);
 			rename(oldname, newname);
 		}
@@ -214,63 +197,28 @@ void edits()
 	if (g_abKeyPressed[K_SPACE])
 	{
 		ch = '-';
-		editmap(g_CurrentLevel, ch);
+		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
 
 	}
 	if (g_abKeyPressed[K_W])
 	{
 		ch = 'W';
-		editmap(g_CurrentLevel, ch);
+		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
 
 	}
 	if (g_abKeyPressed[K_D])
 	{
 		ch = 'D';
-		editmap(g_CurrentLevel, ch);
+		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
 
 	}
 	if (g_abKeyPressed[K_Q])
 	{
 		ch = '+';
-		editmap(g_CurrentLevel, ch);
+		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
 	}
 }
-//void renderEndpoint()
-//{
-//	char check[130][25];
-//	int height = 0;
-//	int width = 0;
-//	ifstream file;
-//
-//	if (g_CurrentLevel == 1)
-//		file.open("Level_1.txt");
-//	if (g_CurrentLevel == 2)
-//		file.open("Level_2.txt");
-//	if (g_CurrentLevel == 3)
-//		file.open("Level_3.txt");
-//	if (g_CurrentLevel == 4)
-//		file.open("Level_4.txt");
-//	if (g_CurrentLevel == 5)
-//		file.open("Level_5.txt");
-//	if (g_CurrentLevel == 6)
-//		file.open("Level_6.txt");
-//
-//	if (file.is_open())
-//	{
-//		while (height < 25)
-//		{
-//			while (width < 130)
-//			{
-//				file >> check[width][height];
-//				width++;
-//			}
-//			width = 0;
-//			height++;
-//		}
-//		file.close();
-//	}
-//}

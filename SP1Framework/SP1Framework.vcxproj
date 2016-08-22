@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="creative.cpp" />
     <ClCompile Include="Enemy AI.cpp" />
     <ClCompile Include="combat.cpp" />
     <ClCompile Include="editor.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="AI Pathfinding.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="combat.h" />
+    <ClInclude Include="creative.h" />
     <ClInclude Include="editor.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
