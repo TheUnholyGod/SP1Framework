@@ -54,6 +54,7 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.X--;
 			bSomethingHappened = true;
+			g_isUpdated = false;
 		}
 
 	}
@@ -65,6 +66,8 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.Y++;
 			bSomethingHappened = true;
+			g_isUpdated = false;
+
 		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCursor.m_cEditorLocation.X < g_Console.getConsoleSize().X - 1)
@@ -75,6 +78,8 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.X++;
 			bSomethingHappened = true;
+			g_isUpdated = false;
+
 		}
 
 	}
@@ -130,6 +135,7 @@ void editmap(int levelnumber,char change)
 	// opens/creates new file
 	ofstream newfile("temp.txt");
 	char oldname[] = "temp.txt";
+	char newname[] = "new";
 
 	txt[g_sCursor.m_cEditorLocation.X][g_sCursor.m_cEditorLocation.Y-1] = change;
 	{
@@ -194,23 +200,28 @@ void edits()
 	{
 		ch = '-';
 		editmap(g_CurrentLevel, ch);
+		g_isUpdated = false;
+
 	}
 	if (g_abKeyPressed[K_W])
 	{
 		ch = 'W';
 		editmap(g_CurrentLevel, ch);
+		g_isUpdated = false;
+
 	}
 	if (g_abKeyPressed[K_D])
 	{
 		ch = 'D';
 		editmap(g_CurrentLevel, ch);
+		g_isUpdated = false;
+
 	}
 	if (g_abKeyPressed[K_Q])
 	{
-		/*character_Y = g_sCursor.m_cEditorLocation.Y;
-		character_X = g_sCursor.m_cEditorLocation.X;*/
 		ch = '+';
 		editmap(g_CurrentLevel, ch);
+		g_isUpdated = false;
 	}
 }
 void renderEndpoint()
