@@ -1,7 +1,6 @@
 #include "combat.h"
 
 //-----Object and Identifier Declaration-----//
-extern bool g_isUpdated;
 Player player1;
 Enemy enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemynonboss;
 COORD combatdisplaycoord;
@@ -10,6 +9,7 @@ char** buttonfiller = new char*[63];
 char** textboxfiller = new char*[75];
 int enemySelector = 0;
 bool isUpPressed = true;
+extern bool g_isUpdated;
 
 /*/
 -Functions from Main Combat File-
@@ -204,7 +204,6 @@ bool isUpPressed = true;
 			}
 			combatdisplaycoord.X = 53;
 			combatdisplaycoord.Y++;
-			g_isUpdated = false;
 		}
 
 		textboxfiller = textboxdisplay(textboxfiller);
@@ -267,12 +266,10 @@ bool isUpPressed = true;
 		if (isKeyPressed(VK_UP))
 		{
 			isUpPressed = true;
-			g_isUpdated = false;
 		}
 		else if (isKeyPressed(VK_DOWN))
 		{
 			isUpPressed = false;
-			g_isUpdated = false;
 		}
 		
 		ifstream  buttons;

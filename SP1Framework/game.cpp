@@ -61,7 +61,6 @@ void init( void )
 	enemyinit();
 	//Initializes the Player
 	playerinit();
-
 }
 
 //--------------------------------------------------------------
@@ -184,6 +183,8 @@ void splashScreenWait()    // waits for time to pass in splash screen
 	if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
 	{
 		g_eGameState = S_MENU;
+		//play music
+		PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
 		g_isUpdated = false;
 	}
 }
