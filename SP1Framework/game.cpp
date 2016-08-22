@@ -151,7 +151,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false)
+	if (g_isUpdated == false)
 	{
 		clearScreen();      // clears the current screen and draw from scratch 
 		switch (g_eGameState)
@@ -181,9 +181,11 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
-        g_eGameState = S_MENU;
-	g_isUpdated = false;
+	if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
+	{
+		g_eGameState = S_MENU;
+		g_isUpdated = false;
+	}
 }
 
 void gameplay()            // gameplay logic
