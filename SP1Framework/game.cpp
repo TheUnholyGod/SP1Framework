@@ -75,7 +75,6 @@ void shutdown( void )
 {
     // Reset to white text on black background
     colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
-
     g_Console.clearBuffer();
 }
 
@@ -152,28 +151,39 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-    clearScreen();      // clears the current screen and draw from scratch 
-    switch (g_eGameState)
-    {
-        case S_SPLASHSCREEN: renderSplashScreen();
-            break;
-        case S_GAME: renderGame();
-            break;
+	if (g_isUpdated == false)
+	{
+		clearScreen();      // clears the current screen and draw from scratch 
+		switch (g_eGameState)
+		{
+		case S_SPLASHSCREEN: renderSplashScreen();
+			g_isUpdated = false;
+			break;
+		case S_GAME: renderGame();
+			g_isUpdated = false;
+			break;
 		case S_MENU: renderMenu();
+			g_isUpdated = false;
 			break;
 		case S_EDITOR: renderEditor();
+			g_isUpdated = false;
 			break;
 		case S_COMBAT: combatdisplay();
+			g_isUpdated = false;
 			break;
-    }
-    renderFramerate();  // renders debug information, frame rate, elapsed time, etc
-    renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+		}
+		
+		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+		g_isUpdated = true;
+	}
+	renderFramerate();  // renders debug information, frame rate, elapsed time, etc
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
     if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
         g_eGameState = S_MENU;
+	g_isUpdated = false;
 }
 
 void gameplay()            // gameplay logic
@@ -199,6 +209,7 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
+			g_isUpdated = false;
 		}
 
     }
@@ -210,6 +221,7 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
+			g_isUpdated = false;
 		}
 
     }
@@ -221,6 +233,7 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
+			g_isUpdated = false;
 		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
@@ -231,6 +244,7 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
+			g_isUpdated = false;
 		}
         
     }
@@ -238,6 +252,7 @@ void moveCharacter()
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
         bSomethingHappened = true;
+		g_isUpdated = false;
     }
 
     if (bSomethingHappened)
@@ -252,7 +267,11 @@ void processUserInput()
 	if (g_eGameState == S_GAME)
 	{
 		if (g_abKeyPressed[K_M])
+		{
 			g_eGameState = S_MENU;
+			g_isUpdated = false;
+		}
+			
 	}
 	if (g_eGameState == S_MENU)
 	{
@@ -261,17 +280,30 @@ void processUserInput()
 			g_bQuitGame = true;
 		// start game if player hits the space key
 		if (g_abKeyPressed[K_SPACE])
+		{
 			g_eGameState = S_GAME;
+			g_isUpdated = false;
+		}
 		// Go to the level editor mode (TO DO)
 		if (g_abKeyPressed[K_E])
+		{
 			g_eGameState = S_EDITOR;
+			g_isUpdated = false;
+		}
 		if (g_abKeyPressed[K_K])
+		{
 			g_eGameState = S_COMBAT;
+			g_isUpdated = false;
+		}
+			
 	}
 	if (g_eGameState == S_EDITOR)
 	{
 		if (g_abKeyPressed[K_M])
+		{
 			g_eGameState = S_MENU;
+			g_isUpdated = false;
+		}
 	}
 }
 
