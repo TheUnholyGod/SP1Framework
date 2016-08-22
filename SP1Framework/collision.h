@@ -10,5 +10,6 @@
 #include <windows.h>
 
 bool colDetection(int levelnumber);
+bool creativeColDetection(int levelnumber);
 
 #endif // End _COLLISION_H

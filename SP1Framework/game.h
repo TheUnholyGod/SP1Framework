@@ -11,6 +11,7 @@
 #include "levelTransition.h"
 #include "editor.h"
 #include "combat.h"
+#include "creative.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -34,6 +35,7 @@ enum EKEYS
 	K_D,
 	K_K,
 	K_Q,
+	K_C,
     K_COUNT
 };
 
@@ -45,7 +47,8 @@ enum EGAMESTATES
 	S_MENU,
 	S_COMBAT,
     S_COUNT,
-	S_EDITOR
+	S_EDITOR,
+	S_CREATIVE
 };
 
 // struct for the game character
@@ -58,6 +61,10 @@ struct SGameChar
 struct SEditor
 {
 	COORD m_cEditorLocation;
+};
+struct SCreaChar
+{
+	COORD m_cCreativeLocation;
 };
 
 

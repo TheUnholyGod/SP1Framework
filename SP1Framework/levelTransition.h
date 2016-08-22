@@ -4,5 +4,6 @@
 #include "game.h"
 
 void checkGameGoal();
+void checkCreativeGameGoal();
 
 #endif // !_LEVELTRANSITION_H

@@ -27,6 +27,7 @@ double thisisatime2;
 bool whenSpacePressed = false;
 bool charmoved = false;
 
+extern bool g_isUpdated;
 
 /*/
 -Functions from Main Combat File-
@@ -340,10 +341,12 @@ bool charmoved = false;
 		if (isUpPressed == true)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Att.txt");
+			g_isUpdated = false;
 		}
 		else if (isUpPressed == false)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Def.txt");
+			g_isUpdated = false;
 		}
 
 		if (buttons.is_open())

@@ -9,6 +9,7 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
+char** creative = new char*[100]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 
 // Game specific variables here
@@ -16,10 +17,12 @@ extern int character_X;
 extern int character_Y;
 int g_CurrentLevel;
 bool combattrue = false;
+int g_CreativeLevel;
 SGameChar   g_sChar;
 Enemy	g_sEnemy;
 Enemy enemies[100];
 SEditor     g_sCursor;
+SCreaChar   g_sCreaChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -43,6 +46,7 @@ void init( void )
 	g_isUpdated = false;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
+	g_CreativeLevel = 101;
 	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
@@ -55,6 +59,9 @@ void init( void )
 	// sets the initial position of the cursor
 	g_sCursor.m_cEditorLocation.X = g_Console.getConsoleSize().X / 2;
 	g_sCursor.m_cEditorLocation.Y = g_Console.getConsoleSize().Y / 2;
+	// set initial position of the creative character
+	g_sCreaChar.m_cCreativeLocation.X = 1;
+	g_sCreaChar.m_cCreativeLocation.Y = 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
 
@@ -62,7 +69,6 @@ void init( void )
 	enemyinit(0);
 	//Initializes the Player
 	playerinit();
-
 }
 
 //--------------------------------------------------------------
@@ -105,7 +111,7 @@ void getInput( void )
 	g_abKeyPressed[K_D]      = isKeyPressed(0x44);
 	g_abKeyPressed[K_Q]      = isKeyPressed(0x51);
 	g_abKeyPressed[K_K]      = isKeyPressed(0x4B);
-
+	g_abKeyPressed[K_C]      = isKeyPressed(0x43);
 }
 
 //--------------------------------------------------------------
@@ -128,6 +134,7 @@ void update(double dt)
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
 	txt = store_map(txt, g_CurrentLevel);
+	creative = store_map(creative, g_CreativeLevel);
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -139,6 +146,8 @@ void update(double dt)
 		case S_EDITOR: editor();
 			break;
 		case S_COMBAT: combat(), combattrue = true;
+			break;
+		case S_CREATIVE: creativeGameplay();
 			break;
     }
 }
@@ -173,6 +182,9 @@ void render()
 		case S_COMBAT: combatdisplay(), combattrue = true;
 			g_isUpdated = false;
 			break;
+		case S_CREATIVE: renderCreative();
+			g_isUpdated = false;
+			break;
 		}
 		
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -187,9 +199,13 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
-        g_eGameState = S_MENU;
-	g_isUpdated = false;
+	if (g_dElapsedTime > 2.0) // wait for 2 seconds to switch to game mode, else do nothing
+	{
+		g_eGameState = S_MENU;
+		//play music
+		PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
+		g_isUpdated = false;
+	}
 }
 
 void gameplay()            // gameplay logic
@@ -291,9 +307,9 @@ void processUserInput()
 			g_isUpdated = false;
 		}
 		// Go to the level editor mode (TO DO)
-		if (g_abKeyPressed[K_E])
+		if (g_abKeyPressed[K_C])
 		{
-			g_eGameState = S_EDITOR;
+			g_eGameState = S_CREATIVE;
 			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_K])
@@ -310,7 +326,26 @@ void processUserInput()
 			g_eGameState = S_MENU;
 			g_isUpdated = false;
 		}
+		if (g_abKeyPressed[K_C])
+		{
+			g_eGameState = S_CREATIVE;
+			g_isUpdated = false;
+		}
 	}
+	if (g_eGameState == S_CREATIVE)
+	{
+		if (g_abKeyPressed[K_M])
+		{
+			g_eGameState = S_MENU;
+			g_isUpdated = false;
+		}
+		if (g_abKeyPressed[K_K])
+		{
+			g_eGameState = S_EDITOR;
+			g_isUpdated = false;
+		}
+	}
+
 }
 
 void clearScreen()

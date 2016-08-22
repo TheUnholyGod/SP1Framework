@@ -3,8 +3,11 @@
 int character_X;
 int character_Y;
 extern int g_CurrentLevel;
+extern int g_CreativeLevel;
 extern SGameChar   g_sChar;
+extern SCreaChar   g_sCreaChar;
 extern bool    g_abKeyPressed[K_COUNT];
+extern bool	   g_isUpdated;
 
 void checkGameGoal()
 {
@@ -14,17 +17,17 @@ void checkGameGoal()
 	int width = 0;
 
 	if (g_CurrentLevel == 1)
-		file.open("Level_1.txt");
+		file.open("CampaignLevels/Level_1.txt");
 	if (g_CurrentLevel == 2)
-		file.open("Level_2.txt");
+		file.open("CampaignLevels/Level_2.txt");
 	if (g_CurrentLevel == 3)
-		file.open("Level_3.txt");
+		file.open("CampaignLevels/Level_3.txt");
 	if (g_CurrentLevel == 4)
-		file.open("Level_4.txt");
+		file.open("CampaignLevels/Level_4.txt");
 	if (g_CurrentLevel == 5)
-		file.open("Level_5.txt");
+		file.open("CampaignLevels/Level_5.txt");
 	if (g_CurrentLevel == 6)
-		file.open("Level_6.txt");
+		file.open("CampaignLevels/Level_6.txt");
 
 	if (file.is_open())
 	{
@@ -48,36 +51,127 @@ void checkGameGoal()
 			g_CurrentLevel = 2;
 			g_sChar.m_cLocation.Y = 10;
 			g_sChar.m_cLocation.X = 10;
+			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 2 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 3;
 			g_sChar.m_cLocation.Y = 10;
 			g_sChar.m_cLocation.X = 10;
+			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 3 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 4;
 			g_sChar.m_cLocation.Y = 10;
 			g_sChar.m_cLocation.X = 10;
+			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 4 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 5;
 			g_sChar.m_cLocation.Y = 10;
 			g_sChar.m_cLocation.X = 10;
+			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 5 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 6;
 			g_sChar.m_cLocation.Y = 10;
 			g_sChar.m_cLocation.X = 10;
+			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 6 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 1;
 			g_sChar.m_cLocation.Y = 10;
 			g_sChar.m_cLocation.X = 10;
+			//g_isUpdated = false;
 		}
+		
+		g_isUpdated = false;
+	}
+}
+
+void checkCreativeGameGoal()
+{
+	ifstream file;
+	char txt[130][25];
+	int height = 0;
+	int width = 0;
+
+	if (g_CreativeLevel == 101)
+		file.open("CreativeLevels/Level_1.txt");
+	if (g_CreativeLevel == 102)
+		file.open("CreativeLevels/Level_2.txt");
+	if (g_CreativeLevel == 103)
+		file.open("CreativeLevels/Level_3.txt");
+	if (g_CreativeLevel == 104)
+		file.open("CreativeLevels/Level_4.txt");
+	if (g_CreativeLevel == 105)
+		file.open("CreativeLevels/Level_5.txt");
+	if (g_CreativeLevel == 106)
+		file.open("CreativeLevels/Level_6.txt");
+
+	if (file.is_open())
+	{
+		while (height < 25)
+		{
+			while (width < 130)
+			{
+				file >> txt[width][height];
+				width++;
+			}
+			width = 0;
+			height++;
+		}
+		file.close();
+	}
+
+	if (g_abKeyPressed[K_E])
+	{
+		if (g_CreativeLevel == 101 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
+		{
+			g_CreativeLevel = 102;
+			g_sCreaChar.m_cCreativeLocation.Y = 10;
+			g_sCreaChar.m_cCreativeLocation.X = 10;
+			//g_isUpdated = false;
+		}
+		if (g_CreativeLevel == 102 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
+		{
+			g_CreativeLevel = 103;
+			g_sCreaChar.m_cCreativeLocation.Y = 10;
+			g_sCreaChar.m_cCreativeLocation.X = 10;
+			//g_isUpdated = false;
+		}
+		if (g_CreativeLevel == 103 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
+		{
+			g_CreativeLevel = 104;
+			g_sCreaChar.m_cCreativeLocation.Y = 10;
+			g_sCreaChar.m_cCreativeLocation.X = 10;
+			//g_isUpdated = false;
+		}
+		if (g_CreativeLevel == 104 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
+		{
+			g_CreativeLevel = 105;
+			g_sCreaChar.m_cCreativeLocation.Y = 10;
+			g_sCreaChar.m_cCreativeLocation.X = 10;
+			//g_isUpdated = false;
+		}
+		if (g_CreativeLevel == 105 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
+		{
+			g_CreativeLevel = 106;
+			g_sCreaChar.m_cCreativeLocation.Y = 10;
+			g_sCreaChar.m_cCreativeLocation.X = 10;
+			//g_isUpdated = false;
+		}
+		if (g_CreativeLevel == 106 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
+		{
+			g_CreativeLevel = 101;
+			g_sCreaChar.m_cCreativeLocation.Y = 10;
+			g_sCreaChar.m_cCreativeLocation.X = 10;
+			//g_isUpdated = false;
+		}
+		g_isUpdated = false;
 	}
 }
