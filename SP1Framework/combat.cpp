@@ -136,8 +136,8 @@ extern bool g_isUpdated;
 	void renderCharacterSymbol(COORD a)
 	{
 		WORD charColor = 0x0A;
-		g_Console.writeToBuffer(characterspawn, (char)178, charColor);
-		if (a.X != characterspawn.X&&a.Y != characterspawn.Y)
+		g_Console.writeToBuffer(characterspawn, (char)64, charColor);
+		if (a.X != characterspawn.X - 1 && a.Y != characterspawn.Y - 1 || a.X != characterspawn.X + 1 && a.Y != characterspawn.Y + 1)
 		{
 			g_Console.writeToBuffer(a, (char)32);
 		}
@@ -153,54 +153,54 @@ extern bool g_isUpdated;
 		if (thisisatime > g_dElapsedTime)
 			return;
 
-		if (isKeyPressed(0x57))
+		if (isKeyPressed(VK_UP))
 		{
-			if (characterspawn.Y-- == 55)
+			characterspawn.Y--;
+			if (characterspawn.Y <= 30)
 			{
 				characterspawn.Y = holdcoord.Y;
 			}
 			else
 			{
-				characterspawn.Y--;
 				bSomethingHappened = true;
 				renderCharacterSymbol(holdcoord);
 			}
 		}
-		else if (isKeyPressed(0x41))
+		else if (isKeyPressed(VK_LEFT))
 		{
-			if (characterspawn.X-- == 40)
+			characterspawn.X--;
+			if (characterspawn.X <= 54)
 			{
 				characterspawn.X = holdcoord.X;
 			}
 			else
 			{
-				characterspawn.X--;
 				bSomethingHappened = true;
 				renderCharacterSymbol(holdcoord);
 			}
 		}
-		else if (isKeyPressed(0x53))
+		else if (isKeyPressed(VK_DOWN))
 		{
-			if (characterspawn.Y++ == 40)
+			characterspawn.Y++;
+			if (characterspawn.Y >= 39 || characterspawn.Y >= 40)
 			{
 				characterspawn.Y = holdcoord.Y;
 			}
 			else
 			{
-				characterspawn.Y++;
 				bSomethingHappened = true;
 				renderCharacterSymbol(holdcoord);
 			}
 		}
-		else if (isKeyPressed(0x44))
+		else if (isKeyPressed(VK_RIGHT))
 		{
-			if (characterspawn.X++ == 75)
+			characterspawn.X++;
+			if (characterspawn.X >= 73)
 			{
 				characterspawn.X = holdcoord.X;
 			}
 			else
 			{
-				characterspawn.X++;
 				bSomethingHappened = true;
 				renderCharacterSymbol(holdcoord);
 			}
@@ -209,7 +209,7 @@ extern bool g_isUpdated;
 		if (bSomethingHappened)
 		{
 			// set the bounce time to some time in the future to prevent accidental triggers
-			thisisatime = g_dElapsedTime + 0.125; // 125ms should be enough
+			thisisatime = g_dElapsedTime + 0.25; // 125ms should be enough
 		}
 	}
 
@@ -266,7 +266,7 @@ extern bool g_isUpdated;
 		combatdisplaycoord.X = 0;
 		combatdisplaycoord.Y = 30;
 
-		for (int i = 0; i < 11; ++i)
+		for (int i = 0; i < 11; ++i) //Edit this
 		{
 			for (int j = 0; j < 117; ++j)
 			{
