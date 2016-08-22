@@ -104,7 +104,22 @@ void editmap(int levelnumber,char change)
 	int width = 0;
 	ifstream file;
 
-	if (levelnumber == 1)
+	switch (levelnumber)
+	{
+	case 1: file.open("Level_1.txt");
+		break;
+	case 2: file.open("Level_2.txt");
+		break;
+	case 3: file.open("Level_3.txt");
+		break;
+	case 4: file.open("Level_4.txt");
+		break;
+	case 5: file.open("Level_5.txt");
+		break;
+	case 6: file.open("Level_6.txt");
+		break;
+	}
+	/*if (levelnumber == 1)
 		file.open("Level_1.txt");
 	if (levelnumber == 2)
 		file.open("Level_2.txt");
@@ -115,7 +130,7 @@ void editmap(int levelnumber,char change)
 	if (levelnumber == 5)
 		file.open("Level_5.txt");
 	if (levelnumber == 6)
-		file.open("Level_6.txt");
+		file.open("Level_6.txt");*/
 
 	if (file.is_open())
 	{
