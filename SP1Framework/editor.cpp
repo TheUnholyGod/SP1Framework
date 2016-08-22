@@ -19,7 +19,7 @@ void renderEditor()
 	//currentMap = store_map(currentMap, g_CurrentLevel);
 	print_map(txt);
 	renderCursor();
-	renderEndpoint();
+	//renderEndpoint();
 }
 void editor()
 {
@@ -150,7 +150,7 @@ void editmap(int levelnumber,char change)
 	// opens/creates new file
 	ofstream newfile("temp.txt");
 	char oldname[] = "temp.txt";
-	char newname[] = "new";
+	//char newname[] = "new";
 
 	txt[g_sCursor.m_cEditorLocation.X][g_sCursor.m_cEditorLocation.Y-1] = change;
 	{
@@ -239,38 +239,38 @@ void edits()
 		g_isUpdated = false;
 	}
 }
-void renderEndpoint()
-{
-	char check[130][25];
-	int height = 0;
-	int width = 0;
-	ifstream file;
-
-	if (g_CurrentLevel == 1)
-		file.open("Level_1.txt");
-	if (g_CurrentLevel == 2)
-		file.open("Level_2.txt");
-	if (g_CurrentLevel == 3)
-		file.open("Level_3.txt");
-	if (g_CurrentLevel == 4)
-		file.open("Level_4.txt");
-	if (g_CurrentLevel == 5)
-		file.open("Level_5.txt");
-	if (g_CurrentLevel == 6)
-		file.open("Level_6.txt");
-
-	if (file.is_open())
-	{
-		while (height < 25)
-		{
-			while (width < 130)
-			{
-				file >> check[width][height];
-				width++;
-			}
-			width = 0;
-			height++;
-		}
-		file.close();
-	}
-}
+//void renderEndpoint()
+//{
+//	char check[130][25];
+//	int height = 0;
+//	int width = 0;
+//	ifstream file;
+//
+//	if (g_CurrentLevel == 1)
+//		file.open("Level_1.txt");
+//	if (g_CurrentLevel == 2)
+//		file.open("Level_2.txt");
+//	if (g_CurrentLevel == 3)
+//		file.open("Level_3.txt");
+//	if (g_CurrentLevel == 4)
+//		file.open("Level_4.txt");
+//	if (g_CurrentLevel == 5)
+//		file.open("Level_5.txt");
+//	if (g_CurrentLevel == 6)
+//		file.open("Level_6.txt");
+//
+//	if (file.is_open())
+//	{
+//		while (height < 25)
+//		{
+//			while (width < 130)
+//			{
+//				file >> check[width][height];
+//				width++;
+//			}
+//			width = 0;
+//			height++;
+//		}
+//		file.close();
+//	}
+//}
