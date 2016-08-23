@@ -15,6 +15,7 @@ extern int	   g_CreativeLevel;
 
 void renderEditor()
 {
+	renderEditorInstruction();
 	print_map(creative);
 	renderCursor();
 }

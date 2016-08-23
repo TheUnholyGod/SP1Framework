@@ -356,6 +356,7 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
+	renderGameInstruction();
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 }
@@ -369,7 +370,7 @@ void renderMap()
 void renderCharacter()
 { 
     // Draw the location of the character
-    WORD charColor = 0x0A;
+    WORD charColor = 0x0C;
 	WORD enemyColor = 0xFF;
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 

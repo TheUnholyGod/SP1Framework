@@ -3,6 +3,8 @@
 
 #include "game.h"
 
-void renderInstruction(int levelnumber);
+void renderGameInstruction();
+void renderCreativeInstruction();
+void renderEditorInstruction();
 
 #endif // !_INSTRUCTION_H
