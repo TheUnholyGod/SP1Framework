@@ -1,0 +1,4 @@
+You-dealt-(damage)-damage-to-(enemyname)
+Action-of-enemy.------------------------
+Got-hit-(number-of-times-hit).----------
+You-took-(damage) damage.---------------

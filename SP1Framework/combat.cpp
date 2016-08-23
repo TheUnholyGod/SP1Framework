@@ -16,14 +16,18 @@ COORD combatdisplaycoord;
 COORD characterspawn;
 COORD holdcoord;
 COORD a;
+COORD lineoftext;
 char** display = new char*[53];
 char** buttonfiller = new char*[63];
 char** textboxfiller = new char*[75];
+char** textforline = new char*[40];
 int enemySelector = 0;
 int victory = 2;
 int BossesDefeated = 0;
-double thisisatime;
+double thisisatime ;
 double thisisatime2;
+double thisisatimeforspace;
+double waittime;
 bool isUpPressed = true;
 bool isEnemyAttActive = false;
 bool whenSpacePressed = false;
@@ -38,6 +42,9 @@ bool charmoved = false;
 	//-----Main Combat File-----//
 	void combat()
 {
+	if (thisisatimeforspace > g_dElapsedTime)
+		return;
+
 	characterspawn.X = 64;
 	characterspawn.Y = 35;
 
@@ -46,7 +53,7 @@ bool charmoved = false;
 		whenSpacePressed = true;
 		if (whenSpacePressed == true)
 		{
-			thisisatime = g_dElapsedTime + 1.0;
+			thisisatime = g_dElapsedTime;
 		}
 
 		if (victory == 2)
@@ -80,6 +87,8 @@ bool charmoved = false;
 				enemyselector(display, enemySelector);
 				victory = 2;
 				BossesDefeated++;
+				player1.statsUpdate(BossesDefeated);
+				thisisatimeforspace = g_dElapsedTime + 2;
 			}
 		}
 	}
@@ -89,23 +98,38 @@ bool charmoved = false;
 	//-----Process of Attack-----//
 	void attackProcess()	
 	{
+		isEnemyAttActive = true;
 		int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
 		enemy1.healthUpdate(holddamage);
-		isEnemyAttActive = true;
-		combatdisplay();
-		holdtimer();
-
-		while (g_dElapsedTime < thisisatime2)
+		waittime = g_dElapsedTime + 5;
+		while (waittime > g_dElapsedTime)
 		{
-			enemy1.enemyattackgame();
+			printingtextupdate();
 			renderFramerate();
 			g_dElapsedTime += g_Timer.getElapsedTime();
 		}
+		
+		if (enemy1.boss1.Health != 0 && player1.character.Health != 0)
+			{
+				combatdisplay();
+				holdtimer();
 
-		int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
-		int hold = player1.damageSustained(damage, player1.character.Defence);
-		player1.healthUpdate(hold);
-		isEnemyAttActive = false;
+				while (g_dElapsedTime < thisisatime2)
+				{
+					enemy1.enemyattackgame();
+					renderFramerate();
+					g_dElapsedTime += g_Timer.getElapsedTime();
+				}
+
+				int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
+				int hold = player1.damageSustained(damage, player1.character.Defence);
+				player1.healthUpdate(hold);
+				isEnemyAttActive = false;
+			}
+		else
+			{
+				return;
+			}
 	}
 
 	//-----Process of Defend-----//
@@ -142,7 +166,7 @@ bool charmoved = false;
 
 	void holdtimer()
 	{
-		thisisatime2 = g_dElapsedTime + 30;
+		thisisatime2 = g_dElapsedTime + 15;
 	}
 
 	//---Spawning Character---//
@@ -281,7 +305,7 @@ bool charmoved = false;
 
 		for (int i = 0; i < 11; ++i) //Edit this
 		{
-			for (int j = 0; j < 117; ++j)
+			for (int j = 0; j < 130; ++j)
 			{
 				if (textboxfiller[i][j] == '-')
 				{
@@ -391,7 +415,7 @@ bool charmoved = false;
 		{
 			textbox.open("Textbox.txt");
 			Height = 11;
-			Length = 117;
+			Length = 130;
 		}
 		else
 		{
@@ -414,6 +438,53 @@ bool charmoved = false;
 			textbox.close();
 		}
 		return textboxfill;
+	}
+
+	//---Writing The Update Text---//
+	void printingtextupdate()
+	{
+		vector<char> textline;
+		lineoftext.X = 2;
+		lineoftext.Y = 32;
+
+		if (isEnemyAttActive == true)
+		{
+			ifstream textlines;
+			textlines.open("Combat/CombatUpdateText.txt");
+
+			int height = 4;
+			int length = 40;
+
+			if (textlines.is_open())
+			{
+				for (int i = 0; i < height; i++)
+				{
+					textforline[i] = new char[length];
+
+					for (int j = 0; j < length; j++)
+					{
+						textlines >> textforline[i][j];
+					}
+				}
+				textlines.close();
+			}
+		}
+
+		for (int i = 0; i < 2; ++i) //Edit this
+		{
+			for (int j = 0; j < 40; ++j)
+			{
+				if (textforline[i][j] == '-')
+				{
+					textforline[i][j] = (char)(32);
+				}
+				g_Console.writeToBuffer(lineoftext, textforline[i][j]);
+				renderToScreen();
+				lineoftext.X++;
+			}
+			lineoftext.X = 2;
+			lineoftext.Y++;
+		}
 	}
 
 //-------Initalization of All Characters/Enemies-------//
@@ -729,6 +800,18 @@ void Player::healthUpdate(int damageSustained)
 	else
 	{
 		character.Health -= damageSustained;
+	}
+}
+
+//---Update of all Stats---//
+void Player::statsUpdate(int killcount)
+{
+	for (int i = 0; i <= killcount; i++)
+	{
+		character.Health *= 1.5f;
+		character.MaxHealth *= 1.5f;
+		character.Attack = (character.Attack + 10) * 1.2f;
+		character.Defence = (character.Defence + 25) * 1.3f;
 	}
 }
 
