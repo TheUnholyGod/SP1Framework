@@ -2,11 +2,12 @@
 
 //-----Extern Block-----//
 extern Console g_Console;
+extern CStopWatch g_Timer;
+extern bool g_isUpdated;
 extern bool g_isUpdated;
 extern double g_dElapsedTime;
 extern double g_dDeltaTime;
 extern double g_dBounceTime;
-extern CStopWatch g_Timer;
 
 //-----Object and Identifier Declaration-----//
 Player player1;
@@ -19,15 +20,14 @@ char** display = new char*[53];
 char** buttonfiller = new char*[63];
 char** textboxfiller = new char*[75];
 int enemySelector = 0;
-bool isUpPressed = true;
-bool isEnemyAttActive = false;
 int victory = 2;
+int BossesDefeated = 0;
 double thisisatime;
 double thisisatime2;
+bool isUpPressed = true;
+bool isEnemyAttActive = false;
 bool whenSpacePressed = false;
 bool charmoved = false;
-
-extern bool g_isUpdated;
 
 /*/
 -Functions from Main Combat File-
@@ -79,6 +79,7 @@ extern bool g_isUpdated;
 				enemyinit(enemySelector);
 				enemyselector(display, enemySelector);
 				victory = 2;
+				BossesDefeated++;
 			}
 		}
 	}
@@ -90,9 +91,21 @@ extern bool g_isUpdated;
 	{
 		int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
 		enemy1.healthUpdate(holddamage);
+		isEnemyAttActive = true;
+		combatdisplay();
+		holdtimer();
+
+		while (g_dElapsedTime < thisisatime2)
+		{
+			enemy1.enemyattackgame();
+			renderFramerate();
+			g_dElapsedTime += g_Timer.getElapsedTime();
+		}
+
 		int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
 		int hold = player1.damageSustained(damage, player1.character.Defence);
 		player1.healthUpdate(hold);
+		isEnemyAttActive = false;
 	}
 
 	//-----Process of Defend-----//
@@ -136,11 +149,11 @@ extern bool g_isUpdated;
 	void renderCharacterSymbol(COORD a)
 	{
 		WORD charColor = 0x0A;
-		g_Console.writeToBuffer(characterspawn, (char)64, charColor);
 		if (a.X != characterspawn.X - 1 && a.Y != characterspawn.Y - 1 || a.X != characterspawn.X + 1 && a.Y != characterspawn.Y + 1)
 		{
 			g_Console.writeToBuffer(a, (char)32);
 		}
+		g_Console.writeToBuffer(characterspawn, (char)64, charColor);
 		renderToScreen();
 	}
 
@@ -209,7 +222,7 @@ extern bool g_isUpdated;
 		if (bSomethingHappened)
 		{
 			// set the bounce time to some time in the future to prevent accidental triggers
-			thisisatime = g_dElapsedTime + 0.25; // 125ms should be enough
+			thisisatime = g_dElapsedTime + 0.15; // 125ms should be enough
 		}
 	}
 
