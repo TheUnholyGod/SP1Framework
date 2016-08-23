@@ -6,13 +6,13 @@
 #include "loadlevel.h"
 #include "collision.h"
 //#include "AI Pathfinding.h"
-#include "sideScrolling.h"
 #include "menu.h"
 #include "levelTransition.h"
 #include "editor.h"
 #include "combat.h"
 #include "creative.h"
 #include "instruction.h"
+#include "doors.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>

@@ -39,8 +39,6 @@ void checkGameGoal()
 	}
 	
 
-	if (file.is_open())
-	{
 		while (height < 25)
 		{
 			while (width < 130)
@@ -51,8 +49,6 @@ void checkGameGoal()
 			width = 0;
 			height++;
 		}
-		file.close();
-	}
 
 	if(g_abKeyPressed[K_E])
 	{
