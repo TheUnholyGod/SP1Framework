@@ -10,7 +10,6 @@
 #include <sstream>
 #include "Framework\console.h"
 #include "game.h"
-#include "collision.h"
 
 //-----Namespace Block-----//
 using namespace std;
