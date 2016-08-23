@@ -49,46 +49,45 @@ void checkGameGoal()
 		if (g_CurrentLevel == 1 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y-1] == '+'))
 		{
 			g_CurrentLevel = 2;
-			g_sChar.m_cLocation.Y = 10;
-			g_sChar.m_cLocation.X = 10;
+			g_sChar.m_cLocation.Y = 2;
+			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 2 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 3;
-			g_sChar.m_cLocation.Y = 10;
-			g_sChar.m_cLocation.X = 10;
+			g_sChar.m_cLocation.Y = 2;
+			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 3 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 4;
-			g_sChar.m_cLocation.Y = 10;
-			g_sChar.m_cLocation.X = 10;
+			g_sChar.m_cLocation.Y = 2;
+			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 4 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 5;
-			g_sChar.m_cLocation.Y = 10;
-			g_sChar.m_cLocation.X = 10;
+			g_sChar.m_cLocation.Y = 2;
+			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 5 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 6;
-			g_sChar.m_cLocation.Y = 10;
-			g_sChar.m_cLocation.X = 10;
+			g_sChar.m_cLocation.Y = 2;
+			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CurrentLevel == 6 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 1;
-			g_sChar.m_cLocation.Y = 10;
-			g_sChar.m_cLocation.X = 10;
+			g_sChar.m_cLocation.Y = 2;
+			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 		}
-		
 		g_isUpdated = false;
 	}
 }
@@ -133,43 +132,43 @@ void checkCreativeGameGoal()
 		if (g_CreativeLevel == 101 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 102;
-			g_sCreaChar.m_cCreativeLocation.Y = 10;
-			g_sCreaChar.m_cCreativeLocation.X = 10;
+			g_sCreaChar.m_cCreativeLocation.Y = 2;
+			g_sCreaChar.m_cCreativeLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CreativeLevel == 102 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 103;
-			g_sCreaChar.m_cCreativeLocation.Y = 10;
-			g_sCreaChar.m_cCreativeLocation.X = 10;
+			g_sCreaChar.m_cCreativeLocation.Y = 2;
+			g_sCreaChar.m_cCreativeLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CreativeLevel == 103 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 104;
-			g_sCreaChar.m_cCreativeLocation.Y = 10;
-			g_sCreaChar.m_cCreativeLocation.X = 10;
+			g_sCreaChar.m_cCreativeLocation.Y = 2;
+			g_sCreaChar.m_cCreativeLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CreativeLevel == 104 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 105;
-			g_sCreaChar.m_cCreativeLocation.Y = 10;
-			g_sCreaChar.m_cCreativeLocation.X = 10;
+			g_sCreaChar.m_cCreativeLocation.Y = 2;
+			g_sCreaChar.m_cCreativeLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CreativeLevel == 105 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 106;
-			g_sCreaChar.m_cCreativeLocation.Y = 10;
-			g_sCreaChar.m_cCreativeLocation.X = 10;
+			g_sCreaChar.m_cCreativeLocation.Y = 2;
+			g_sCreaChar.m_cCreativeLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		if (g_CreativeLevel == 106 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 101;
-			g_sCreaChar.m_cCreativeLocation.Y = 10;
-			g_sCreaChar.m_cCreativeLocation.X = 10;
+			g_sCreaChar.m_cCreativeLocation.Y = 2;
+			g_sCreaChar.m_cCreativeLocation.X = 1;
 			//g_isUpdated = false;
 		}
 		g_isUpdated = false;

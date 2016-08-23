@@ -40,6 +40,9 @@
     <ClCompile Include="creative.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="instruction.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI Pathfinding.h">
@@ -55,9 +58,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="levelTransition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="loadlevel.h">
@@ -76,6 +76,12 @@
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="creative.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="levelTransition.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

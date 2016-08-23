@@ -98,14 +98,14 @@ char** store_map(char** field,int levelnumber)
 	{
 		file.open("StartUp.txt");
 		maxMapWidth = 130;
-		maxMapHeight = 25;
+		maxMapHeight = 39;
 	}
 
 	if (levelnumber == 100)
 	{
 		file.open("MainMenu.txt");
 		maxMapWidth = 130;
-		maxMapHeight = 25;
+		maxMapHeight = 39;
 	}
 	//stores the map data into a 2d array and returns it
 	if (file.is_open())
@@ -131,14 +131,16 @@ void print_map(char ** field)
 		c.Y = i + 1;
 		for (int j = 0; j < maxMapWidth; ++j)
 		{
-			WORD color = 0x7F;
+			WORD color = 0x0B;
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-')
 			{
+				color = 0x00;
 				field[i][j] = (char)176;
 			}
 			if (field[i][j] == 'W')
 			{
+				color = 0x0B;
 				field[i][j] = (char)178;
 			}
 			if (field[i][j] == '*')
@@ -150,7 +152,7 @@ void print_map(char ** field)
 				character_X = i;
 				character_Y = j;
 				field[i][j] = (char)177;
-				color = 0x4C;
+				color = 0x7C;
 			}
 			c.X = j;
 				g_Console.writeToBuffer(c, field[i][j],color);

@@ -8,15 +8,14 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
-char** creative = new char*[100]; // <------- Read creative levels from txt into this 2d array
+char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
+char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 
 // Game specific variables here
 extern int character_X;
 extern int character_Y;
 int g_CurrentLevel;
-bool combattrue = false;
 int g_CreativeLevel;
 SGameChar   g_sChar;
 Enemy	g_sEnemy;
@@ -83,6 +82,7 @@ void shutdown( void )
     // Reset to white text on black background
     colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
     g_Console.clearBuffer();
+	//TODO: Clean up double pointer arrays here
 }
 
 //--------------------------------------------------------------
@@ -145,7 +145,7 @@ void update(double dt)
 			break;
 		case S_EDITOR: editor();
 			break;
-		case S_COMBAT: combat(), combattrue = true;
+		case S_COMBAT: combat();
 			break;
 		case S_CREATIVE: creativeGameplay();
 			break;
@@ -179,21 +179,15 @@ void render()
 		case S_EDITOR: renderEditor();
 			g_isUpdated = false;
 			break;
-		case S_COMBAT: combatdisplay(), combattrue = true;
+		case S_COMBAT: combatdisplay();
 			g_isUpdated = false;
 			break;
 		case S_CREATIVE: renderCreative();
 			g_isUpdated = false;
-			break;
+			break;	
 		}
-		
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 		g_isUpdated = true;
-
-		if (combattrue == true)
-		{
-			g_isUpdated = false;
-		}
 	}
 }
 
