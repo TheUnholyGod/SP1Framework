@@ -78,6 +78,7 @@ void creativeMoveCharacter()
 
 void renderCreative()
 {
+	renderCreativeInstruction();
 	creativeRenderMap();
 	creativeRenderCharacter();
 }

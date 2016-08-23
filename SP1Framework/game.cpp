@@ -8,15 +8,15 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** txt = new char*[100]; // <------- Read levels from txt into this 2d array
-char** creative = new char*[100]; // <------- Read creative levels from txt into this 2d array
+char** textbox = new char*[100]; // <------- Read levels from txt into this 2d array
+char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
+char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 
 // Game specific variables here
 extern int character_X;
 extern int character_Y;
 int g_CurrentLevel;
-bool combattrue = false;
 int g_CreativeLevel;
 SGameChar   g_sChar;
 Enemy	g_sEnemy;
@@ -64,7 +64,6 @@ void init( void )
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
-
 	//Initializes the Enemies
 	enemyinit(0);
 	//Initializes the Player
@@ -83,6 +82,7 @@ void shutdown( void )
     // Reset to white text on black background
     colour(FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
     g_Console.clearBuffer();
+	//TODO: Clean up double pointer arrays here
 }
 
 //--------------------------------------------------------------
@@ -133,7 +133,11 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
+	//loads the text box into the array
+	textbox = store_map(textbox, 1001);
+	//loads campaign map into array
 	txt = store_map(txt, g_CurrentLevel);
+	//loads creative map into array
 	creative = store_map(creative, g_CreativeLevel);
     switch (g_eGameState)
     {
@@ -145,7 +149,7 @@ void update(double dt)
 			break;
 		case S_EDITOR: editor();
 			break;
-		case S_COMBAT: combat(), combattrue = true;
+		case S_COMBAT: combat();
 			break;
 		case S_CREATIVE: creativeGameplay();
 			break;
@@ -179,21 +183,15 @@ void render()
 		case S_EDITOR: renderEditor();
 			g_isUpdated = false;
 			break;
-		case S_COMBAT: combatdisplay(), combattrue = true;
+		case S_COMBAT: combatdisplay();
 			g_isUpdated = false;
 			break;
 		case S_CREATIVE: renderCreative();
 			g_isUpdated = false;
-			break;
+			break;	
 		}
-		
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 		g_isUpdated = true;
-
-		if (combattrue == true)
-		{
-			g_isUpdated = false;
-		}
 	}
 }
 
@@ -362,6 +360,7 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
+	renderGameInstruction();
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 }
@@ -375,7 +374,7 @@ void renderMap()
 void renderCharacter()
 { 
     // Draw the location of the character
-    WORD charColor = 0x0A;
+    WORD charColor = 0x0C;
 	WORD enemyColor = 0xFF;
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 

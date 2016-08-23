@@ -12,6 +12,7 @@
 #include "editor.h"
 #include "combat.h"
 #include "creative.h"
+#include "instruction.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>

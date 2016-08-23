@@ -22,12 +22,6 @@ bool colDetection(int levelnumber)
 	if (levelnumber == 5)
 		file.open("CampaignLevels/Level_5.txt");
 	if (levelnumber == 6)
-		file.open("Level_6.txt");
-	if (levelnumber == 69)
-	{
-		file.open("Combat/AttackBox.txt");
-		height = 11;
-	}
 		file.open("CampaignLevels/Level_6.txt");
 
 	if (file.is_open())
@@ -82,7 +76,6 @@ bool colDetection(int levelnumber)
 		{
 			return false;
 		}
-
 	}
 	else
 		return true;
