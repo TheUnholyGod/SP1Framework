@@ -16,18 +16,28 @@ void checkGameGoal()
 	int height = 0;
 	int width = 0;
 
-	if (g_CurrentLevel == 1)
-		file.open("CampaignLevels/Level_1.txt");
-	if (g_CurrentLevel == 2)
-		file.open("CampaignLevels/Level_2.txt");
-	if (g_CurrentLevel == 3)
-		file.open("CampaignLevels/Level_3.txt");
-	if (g_CurrentLevel == 4)
-		file.open("CampaignLevels/Level_4.txt");
-	if (g_CurrentLevel == 5)
-		file.open("CampaignLevels/Level_5.txt");
-	if (g_CurrentLevel == 6)
-		file.open("CampaignLevels/Level_6.txt");
+	switch (g_CurrentLevel)
+	{
+	case 1:
+			file.open("CampaignLevels/Level_1.txt");
+			break;
+	case 2:
+			file.open("CampaignLevels/Level_2.txt");
+			break;
+	case 3:
+			file.open("CampaignLevels/Level_3.txt");
+			break;
+	case 4:
+			file.open("CampaignLevels/Level_4.txt");
+			break;
+	case 5:
+			file.open("CampaignLevels/Level_5.txt");
+			break;
+	case 6: 
+			file.open("CampaignLevels/Level_6.txt");
+			break;
+	}
+	
 
 	if (file.is_open())
 	{
@@ -99,18 +109,28 @@ void checkCreativeGameGoal()
 	int height = 0;
 	int width = 0;
 
-	if (g_CreativeLevel == 101)
-		file.open("CreativeLevels/Level_1.txt");
-	if (g_CreativeLevel == 102)
-		file.open("CreativeLevels/Level_2.txt");
-	if (g_CreativeLevel == 103)
-		file.open("CreativeLevels/Level_3.txt");
-	if (g_CreativeLevel == 104)
-		file.open("CreativeLevels/Level_4.txt");
-	if (g_CreativeLevel == 105)
-		file.open("CreativeLevels/Level_5.txt");
-	if (g_CreativeLevel == 106)
-		file.open("CreativeLevels/Level_6.txt");
+	switch (g_CreativeLevel)
+	{
+	case 101:
+			file.open("CreativeLevels/Level_1.txt");
+			break;
+	case 102:
+			file.open("CreativeLevels/Level_2.txt");
+			break;
+	case 103:
+			file.open("CreativeLevels/Level_3.txt");
+			break;
+	case 104:
+			file.open("CreativeLevels/Level_4.txt");
+			break;
+	case 105:
+			file.open("CreativeLevels/Level_5.txt");
+			break;
+	case 106:
+			file.open("CreativeLevels/Level_6.txt");
+			break;
+	}
+	
 
 	if (file.is_open())
 	{
