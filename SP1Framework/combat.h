@@ -8,12 +8,14 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "Framework\console.h"
 #include "game.h"
 
 //-----Namespace Block-----//
 using namespace std;
 using std::string;
+using std::vector;
 
 //-----Player Class-----//
 class Player
@@ -43,6 +45,9 @@ public:
 
 	//---Update of Health Stat after getting hit---//
 	void healthUpdate(int damageSustained);
+
+	//---Update of all Stats---//
+	void statsUpdate(int killcount);
 };
 
 //-----Enemy Class-----//
@@ -101,5 +106,6 @@ char** textboxdisplay(char** textboxfill);
 void renderCharacterSymbol(COORD a);
 void symbolMovement();
 void holdtimer();
+void printingtextupdate();
 
 #endif //End of _COMBAT_H
