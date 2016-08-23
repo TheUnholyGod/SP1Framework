@@ -6,12 +6,7 @@
 CStopWatch g_Timer;                            // Timer function to keep track of time and the frame rate
 bool g_bQuitGame = false;                    // Set to true if you want to quit the game
 //const unsigned char gc_ucFPS = 30;                // FPS of this game
-<<<<<<< HEAD
 const unsigned char gc_ucFPS = 100;                // FPS of this game
-=======
-const unsigned char gc_ucFPS = 200;                // FPS of this game
->>>>>>> 9762d5faade23b7bba626964588e2bef7d953f86
-
 const unsigned int gc_uFrameTime = 1000 / gc_ucFPS;    // time for each frame
 
 //main loop declaration
