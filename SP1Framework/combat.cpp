@@ -91,21 +91,28 @@ bool charmoved = false;
 	{
 		int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
 		enemy1.healthUpdate(holddamage);
-		isEnemyAttActive = true;
-		combatdisplay();
-		holdtimer();
-
-		while (g_dElapsedTime < thisisatime2)
+		if (enemy1.boss1.Health != 0 && player1.character.Health != 0)
 		{
-			enemy1.enemyattackgame();
-			renderFramerate();
-			g_dElapsedTime += g_Timer.getElapsedTime();
-		}
+			isEnemyAttActive = true;
+			combatdisplay();
+			holdtimer();
 
-		int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
-		int hold = player1.damageSustained(damage, player1.character.Defence);
-		player1.healthUpdate(hold);
-		isEnemyAttActive = false;
+			while (g_dElapsedTime < thisisatime2)
+			{
+				enemy1.enemyattackgame();
+				renderFramerate();
+				g_dElapsedTime += g_Timer.getElapsedTime();
+			}
+
+			int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
+			int hold = player1.damageSustained(damage, player1.character.Defence);
+			player1.healthUpdate(hold);
+			isEnemyAttActive = false;
+		}
+		else
+		{
+			return;
+		}
 	}
 
 	//-----Process of Defend-----//
@@ -281,7 +288,7 @@ bool charmoved = false;
 
 		for (int i = 0; i < 11; ++i) //Edit this
 		{
-			for (int j = 0; j < 117; ++j)
+			for (int j = 0; j < 130; ++j)
 			{
 				if (textboxfiller[i][j] == '-')
 				{
@@ -391,7 +398,7 @@ bool charmoved = false;
 		{
 			textbox.open("Textbox.txt");
 			Height = 11;
-			Length = 117;
+			Length = 130;
 		}
 		else
 		{
