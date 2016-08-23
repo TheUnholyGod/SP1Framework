@@ -8,6 +8,7 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+char** textbox = new char*[100]; // <------- Read levels from txt into this 2d array
 char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
 char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
@@ -63,7 +64,6 @@ void init( void )
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
-
 	//Initializes the Enemies
 	enemyinit(0);
 	//Initializes the Player
@@ -133,7 +133,11 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
+	//loads the text box into the array
+	textbox = store_map(textbox, 1001);
+	//loads campaign map into array
 	txt = store_map(txt, g_CurrentLevel);
+	//loads creative map into array
 	creative = store_map(creative, g_CreativeLevel);
     switch (g_eGameState)
     {

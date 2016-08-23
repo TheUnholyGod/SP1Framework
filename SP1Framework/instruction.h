@@ -6,5 +6,7 @@
 void renderGameInstruction();
 void renderCreativeInstruction();
 void renderEditorInstruction();
+char** loadTextBox(char** textbox);
+void renderTextBox();
 
 #endif // !_INSTRUCTION_H

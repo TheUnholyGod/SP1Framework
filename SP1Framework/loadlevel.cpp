@@ -107,6 +107,13 @@ char** store_map(char** field,int levelnumber)
 		maxMapWidth = 130;
 		maxMapHeight = 39;
 	}
+
+	if (levelnumber == 1001)
+	{
+		file.open("TextboxMaxe.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 39;
+	}
 	//stores the map data into a 2d array and returns it
 	if (file.is_open())
 	{
