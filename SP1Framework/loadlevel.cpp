@@ -4,7 +4,7 @@
 	unsigned int maxMapHeight;
 	extern int character_X;
 	extern int character_Y;
-	extern int isKeyObtain;
+	extern bool isKeyObtain, DoorLocked;
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
@@ -141,7 +141,7 @@ void print_map(char ** field)
 		{
 			WORD color = 0x0B;
 			//convert legend to actual ascii characters
-			if (field[i][j] == '-')
+			if (field[i][j] == '-' || field[i][j] == 'k')
 			{
 				color = 0x00;
 				field[i][j] = (char)176;
@@ -155,12 +155,26 @@ void print_map(char ** field)
 			{
 				field[i][j] = ' ';
 			}
+			else if (field[i][j] == 'D')
+			{
+				if (DoorStatus == false)
+					field[i][j] = (char)196;
+				else
+				{
+					color = 0x00;
+					field[i][j] = (char)176;
+				}
+			}
+
+			else if (field[i][j] == 'd')
+				field[i][j] = (char)179;
+
 			else if (field[i][j] == 'K')
 			{
-				if (isKeyObtain == 0)
+				if (isKeyObtain == false)
 				{
-					color = 0x7C;
-					field[i][j] = (char)207;
+					color = 0x67;
+					field[i][j] = (char)177;
 				}
 				else
 				{

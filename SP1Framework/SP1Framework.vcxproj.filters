@@ -76,8 +76,10 @@
     <ClInclude Include="instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="doors.h" />
     <ClInclude Include="levelTransition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
