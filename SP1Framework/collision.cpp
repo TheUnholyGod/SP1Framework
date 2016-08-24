@@ -44,7 +44,7 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-		if (DoorStatus == 0)
+		if (DoorStatus == false)
 		{
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'D' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'd')
 			{
@@ -67,7 +67,7 @@ bool colDetection(int levelnumber)
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
 
-		if (DoorStatus == 0)
+		if (DoorStatus == false)
 		{
 			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'D' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'd')
 			{
@@ -89,7 +89,7 @@ bool colDetection(int levelnumber)
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
 
-		if (DoorStatus == 0)
+		if (DoorStatus == false)
 		{
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'D' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'd')
 			{
@@ -111,7 +111,7 @@ bool colDetection(int levelnumber)
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
 
-		if (DoorStatus == 0)
+		if (DoorStatus == false)
 		{
 			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'D' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'd')
 			{
@@ -127,7 +127,6 @@ bool colDetection(int levelnumber)
 			}
 		}
 	}
-
 	else
 		return true;
 }
@@ -206,7 +205,6 @@ bool creativeColDetection(int levelnumber)
 		}
 
 	}
-
 	else
 		return true;
 }

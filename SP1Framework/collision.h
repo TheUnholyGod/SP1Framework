@@ -8,6 +8,7 @@
 #include "loadlevel.h"
 #include "game.h"
 #include <windows.h>
+#include <vector>
 
 bool colDetection(int levelnumber);
 bool creativeColDetection(int levelnumber);

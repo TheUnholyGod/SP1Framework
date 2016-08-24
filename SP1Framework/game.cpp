@@ -24,7 +24,8 @@ Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-bool isKeyObtain, DoorLocked;
+bool isKeyObtain, DoorStatus;
+vector<COORD> locationDoor;
 
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -68,7 +69,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Consolas");
 
 	// -------- VARIABLES FOR DOORS -------- //
-	isKeyObtain = false, DoorLocked = true;
+	isKeyObtain = false, DoorStatus = false;
 
 	//Initializes the Enemies
 	enemyinit(0);

@@ -5,6 +5,7 @@
 	extern int character_X;
 	extern int character_Y;
 	extern bool isKeyObtain, DoorLocked;
+	extern vector<COORD> locationDoor;
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
@@ -116,8 +117,8 @@ char** store_map(char** field,int levelnumber)
 		maxMapHeight = 39;
 	}
 	//stores the map data into a 2d array and returns it
-	if (file.is_open())
-	{
+
+
 		for (int i = 0; i < maxMapHeight; i++)
 		{
 			field[i] = new char[maxMapWidth];
@@ -127,13 +128,14 @@ char** store_map(char** field,int levelnumber)
 				file >> field[i][j];
 			}
 		}
-		file.close();
-	}
+
+
 	return field;
 }
 void print_map(char ** field)
 {
 	COORD c;
+	COORD doors;
 	for (int i = 0; i < maxMapHeight; ++i)
 	{
 		c.Y = i + 1;
@@ -157,17 +159,20 @@ void print_map(char ** field)
 			}
 			else if (field[i][j] == 'D')
 			{
-				if (DoorStatus == false)
-					field[i][j] = (char)196;
-				else
-				{
-					color = 0x00;
-					field[i][j] = (char)176;
-				}
+				doors.X = j;
+				doors.Y = i;
+				locationDoor.push_back(doors);
+				field[i][j] = (char)196;
 			}
 
 			else if (field[i][j] == 'd')
+			{
+				doors.X = j;
+				doors.Y = i;
+				locationDoor.push_back(doors);
 				field[i][j] = (char)179;
+			}
+
 
 			else if (field[i][j] == 'K')
 			{
