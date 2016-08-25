@@ -1,6 +1,7 @@
 #include "creative.h"
 
 extern bool g_isUpdated;
+extern bool g_isMapLoaded;
 extern char** creative;
 extern int g_CreativeLevel;
 extern SEditor g_sCursor;
@@ -73,6 +74,7 @@ void creativeMoveCharacter()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+		g_isMapLoaded = false;
 	}
 }
 

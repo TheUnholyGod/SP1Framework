@@ -42,7 +42,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
+			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -55,7 +55,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
+			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -68,7 +68,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
+			/*g_isMapLoaded = false;*/
 
 		}
 	}
@@ -81,7 +81,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
+			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -89,6 +89,7 @@ void moveCursor()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+		g_isMapLoaded = false;
 	}
 }
 
