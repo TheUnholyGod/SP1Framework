@@ -30,8 +30,8 @@ void renderTextBox()
 			//convert legend to actual ascii characters
 			if (textbox[i][j] == '-')
 			{
-				color = 0x00;
-				textbox[i][j] = (char)176;
+				color = 0x07;
+				textbox[i][j] = ' ';
 			}
 			if (textbox[i][j] == 'W')
 			{

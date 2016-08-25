@@ -118,13 +118,19 @@ char** store_map(char** field,int levelnumber)
 		maxMapHeight = 39;
 	}
 	//stores the map data into a 2d array and returns it
+<<<<<<< HEAD
 
 
 		for (int i = 0; i < maxMapHeight; i++)
+=======
+	if (file.is_open())
+	{
+		for (unsigned int i = 0; i < maxMapHeight; i++)
+>>>>>>> 24628e308276ed55038c53f3952fb86ce0ed28d0
 		{
 			field[i] = new char[maxMapWidth];
 
-			for (int j = 0; j < maxMapWidth; j++)
+			for (unsigned int j = 0; j < maxMapWidth; j++)
 			{
 				if (field[i][j] == 'D' || field[i][j] == 'd')
 				{
@@ -142,17 +148,17 @@ char** store_map(char** field,int levelnumber)
 void print_map(char ** field)
 {
 	COORD c;
-	for (int i = 0; i < maxMapHeight; ++i)
+	for (unsigned int i = 0; i < maxMapHeight; ++i)
 	{
 		c.Y = i + 1;
-		for (int j = 0; j < maxMapWidth; ++j)
+		for (unsigned int j = 0; j < maxMapWidth; ++j)
 		{
 			WORD color = 0x0B;
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-')
 			{
-				color = 0x00;
-				field[i][j] = (char)176;
+				color = 0x07;
+				field[i][j] = ' ';
 			}
 			else if (field[i][j] == 'W')
 			{

@@ -1,6 +1,7 @@
 #include "editor.h"
 
 extern bool g_isUpdated;
+extern bool g_isMapLoaded;
 extern char** creative;
 extern int character_X;
 extern int character_Y;
@@ -41,6 +42,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
+			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -53,6 +55,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
+			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -65,6 +68,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
+			/*g_isMapLoaded = false;*/
 
 		}
 	}
@@ -77,7 +81,7 @@ void moveCursor()
 			g_sCursor.m_cEditorLocation.X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-
+			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -85,6 +89,7 @@ void moveCursor()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+		g_isMapLoaded = false;
 	}
 }
 
@@ -200,26 +205,27 @@ void edits()
 		ch = '-';
 		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
-
+		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_W])
 	{
 		ch = 'W';
 		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
-
+		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_D])
 	{
 		ch = 'D';
 		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
-
+		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_Q])
 	{
 		ch = '+';
 		editmap(g_CreativeLevel, ch);
 		g_isUpdated = false;
+		g_isMapLoaded = false;
 	}
 }
