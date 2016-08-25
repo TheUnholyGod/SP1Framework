@@ -11,6 +11,7 @@
 char** store_map(char** field,int levelnumber)
 {
 	ifstream file;
+	COORD doors;
 	//load campaign maps here
 	if (levelnumber == 1)
 	{
@@ -125,6 +126,12 @@ char** store_map(char** field,int levelnumber)
 
 			for (int j = 0; j < maxMapWidth; j++)
 			{
+				if (field[i][j] == 'D' || field[i][j] == 'd')
+				{
+					doors.X = j;
+					doors.Y = i;
+					locationDoor.push_back(doors);
+				}
 				file >> field[i][j];
 			}
 		}
@@ -135,7 +142,6 @@ char** store_map(char** field,int levelnumber)
 void print_map(char ** field)
 {
 	COORD c;
-	COORD doors;
 	for (int i = 0; i < maxMapHeight; ++i)
 	{
 		c.Y = i + 1;
@@ -143,7 +149,7 @@ void print_map(char ** field)
 		{
 			WORD color = 0x0B;
 			//convert legend to actual ascii characters
-			if (field[i][j] == '-' || field[i][j] == 'k')
+			if (field[i][j] == '-')
 			{
 				color = 0x00;
 				field[i][j] = (char)176;
@@ -159,20 +165,14 @@ void print_map(char ** field)
 			}
 			else if (field[i][j] == 'D')
 			{
-				doors.X = j;
-				doors.Y = i;
-				locationDoor.push_back(doors);
 				field[i][j] = (char)196;
 			}
 
 			else if (field[i][j] == 'd')
 			{
-				doors.X = j;
-				doors.Y = i;
-				locationDoor.push_back(doors);
+ 
 				field[i][j] = (char)179;
 			}
-
 
 			else if (field[i][j] == 'K')
 			{

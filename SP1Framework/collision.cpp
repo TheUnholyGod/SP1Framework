@@ -3,7 +3,7 @@
 extern SGameChar   g_sChar;
 extern SCreaChar   g_sCreaChar;
 extern bool    g_abKeyPressed[K_COUNT];
-extern bool DoorStatus;
+extern bool DoorLocked;
 
 bool colDetection(int levelnumber)
 {
@@ -44,88 +44,40 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-		if (DoorStatus == false)
-		{
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'D' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'd')
 			{
 				return false;
 			}
-		}
-
-		else
-		{
-			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W')
-			{
-				return false;
-			}
-		}
-
-
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
 
-		if (DoorStatus == false)
-		{
 			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'D' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'd')
 			{
 				return false;
 			}
-		}
-
-		else
-		{
-			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W')
-			{
-				return false;
-			}
-		}
 
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
-
-		if (DoorStatus == false)
-		{
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'D' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'd')
 			{
 				return false;
 			}
-		}
-
-		else
-		{
-			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W')
-			{
-				return false;
-			}
-		}
 
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
-
-		if (DoorStatus == false)
-		{
 			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'D' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'd')
 			{
 				return false;
 			}
-		}
-
-		else
-		{
-			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W')
-			{
-				return false;
-			}
-		}
 	}
 	else
 		return true;

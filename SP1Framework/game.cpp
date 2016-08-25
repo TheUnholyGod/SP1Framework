@@ -24,7 +24,7 @@ Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-bool isKeyObtain, DoorStatus;
+bool isKeyObtain, DoorLocked;
 vector<COORD> locationDoor;
 
 
@@ -69,7 +69,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Consolas");
 
 	// -------- VARIABLES FOR DOORS -------- //
-	isKeyObtain = false, DoorStatus = false;
+	isKeyObtain = false, DoorLocked = true;
 
 	//Initializes the Enemies
 	enemyinit(0);

@@ -3,7 +3,7 @@
 extern SGameChar   g_sChar;
 extern bool		   g_abKeyPressed[K_COUNT];
 extern int		   g_CurrentLevel;
-extern bool		   isKeyObtain, DoorStatus;
+extern bool		   isKeyObtain, DoorLocked;
 
 void KeyObtain()
 {
@@ -79,22 +79,4 @@ void isDoorOpen()
 		height++;
 	}
 
-	if (g_abKeyPressed[K_E] && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'k')
-	{
-		if (g_CurrentLevel == 1)
-		{
-			DoorStatus = false;
-			if (isKeyObtain == false)
-			{
-				if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'k')
-					DoorStatus = false;
-			}
-
-			else
-			{
-				if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'k')
-					DoorStatus = true;
-			}
-		}
-	}
 }
