@@ -4,6 +4,7 @@
 	unsigned int maxMapHeight;
 	extern int character_X;
 	extern int character_Y;
+	extern int isKeyObtain;
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
@@ -145,16 +146,29 @@ void print_map(char ** field)
 				color = 0x07;
 				field[i][j] = ' ';
 			}
-			if (field[i][j] == 'W')
+			else if (field[i][j] == 'W')
 			{
 				color = 0x0B;
 				field[i][j] = (char)178;
 			}
-			if (field[i][j] == '*')
+			else if (field[i][j] == '*')
 			{
 				field[i][j] = ' ';
 			}
-			if (field[i][j] == '+')
+			else if (field[i][j] == 'K')
+			{
+				if (isKeyObtain == 0)
+				{
+					color = 0x7C;
+					field[i][j] = (char)207;
+				}
+				else
+				{
+					color = 0x00;
+					field[i][j] = (char)176;
+				}
+			}
+			else if (field[i][j] == '+')
 			{
 				character_X = i;
 				character_Y = j;

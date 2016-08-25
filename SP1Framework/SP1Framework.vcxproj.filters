@@ -28,9 +28,6 @@
     <ClCompile Include="menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sideScrolling.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\timer.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
@@ -43,6 +40,7 @@
     <ClCompile Include="instruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="doors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI Pathfinding.h">
@@ -66,9 +64,6 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sideScrolling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\console.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
@@ -78,10 +73,11 @@
     <ClInclude Include="creative.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="levelTransition.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doors.h" />
+    <ClInclude Include="levelTransition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
