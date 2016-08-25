@@ -142,8 +142,8 @@ void print_map(char ** field)
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-')
 			{
-				color = 0x00;
-				field[i][j] = (char)176;
+				color = 0x07;
+				field[i][j] = ' ';
 			}
 			if (field[i][j] == 'W')
 			{

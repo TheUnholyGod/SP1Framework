@@ -12,6 +12,7 @@ char** textbox = new char*[100]; // <------- Read levels from txt into this 2d a
 char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
 char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
+bool g_isMapLoaded;
 
 // Game specific variables here
 extern int character_X;
@@ -38,12 +39,14 @@ Console g_Console(130, 40, "SP1 Framework");
 //--------------------------------------------------------------
 void init( void )
 {
+	//loads the text box into the array
+	textbox = store_map(textbox, 1001);
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
-
     // sets the initial state for the game
 	g_isUpdated = false;
+	g_isMapLoaded = false;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
@@ -133,12 +136,14 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-	//loads the text box into the array
-	textbox = store_map(textbox, 1001);
-	//loads campaign map into array
-	txt = store_map(txt, g_CurrentLevel);
-	//loads creative map into array
-	creative = store_map(creative, g_CreativeLevel);
+	if (g_isMapLoaded == false)
+	{
+		//loads campaign map into array
+		txt = store_map(txt, g_CurrentLevel);
+		//loads creative map into array
+		creative = store_map(creative, g_CreativeLevel);
+		g_isMapLoaded = true;
+	}
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -203,6 +208,7 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		//play music
 		PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
 		g_isUpdated = false;
+		g_isMapLoaded = false;
 	}
 }
 
@@ -279,6 +285,7 @@ void moveCharacter()
     {
         // set the bounce time to some time in the future to prevent accidental triggers
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+		g_isMapLoaded = false;
     }
 }
 
@@ -289,7 +296,8 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false;
+			g_isUpdated = false; 
+			g_isMapLoaded = false;
 		}
 			
 	}
@@ -302,17 +310,20 @@ void processUserInput()
 		if (g_abKeyPressed[K_SPACE])
 		{
 			g_eGameState = S_GAME;
+			g_isMapLoaded = false;
 			g_isUpdated = false;
 		}
 		// Go to the level editor mode (TO DO)
 		if (g_abKeyPressed[K_C])
 		{
 			g_eGameState = S_CREATIVE;
+			g_isMapLoaded = false;
 			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_K])
 		{
 			g_eGameState = S_COMBAT;
+			g_isMapLoaded = false;
 			g_isUpdated = false;
 		}
 			
@@ -322,12 +333,14 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
+			g_isMapLoaded = false;
 			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_C])
 		{
 			g_eGameState = S_CREATIVE;
 			g_isUpdated = false;
+			g_isMapLoaded = false;
 		}
 	}
 	if (g_eGameState == S_CREATIVE)
@@ -336,11 +349,13 @@ void processUserInput()
 		{
 			g_eGameState = S_MENU;
 			g_isUpdated = false;
+			g_isMapLoaded = false;
 		}
 		if (g_abKeyPressed[K_K])
 		{
 			g_eGameState = S_EDITOR;
 			g_isUpdated = false;
+			g_isMapLoaded = false;
 		}
 	}
 
