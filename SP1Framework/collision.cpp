@@ -1,4 +1,4 @@
-#include"collision.h"
+#include "collision.h"
 
 extern SGameChar   g_sChar;
 extern SCreaChar   g_sCreaChar;
@@ -47,6 +47,8 @@ bool colDetection(int levelnumber)
 		{
 			return false;
 		}
+		else
+			return true;
 
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
@@ -57,7 +59,8 @@ bool colDetection(int levelnumber)
 		{
 			return false;
 		}
-
+		else
+			return true;
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
@@ -67,6 +70,8 @@ bool colDetection(int levelnumber)
 		{
 			return false;
 		}
+		else
+			return true;
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
@@ -76,6 +81,8 @@ bool colDetection(int levelnumber)
 		{
 			return false;
 		}
+		else
+			return true;
 	}
 	else
 		return true;
@@ -124,7 +131,8 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-
+		else
+			return true;
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sCreaChar.m_cCreativeLocation.X > 0)
 	{
@@ -134,7 +142,8 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-
+		else
+			return true;
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
@@ -144,6 +153,8 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
+		else
+			return true;
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCreaChar.m_cCreativeLocation.X < g_Console.getConsoleSize().X - 1)
 	{
@@ -153,7 +164,8 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-
+		else
+			return true;
 	}
 	else
 		return true;
