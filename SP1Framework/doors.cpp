@@ -32,7 +32,7 @@ void KeyObtain()
 
 	if (g_abKeyPressed[K_E])
 	{
-		if (g_CurrentLevel == 1 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'K'))
+		if (g_CurrentLevel == 1 && (txt[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == 'K'))
 		{
 			isKeyObtain++;
 		}
