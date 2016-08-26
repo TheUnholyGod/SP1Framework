@@ -5,6 +5,11 @@
 	extern int character_X;
 	extern int character_Y;
 	extern bool g_isKeyObtain, g_DoorLocked;
+<<<<<<< HEAD
+=======
+	extern vector<COORD> locationDoor;
+	extern vector<COORD> locationWall;
+>>>>>>> 5fd79227f193e50b0c7d75bd5698eb7c422f3a66
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
 	extern int Y;
@@ -197,7 +202,11 @@ void print_map(char ** field)
 				}
 				else if (field[i][j] == 'K')
 				{
+<<<<<<< HEAD
 					if (g_isKeyObtain == false)
+=======
+					if (g_isKeyObtain)
+>>>>>>> 5fd79227f193e50b0c7d75bd5698eb7c422f3a66
 					{
 						field[i][j] = (char)177;
 						color = 0x67;
@@ -254,7 +263,10 @@ void print_map(char ** field)
 				if (field[i][j] == '-')
 				{
 					color = 0x07;
+<<<<<<< HEAD
 					field[i][j] = ' ';
+=======
+>>>>>>> 5fd79227f193e50b0c7d75bd5698eb7c422f3a66
 					field[i][j] = (char)176;
 				}
 				else if (field[i][j] == 'W')
@@ -264,7 +276,11 @@ void print_map(char ** field)
 				}
 				else if (field[i][j] == 'K')
 				{
+<<<<<<< HEAD
 					if (g_isKeyObtain == false)
+=======
+					if (g_isKeyObtain)
+>>>>>>> 5fd79227f193e50b0c7d75bd5698eb7c422f3a66
 					{
 						color = 0x7C;
 						field[i][j] = (char)207;
