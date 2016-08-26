@@ -51,6 +51,7 @@ int enemySelector = 0;
 int victory = 2;
 int BossesDefeated = 0;
 int counter;
+int nooflettersfortext = 0;
 double thisisatime ;
 double thisisatime2;
 double thisisatimeforspace;
@@ -71,6 +72,7 @@ double ProjectileTime = 0;
 int Xcoord[20];
 int thisisacount;
 int hold = 0;
+int thisisatimeforprojectiles = 0;
 
 
 /*/
@@ -138,16 +140,19 @@ int hold = 0;
 		}
 		else if (combatgameplay == COMBAT_ATT_PLAYER_TEXTUPDATE)
 		{
-			while (waittime > g_dElapsedTime) //use in display and for diff states
+			if (waittime > g_dElapsedTime) //use in display and for diff states
 			{
+				nooflettersfortext++;
 				return;
 			}
 			if (enemy1.boss1.Health == 0)
 			{
+				updatedtextprinted = true;
 				combatgameplay = COMBAT_ATT_UPDATEALLSTATS;
 			}
 			else if (g_dElapsedTime >= waittime)
 			{
+				updatedtextprinted = true;
 				isEnemyAttActive = true;
 				textboxprinted = false;
 				holdtimer();
@@ -160,9 +165,15 @@ int hold = 0;
 		{
 			if (enemy1.boss1.Health != 0 && player1.character.Health != 0)
 			{
+				if ((projectileCoord[19].X == 73 && Xcoord[19] == 0) || (projectileCoord[19].X == 54 && Xcoord[19] == 1))
+				{
+					thisisacount = 0;
+					enemy1.enemyattackgame();
+				}
+				enemy1.bullet();
+				symbolMovement();
 				if (g_dElapsedTime < thisisatime2)
 				{
-					symbolMovement();
 					return;
 				}
 				if (thisisatime2 <= g_dElapsedTime)
@@ -178,6 +189,7 @@ int hold = 0;
 		}
 		else if (combatgameplay == COMBAT_ATT_UPDATEALLSTATS)
 		{
+			thisisacount = 0;
 			textboxprinted = false;
 			int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
 			int hold = player1.damageSustained(damage, player1.character.Defence) * counter;
@@ -413,16 +425,11 @@ int hold = 0;
 		else
 		{
 			renderCharacterSymbol(characterspawn);
-			if (thisisacount <= 19)
-			{
-				thisisacount++;
-			}
 			printprojectiles(thisisacount);
 		}
 		if (updatedtextprinted == false)
 		{
-			printingtextupdate();
-			updatedtextprinted = true;
+			printinglinesoftext();
 		}
 	}
 
@@ -500,6 +507,34 @@ int hold = 0;
 		}
 	}
 
+	//-----Printing the Update Text-----//
+	void printinglinesoftext()
+	{
+		for (int i = 0; i < 2; ++i)
+		{
+			for (int j = 0; j < nooflettersfortext; j++)
+			{
+				if (textforline[i][j] == '-')
+				{
+					textforline[i][j] = (char)(32);
+				}
+				g_Console.writeToBuffer(lineoftext, textforline[i][j]);
+				lineoftext.X++;
+			}
+			if (nooflettersfortext == 40)
+			{
+				lineoftext.X = 2;
+				lineoftext.Y++;
+				break;
+			}
+			else
+			{
+				lineoftext.X = 2;
+				return;
+			}
+		}
+	}
+
 	//-----Textbox Render-----//
 	void textboxrender()
 	{
@@ -568,43 +603,9 @@ int hold = 0;
 	//---Spawning Projectiles---//
 	void printprojectiles(int arraycounter)
 	{
-		for (int i = 0; i <= arraycounter; ++i)
+		for (int j = 0; j <= arraycounter; j++)
 		{
-			if (Xcoord[i] == 0)
-			{
-				if (g_dElapsedTime < ProjectileTime)
-				{
-					g_Console.writeToBuffer(projectileCoord[i], projectile[i]);
-					continue;
-				}
-				projectileCoord[i].X++;
-				g_Console.writeToBuffer(projectileCoord[i].X - 2, projectileCoord[i].Y, " ");
-				g_Console.writeToBuffer(54, projectileCoord[i].Y, "#", color);
-				g_Console.writeToBuffer(73, projectileCoord[i].Y, "#", color);
-				if (projectileCoord[i].X == characterspawn.X && projectileCoord[i].Y == characterspawn.Y)
-				{
-					counter++;
-				}
-				ProjectileTime = g_dElapsedTime + 0.5;
-			}
-			else
-			{
-				if (g_dElapsedTime < ProjectileTime)
-				{
-					g_Console.writeToBuffer(projectileCoord[i], projectile[i]);
-					continue;
-				}
-				projectileCoord[i].X--;
-				g_Console.writeToBuffer(projectileCoord[i].X + 2, projectileCoord[i].Y, " ");
-				g_Console.writeToBuffer(54, projectileCoord[i].Y, "#", color);
-				g_Console.writeToBuffer(73, projectileCoord[i].Y, "#", color);
-				if (projectileCoord[i].X == characterspawn.X && projectileCoord[i].Y == characterspawn.Y)
-				{
-					counter++;
-				}
-				ProjectileTime = g_dElapsedTime + 0.5;
-			}
-			g_Console.writeToBuffer(projectileCoord[i], projectile[i]);
+			g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
 		}
 	}
 
@@ -615,6 +616,8 @@ int hold = 0;
 	{
 		playerinit();
 		displayinit();
+		printingtextupdate();
+		enemyinit(0);
 	}
 
 	//-----Initalizing for all enemies from Init-----//
@@ -864,22 +867,6 @@ int hold = 0;
 			}
 			textlines.close();
 		}
-
-		for (int i = 0; i < 2; ++i) //Edit this
-		{
-			for (int j = 0; j < 40; ++j)
-			{
-				if (textforline[i][j] == '-')
-				{
-					textforline[i][j] = (char)(32);
-				}
-				g_Console.writeToBuffer(lineoftext, textforline[i][j]);
-				renderToScreen();
-				lineoftext.X++;
-			}
-			lineoftext.X = 2;
-			lineoftext.Y++;
-		}
 	}
 
 /*/
@@ -1009,9 +996,9 @@ void Enemy::healthUpdate(int damageDone)
 //---Boss Attack/Defend MiniGame---//
 void Enemy::enemyattackgame()
 {
+	srand(time(NULL));
 	for (int i = 0; i <= 19; i++)
 	{
-		srand(time(NULL));
 		Xcoord[i] = rand() % 2; //Randomize left or right
 
 		if (Xcoord[i] == 0) //Setting projectile type and which directions
@@ -1028,6 +1015,52 @@ void Enemy::enemyattackgame()
 		int Ycoord = (rand() % 7) + 31; //Randomize which row it spawns
 		projectileCoord[i].Y = Ycoord;
 	}
+}
+
+void  Enemy::bullet()
+{
+	if (thisisatimeforprojectiles > g_dElapsedTime)
+	{
+		return;
+	}
+	if (thisisacount <= 19)
+	{
+		thisisacount++;
+	}
+	for (int i = 0; i < thisisacount * 2; i++)
+	{
+		if (Xcoord[i] == 0)
+		{
+			if (projectileCoord[i].X == 73)
+			{
+				continue;
+			}
+			else if (thisisacount % 2 == 1)
+			{
+				continue;
+			}
+			else
+			{
+				projectileCoord[i].X++;
+			}
+		}
+		else
+		{
+			if (projectileCoord[i].X == 54)
+			{
+				continue;
+			}
+			else if (thisisacount % 2 == 1)
+			{
+				continue;
+			}
+			else
+			{
+				projectileCoord[i].X--;
+			}
+		}
+	}
+	thisisatimeforprojectiles = g_dElapsedTime + 0.5;
 }
 
 /*/

@@ -126,6 +126,9 @@ public:
 
 	//---Boss Attack/Defend MiniGame---//
 	void enemyattackgame();
+
+	//---Updating the Bullets---//
+	void bullet();
 };
 
 
@@ -153,5 +156,6 @@ void buttonsinput();
 void aftinput();
 void combatreloop();
 void printprojectiles(int arraycounter);
+void printinglinesoftext();
 
 #endif //End of _COMBAT_H
