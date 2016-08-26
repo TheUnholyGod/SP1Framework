@@ -12,5 +12,6 @@
 
 bool colDetection(int levelnumber);
 bool creativeColDetection(int levelnumber);
+void isDoorSolid();
 
 #endif // End _COLLISION_H

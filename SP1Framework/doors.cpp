@@ -3,10 +3,12 @@
 extern SGameChar   g_sChar;
 extern bool		   g_abKeyPressed[K_COUNT];
 extern int		   g_CurrentLevel;
-extern bool		   isKeyObtain, DoorLocked;
+extern bool		   g_isKeyObtain, g_DoorLocked;
+extern bool g_isUpdated;
 
 void KeyObtain()
 {
+	COORD c;
 	ifstream file;
 	char txt[130][25];
 	int height = 0;
@@ -20,7 +22,20 @@ void KeyObtain()
 	case 2:
 		file.open("CampaignLevels/Level_2.txt");
 		break;
+	case 3:
+		file.open("CampaignLevels/Level_3.txt");
+		break;
+	case 4:
+		file.open("CampaignLevels/Level_4.txt");
+		break;
+	case 5:
+		file.open("CampaignLevels/Level_5.txt");
+		break;
+	case 6:
+		file.open("CampaignLevels/Level_6.txt");
+		break;
 	}
+
 
 	while (height < 25)
 	{
@@ -35,19 +50,8 @@ void KeyObtain()
 
 	if (g_abKeyPressed[K_E] && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'K')
 	{
-		if (g_CurrentLevel == 1)
-		{
-			isKeyObtain = false;
-			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'K')
-				isKeyObtain = true;
-		}
-
-		else if (g_CurrentLevel == 2)
-		{
-			isKeyObtain = false;
-			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'K')
-				isKeyObtain = true;
-		}
+		g_isKeyObtain = true;
+		g_isUpdated = false;
 	}
 }
 
@@ -79,4 +83,9 @@ void isDoorOpen()
 		height++;
 	}
 
+	if (g_abKeyPressed[K_E] && txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == 'k' && g_isKeyObtain == true)
+	{
+		g_DoorLocked = false;
+		g_isUpdated = false;
+	}
 }

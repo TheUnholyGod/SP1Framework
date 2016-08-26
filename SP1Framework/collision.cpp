@@ -3,7 +3,8 @@
 extern SGameChar   g_sChar;
 extern SCreaChar   g_sCreaChar;
 extern bool    g_abKeyPressed[K_COUNT];
-extern bool DoorLocked;
+extern bool g_isKeyEnough, g_DoorLocked;
+
 
 bool colDetection(int levelnumber)
 {
@@ -19,7 +20,7 @@ bool colDetection(int levelnumber)
 	if (levelnumber == 3)
 		file.open("CampaignLevels/Level_3.txt");
 	if (levelnumber == 4)
-		file.open("CampaignLevels/Level_4.txt");
+		file.open("CampaignLevels/Level_4.txt"); 
 	if (levelnumber == 5)
 		file.open("CampaignLevels/Level_5.txt");
 	if (levelnumber == 6)
@@ -44,79 +45,70 @@ bool colDetection(int levelnumber)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-<<<<<<< HEAD
-			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'D' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'd')
-			{
-				return false;
-			}
-=======
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W')
+		if (g_DoorLocked == true)
 		{
-			return false;
+			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'D')
+				return false;
 		}
-		else
-			return true;
 
->>>>>>> 24628e308276ed55038c53f3952fb86ce0ed28d0
+		else
+		{
+			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W')
+				return false;
+		}
+
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
 		//Beep(1440, 30);
 		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
-<<<<<<< HEAD
-
-			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'D' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'd')
-			{
-				return false;
-			}
-
-=======
-		if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W')
+		if (g_DoorLocked == true)
 		{
-			return false;
+			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'D')
+				return false;
 		}
+		
 		else
-			return true;
->>>>>>> 24628e308276ed55038c53f3952fb86ce0ed28d0
+		{
+			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W')
+				return false;
+		}
+
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
-<<<<<<< HEAD
-			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'D' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'd')
-			{
-				return false;
-			}
-
-=======
-		if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W')
+		if (g_DoorLocked == true)
 		{
-			return false;
+			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'D')
+				return false;
 		}
+
 		else
-			return true;
->>>>>>> 24628e308276ed55038c53f3952fb86ce0ed28d0
+		{
+			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W')
+				return false;
+		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
 		//Beep(1440, 30);
 		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
-<<<<<<< HEAD
-			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'D' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'd')
-			{
-				return false;
-			}
-=======
-		if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W')
+		if (g_DoorLocked == true)
 		{
-			return false;
+			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'D')
+				return false;
 		}
+
 		else
-			return true;
->>>>>>> 24628e308276ed55038c53f3952fb86ce0ed28d0
+		{
+			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W')
+				return false;
+		}
+
 	}
-	else
+
 		return true;
 }
 
@@ -163,8 +155,6 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-		else
-			return true;
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sCreaChar.m_cCreativeLocation.X > 0)
 	{
@@ -174,8 +164,6 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-		else
-			return true;
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
@@ -185,8 +173,6 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-		else
-			return true;
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCreaChar.m_cCreativeLocation.X < g_Console.getConsoleSize().X - 1)
 	{
@@ -196,9 +182,7 @@ bool creativeColDetection(int levelnumber)
 		{
 			return false;
 		}
-		else
-			return true;
 	}
-	else
-		return true;
+	
+	return true;
 }
