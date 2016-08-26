@@ -74,7 +74,7 @@ void init( void )
 	g_sCreaChar.m_cCreativeLocation.X = 1;
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Consolas");
+    g_Console.setConsoleFont(0, 16, L"Arial");
 
 	// -------- VARIABLES FOR DOORS -------- //
 	isKeyObtain = 0;
@@ -82,7 +82,7 @@ void init( void )
 	//Initializes the Enemies
 	enemyinit(0);
 	//Initializes the Player
-	playerinit();
+	combatinit();
 }
 
 //--------------------------------------------------------------
@@ -183,7 +183,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	if (g_isUpdated == false)
+	//if (g_isUpdated == false)
 	{
 		clearScreen();      // clears the current screen and draw from scratch 
 		renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -206,7 +206,7 @@ void render()
 			break;
 		case S_CREATIVE: renderCreative();
 			g_isUpdated = false;
-			break;	
+			break;
 		}
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 		g_isUpdated = true;
