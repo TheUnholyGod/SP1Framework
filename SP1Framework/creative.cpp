@@ -9,6 +9,8 @@ extern SCreaChar g_sCreaChar;
 extern double  g_dBounceTime;
 extern double  g_dElapsedTime;
 extern bool    g_abKeyPressed[K_COUNT];
+extern int cX;
+extern int cY;
 
 void creativeGameplay()
 {
@@ -30,6 +32,7 @@ void creativeMoveCharacter()
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.Y--;
+			cY++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -42,6 +45,7 @@ void creativeMoveCharacter()
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.X--;
+			cX++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -54,6 +58,7 @@ void creativeMoveCharacter()
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.Y++;
+			cY--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -65,6 +70,7 @@ void creativeMoveCharacter()
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.X++;
+			cX--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}

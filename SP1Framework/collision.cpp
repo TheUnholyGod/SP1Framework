@@ -50,6 +50,7 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'D')
 				return false;
 		}
+<<<<<<< HEAD
 
 		else
 		{
@@ -57,6 +58,8 @@ bool colDetection(int levelnumber)
 				return false;
 		}
 
+=======
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
@@ -67,6 +70,7 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'D')
 				return false;
 		}
+<<<<<<< HEAD
 		
 		else
 		{
@@ -74,6 +78,8 @@ bool colDetection(int levelnumber)
 				return false;
 		}
 
+=======
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
@@ -84,12 +90,15 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'D')
 				return false;
 		}
+<<<<<<< HEAD
 
 		else
 		{
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W')
 				return false;
 		}
+=======
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
@@ -100,6 +109,7 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'D')
 				return false;
 		}
+<<<<<<< HEAD
 
 		else
 		{
@@ -109,6 +119,9 @@ bool colDetection(int levelnumber)
 
 	}
 
+=======
+	}
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 		return true;
 }
 
@@ -183,6 +196,11 @@ bool creativeColDetection(int levelnumber)
 			return false;
 		}
 	}
+<<<<<<< HEAD
 	
 	return true;
 }
+=======
+		return true;
+}
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5

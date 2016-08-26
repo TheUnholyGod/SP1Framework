@@ -4,9 +4,21 @@
 	unsigned int maxMapHeight;
 	extern int character_X;
 	extern int character_Y;
+<<<<<<< HEAD
 	extern bool g_isKeyObtain, g_DoorLocked;
 	extern vector<COORD> locationDoor;
 	extern vector<COORD> locationWall;
+=======
+	extern int isKeyObtain;
+	extern SGameChar g_sChar;
+	extern SCreaChar g_sCreaChar;
+	extern int Y;
+	extern int X;
+	extern int cY;
+	extern int cX;
+	extern EGAMESTATES g_eGameState;
+
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field, int levelnumber)
@@ -132,12 +144,19 @@ char** store_map(char** field, int levelnumber)
 
 void print_map(char ** field)
 {
-	COORD c;
-	for (unsigned int i = 0; i < maxMapHeight; ++i)
+	//Codes for the torch light effect (game mode)
+	if (g_eGameState == S_GAME)
 	{
-		c.Y = i + 1;
-		for (unsigned int j = 0; j < maxMapWidth; ++j)
+	
+		unsigned int offsetX = g_sChar.m_cLocation.X - 6;
+		unsigned int offsetY = g_sChar.m_cLocation.Y - 3;
+		unsigned int maxY = maxMapHeight - Y;
+		unsigned int maxX = maxMapWidth - X;
+
+		//conditions for gamemode
+		if (g_sChar.m_cLocation.X <= 6)
 		{
+<<<<<<< HEAD
 			WORD color = 0x0B;
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-' || field[i][j] == 'k')
@@ -174,22 +193,163 @@ void print_map(char ** field)
 				{
 					color = 0x67;
 					field[i][j] = (char)177;
+=======
+			offsetX = 0;
+		}
+		if (g_sChar.m_cLocation.Y <= 3)
+		{
+			offsetY = 0;
+		}
+		if (g_sChar.m_cLocation.X >= 126)
+		{
+			maxX = 130;
+		}
+		if (g_sChar.m_cLocation.Y >= 23)
+		{
+			maxY = 25;
+		}
+		COORD c;
+		for (unsigned int i = offsetY; i < maxY; ++i)
+		{
+			c.Y = i + 1;
+			for (unsigned int j = offsetX; j < maxX; ++j)
+			{
+				WORD color = 0x0B;
+				//convert legend to actual ascii characters
+				if (field[i][j] == '-')
+				{
+					color = 0x07;
+					field[i][j] = (char)176;
 				}
-				else
+				else if (field[i][j] == 'W')
+				{
+					color = 0x0B;
+					field[i][j] = (char)178;
+				}
+				else if (field[i][j] == 'K')
+				{
+					if (isKeyObtain == 0)
+					{
+						color = 0x7C;
+						field[i][j] = (char)207;
+					}
+					else
+					{
+						color = 0x00;
+						field[i][j] = (char)176;
+					}
+				}
+				else if (field[i][j] == '+')
+				{
+					field[i][j] = (char)177;
+					color = 0x7C;
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
+				}
+				c.X = j;
+				g_Console.writeToBuffer(c, field[i][j], color);
+			}
+		}
+	}
+	//Codes for the torch light effect (creative mode)
+	else if (g_eGameState == S_CREATIVE)
+	{
+
+		unsigned int CoffsetX = g_sCreaChar.m_cCreativeLocation.X - 6;
+		unsigned int CoffsetY = g_sCreaChar.m_cCreativeLocation.Y - 3;
+		unsigned int CmaxY = maxMapHeight - cY;
+		unsigned int CmaxX = maxMapWidth - cX;
+
+		if (g_sCreaChar.m_cCreativeLocation.X <= 6)
+		{
+			CoffsetX = 0;
+		}
+		if (g_sCreaChar.m_cCreativeLocation.Y <= 3)
+		{
+			CoffsetY = 0;
+		}
+		if (g_sCreaChar.m_cCreativeLocation.X >= 126)
+		{
+			CmaxX = 130;
+		}
+		if (g_sCreaChar.m_cCreativeLocation.Y >= 23)
+		{
+			CmaxY = 25;
+		}
+		COORD c;
+		for (unsigned int i = CoffsetY; i < CmaxY; ++i)
+		{
+			c.Y = i + 1;
+			for (unsigned int j = CoffsetX; j < CmaxX; ++j)
+			{
+				WORD color = 0x0B;
+				//convert legend to actual ascii characters
+				if (field[i][j] == '-')
+				{
+					color = 0x07;
+<<<<<<< HEAD
+					field[i][j] = ' ';
+=======
+					field[i][j] = (char)176;
+>>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
+				}
+				else if (field[i][j] == 'W')
+				{
+					color = 0x0B;
+					field[i][j] = (char)178;
+				}
+				else if (field[i][j] == 'K')
+				{
+					if (isKeyObtain == 0)
+					{
+						color = 0x7C;
+						field[i][j] = (char)207;
+					}
+					else
+					{
+						color = 0x00;
+						field[i][j] = (char)176;
+					}
+				}
+				else if (field[i][j] == '+')
+				{
+					field[i][j] = (char)177;
+					color = 0x7C;
+				}
+				c.X = j;
+				g_Console.writeToBuffer(c, field[i][j], color);
+			}
+		}
+	}
+
+	//For editor,menu and splashscreens
+	else
+	{
+		COORD c;
+		for (int i = 0; i < maxMapHeight; ++i)
+		{
+			c.Y = i + 1;
+			for (int j = 0; j < maxMapWidth; ++j)
+			{
+				WORD color = 0x0B;
+				//convert legend to actual ascii characters
+				if (field[i][j] == '-')
 				{
 					color = 0x07;
 					field[i][j] = ' ';
 				}
+				if (field[i][j] == 'W')
+				{
+					color = 0x0B;
+					field[i][j] = (char)178;
+				}
+				if (field[i][j] == '+')
+				{
+					field[i][j] = (char)177;
+					color = 0x7C;
+				}
+				c.X = j;
+				g_Console.writeToBuffer(c, field[i][j], color);
 			}
-			else if (field[i][j] == '+')
-			{
-				character_X = i;
-				character_Y = j;
-				field[i][j] = (char)177;
-				color = 0x7C;
-			}
-			c.X = j;
-				g_Console.writeToBuffer(c, field[i][j],color);
 		}
 	}
 }

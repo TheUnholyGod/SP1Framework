@@ -8,15 +8,17 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** textbox = new char*[100]; // <------- Read levels from txt into this 2d array
+char** textbox = new char*[100]; // <------- Read textbox from txt into this 2d array
 char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
 char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 bool g_isMapLoaded;
+int Y;
+int X;
+int cY;
+int cX;
 
 // Game specific variables here
-extern int character_X;
-extern int character_Y;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
@@ -41,6 +43,10 @@ Console g_Console(130, 40, "SP1 Framework");
 //--------------------------------------------------------------
 void init( void )
 {
+	Y = 21;
+	X = 122;
+	cY = 21;
+	cX = 122;
 	//loads the text box into the array
 	textbox = store_map(textbox, 1001);
     // Set precision for floating point output
@@ -68,7 +74,7 @@ void init( void )
 	g_sCreaChar.m_cCreativeLocation.X = 1;
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Consolas");
+    g_Console.setConsoleFont(0, 16, L"Arial");
 
 	// -------- VARIABLES FOR DOORS -------- //
 	g_isKeyObtain = false; g_DoorLocked = true;
@@ -76,7 +82,7 @@ void init( void )
 	//Initializes the Enemies
 	enemyinit(0);
 	//Initializes the Player
-	playerinit();
+	combatinit();
 }
 
 //--------------------------------------------------------------
@@ -201,7 +207,7 @@ void render()
 			break;
 		case S_CREATIVE: renderCreative();
 			g_isUpdated = false;
-			break;	
+			break;
 		}
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 		g_isUpdated = true;
@@ -242,6 +248,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y--;
+				Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -254,6 +261,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X--;
+			X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -266,6 +274,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y++;
+				Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -277,6 +286,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X++;
+			X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
