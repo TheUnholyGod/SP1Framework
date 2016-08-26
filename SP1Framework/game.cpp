@@ -8,15 +8,17 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** textbox = new char*[100]; // <------- Read levels from txt into this 2d array
+char** textbox = new char*[100]; // <------- Read textbox from txt into this 2d array
 char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
 char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 bool g_isMapLoaded;
+int Y;
+int X;
+int cY;
+int cX;
 
 // Game specific variables here
-extern int character_X;
-extern int character_Y;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
@@ -25,7 +27,7 @@ Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-int isKeyObtain, DoorStatus;
+bool g_DoorLocked, g_isKeyObtain;;
 
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -41,6 +43,10 @@ Console g_Console(130, 40, "SP1 Framework");
 //--------------------------------------------------------------
 void init( void )
 {
+	Y = 21;
+	X = 122;
+	cY = 21;
+	cX = 122;
 	//loads the text box into the array
 	textbox = store_map(textbox, 1001);
     // Set precision for floating point output
@@ -71,7 +77,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Arial");
 
 	// -------- VARIABLES FOR DOORS -------- //
-	isKeyObtain = 0;
+	g_isKeyObtain = false; g_DoorLocked = true;
 
 	//Initializes the Player
 	combatinit();
@@ -149,7 +155,8 @@ void update(double dt)
 		g_isMapLoaded = true;
 	}
 	KeyObtain();
-    switch (g_eGameState)
+	isDoorOpen();
+	switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
@@ -175,7 +182,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false)
+	if (g_isUpdated == false)
 	{
 		clearScreen();      // clears the current screen and draw from scratch 
 		renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -239,6 +246,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y--;
+				Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -251,6 +259,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X--;
+			X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -263,6 +272,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y++;
+				Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -274,6 +284,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X++;
+			X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
