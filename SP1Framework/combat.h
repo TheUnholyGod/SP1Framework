@@ -17,6 +17,43 @@ using namespace std;
 using std::string;
 using std::vector;
 
+//-----Combat Gamestates-----//
+enum COMBAT
+{
+	COMBAT_GETINPUT,
+	COMBAT_AFTINPUT,
+	COMBAT_ATT,
+	COMBAT_ATT_PLAYER_TEXTUPDATE,
+	COMBAT_ATT_ENEMYGAME,
+	COMBAT_ATT_UPDATEALLSTATS,
+	COMBAT_DEF,
+	COMBAT_DEF_ENEMYGAME,
+	COMBAT_DEF_UPDATEALLSTATS,
+	COMBAT_VICTORY,
+	COMBAT_RELOOP
+};
+
+//-----Enum for Enemy Picture-----//
+enum ENEMYPIC
+{
+	ENEMYPIC_KAMBENGF1,
+	ENEMYPIC_SPIDER1
+};
+
+//-----Enum for Button Picture-----//
+enum BUTTONPIC
+{
+	BUTTONPIC_ATTBUTTON,
+	BUTTONPIC_DEFBUTTON
+};
+
+//-----Enum for Textbox Picture-----//
+enum TEXTBOXPIC
+{
+	TEXTBOXPIC_BASIC,
+	TEXTBOXPIC_DEF
+};
+
 //-----Player Class-----//
 class Player
 {
@@ -97,15 +134,24 @@ void combat();
 void combatdisplay();
 void attackProcess();
 void defendProcess();
-int checkVictory(int playerhealth, int enemyhealth);
+int checkVictory();
 void enemyinit(int select);
 void playerinit();
 char** enemyselector(char** dp, int enemyno);
-char** buttonsdisplay(char** buttonfill);
-char** textboxdisplay(char** textboxfill);
+char** buttonsdisplay(char** buttonfill, int printno);
+char** textboxdisplay(char** textboxfill, int read);
 void renderCharacterSymbol(COORD a);
 void symbolMovement();
 void holdtimer();
 void printingtextupdate();
+void displayinit();
+void enemyrender();
+void buttonrender();
+void textboxrender();
+void combatinit();
+void buttonsinput();
+void aftinput();
+void combatreloop();
+void printprojectiles(int arraycounter);
 
 #endif //End of _COMBAT_H
