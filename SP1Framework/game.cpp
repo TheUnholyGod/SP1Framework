@@ -183,7 +183,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false)
+	if (g_isUpdated == false)
 	{
 		clearScreen();      // clears the current screen and draw from scratch 
 		renderFramerate();  // renders debug information, frame rate, elapsed time, etc
