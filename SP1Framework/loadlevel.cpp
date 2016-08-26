@@ -4,12 +4,9 @@
 	unsigned int maxMapHeight;
 	extern int character_X;
 	extern int character_Y;
-<<<<<<< HEAD
 	extern bool g_isKeyObtain, g_DoorLocked;
 	extern vector<COORD> locationDoor;
 	extern vector<COORD> locationWall;
-=======
-	extern int isKeyObtain;
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
 	extern int Y;
@@ -17,8 +14,6 @@
 	extern int cY;
 	extern int cX;
 	extern EGAMESTATES g_eGameState;
-
->>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field, int levelnumber)
@@ -156,44 +151,6 @@ void print_map(char ** field)
 		//conditions for gamemode
 		if (g_sChar.m_cLocation.X <= 6)
 		{
-<<<<<<< HEAD
-			WORD color = 0x0B;
-			//convert legend to actual ascii characters
-			if (field[i][j] == '-' || field[i][j] == 'k')
-			{
-				color = 0x07;
-				field[i][j] = ' ';
-			}
-			else if (field[i][j] == 'W')
-			{	
-				color = 0x0B;
-				field[i][j] = (char)178;
-			}
-			else if (field[i][j] == '*')
-			{
-				field[i][j] = ' ';
-			}
-			else if (field[i][j] == 'D')
-			{
-				if (g_DoorLocked == true)
-				{
-					color = 0x67;
-					field[i][j] = (char)178;
-				}					
-				else
-				{
-				color = 0x07;
-				field[i][j] = ' ';
-				}
-			}
-			
-			else if (field[i][j] == 'K')
-			{
-				if (g_isKeyObtain == false)
-				{
-					color = 0x67;
-					field[i][j] = (char)177;
-=======
 			offsetX = 0;
 		}
 		if (g_sChar.m_cLocation.Y <= 3)
@@ -228,7 +185,7 @@ void print_map(char ** field)
 				}
 				else if (field[i][j] == 'K')
 				{
-					if (isKeyObtain == 0)
+					if (g_isKeyObtain)
 					{
 						color = 0x7C;
 						field[i][j] = (char)207;
@@ -243,7 +200,6 @@ void print_map(char ** field)
 				{
 					field[i][j] = (char)177;
 					color = 0x7C;
->>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, field[i][j], color);
@@ -286,11 +242,7 @@ void print_map(char ** field)
 				if (field[i][j] == '-')
 				{
 					color = 0x07;
-<<<<<<< HEAD
-					field[i][j] = ' ';
-=======
 					field[i][j] = (char)176;
->>>>>>> ddbd923ab7dfd419a50cdb303fd0166fa6dff6e5
 				}
 				else if (field[i][j] == 'W')
 				{
@@ -299,7 +251,7 @@ void print_map(char ** field)
 				}
 				else if (field[i][j] == 'K')
 				{
-					if (isKeyObtain == 0)
+					if (g_isKeyObtain)
 					{
 						color = 0x7C;
 						field[i][j] = (char)207;

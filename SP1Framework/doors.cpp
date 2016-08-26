@@ -74,11 +74,8 @@ void isDoorOpen()
 
 	while (height < 25)
 	{
-<<<<<<< HEAD
 		if (g_CurrentLevel == 1 && (txt[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == 'K'))
-=======
 		while (width < 130)
->>>>>>> 9566c72f5967cbb5b3f7419d7a644dca133a0d96
 		{
 			file >> txt[width][height];
 			width++;
