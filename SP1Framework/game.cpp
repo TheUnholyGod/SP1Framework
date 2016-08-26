@@ -8,17 +8,17 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** textbox = new char*[100]; // <------- Read levels from txt into this 2d array
+char** textbox = new char*[100]; // <------- Read textbox from txt into this 2d array
 char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
 char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 bool g_isMapLoaded;
 int Y;
 int X;
+int cY;
+int cX;
 
 // Game specific variables here
-extern int character_X;
-extern int character_Y;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
@@ -45,6 +45,8 @@ void init( void )
 {
 	Y = 21;
 	X = 122;
+	cY = 21;
+	cX = 122;
 	//loads the text box into the array
 	textbox = store_map(textbox, 1001);
     // Set precision for floating point output

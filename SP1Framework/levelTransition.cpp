@@ -11,6 +11,8 @@ extern bool	   g_isMapLoaded;
 extern bool	   g_isUpdated;
 extern int X;
 extern int Y;
+extern int cX;
+extern int cY;
 
 void checkGameGoal()
 {
@@ -62,16 +64,12 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			X = 122;
 			Y = 21;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
 		}
 		if (g_CurrentLevel == 2 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
 			g_CurrentLevel = 3;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
 			X = 122;
 			Y = 21;
 		}
@@ -80,8 +78,6 @@ void checkGameGoal()
 			g_CurrentLevel = 4;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
 			X = 122;
 			Y = 21;
 		}
@@ -90,8 +86,6 @@ void checkGameGoal()
 			g_CurrentLevel = 5;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
 			X = 122;
 			Y = 21;
 		}
@@ -100,8 +94,6 @@ void checkGameGoal()
 			g_CurrentLevel = 6;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
 			X = 122;
 			Y = 21;
 		}
@@ -110,8 +102,6 @@ void checkGameGoal()
 			g_CurrentLevel = 1;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
 			X = 122;
 			Y = 21;
 		}
@@ -172,48 +162,48 @@ void checkCreativeGameGoal()
 			g_CreativeLevel = 102;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
+			cX = 122;
+			cY = 21;
 		}
 		if (g_CreativeLevel == 102 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 103;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
+			cX = 122;
+			cY = 21;
 		}
 		if (g_CreativeLevel == 103 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 104;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
+			cX = 122;
+			cY = 21;
 		}
 		if (g_CreativeLevel == 104 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 105;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
+			cX = 122;
+			cY = 21;
 		}
 		if (g_CreativeLevel == 105 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 106;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
+			cX = 122;
+			cY = 21;
 		}
 		if (g_CreativeLevel == 106 && (txt[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y - 1] == '+'))
 		{
 			g_CreativeLevel = 101;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			//g_isUpdated = false;
-			//g_isMapLoaded = false;
+			cX = 122;
+			cY = 21;
 		}
 		g_isUpdated = false;
 		g_isMapLoaded = false;
