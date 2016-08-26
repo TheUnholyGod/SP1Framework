@@ -9,6 +9,7 @@
 	extern int Y;
 	extern int X;
 
+
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
 {
@@ -150,6 +151,15 @@ void print_map(char ** field)
 	{
 		offsetY = 0;
 	}
+	if (g_sChar.m_cLocation.X >= 126)
+	{
+		maxX = 130;
+	}
+	if (g_sChar.m_cLocation.Y >= 23)
+	{
+		maxY = 25;
+	}
+
 	COORD c;
 	for (unsigned int i = offsetY; i < maxY; ++i)
 	{
