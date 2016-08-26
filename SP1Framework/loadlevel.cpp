@@ -5,6 +5,9 @@
 	extern int character_X;
 	extern int character_Y;
 	extern int isKeyObtain;
+	extern SGameChar g_sChar;
+	extern int Y;
+	extern int X;
 
 ////////// Function CREATE THE FIELD //////////
 char** store_map(char** field,int levelnumber)
@@ -133,18 +136,32 @@ char** store_map(char** field,int levelnumber)
 }
 void print_map(char ** field)
 {
+	unsigned int offsetX = g_sChar.m_cLocation.X-6;
+	unsigned int offsetY = g_sChar.m_cLocation.Y-3;
+
+	unsigned int maxY = maxMapHeight - Y;
+	unsigned int maxX = maxMapWidth - X;
+
+	if (g_sChar.m_cLocation.X <= 6)
+	{
+		offsetX = 0;
+	}
+	if (g_sChar.m_cLocation.Y <= 3)
+	{
+		offsetY = 0;
+	}
 	COORD c;
-	for (unsigned int i = 0; i < maxMapHeight; ++i)
+	for (unsigned int i = offsetY; i < maxY; ++i)
 	{
 		c.Y = i + 1;
-		for (unsigned int j = 0; j < maxMapWidth; ++j)
+		for (unsigned int j = offsetX; j < maxX; ++j)
 		{
 			WORD color = 0x0B;
 			//convert legend to actual ascii characters
 			if (field[i][j] == '-')
 			{
 				color = 0x07;
-				field[i][j] = ' ';
+				field[i][j] = (char)176;
 			}
 			else if (field[i][j] == 'W')
 			{

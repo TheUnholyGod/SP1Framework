@@ -9,6 +9,8 @@ extern SCreaChar   g_sCreaChar;
 extern bool    g_abKeyPressed[K_COUNT];
 extern bool	   g_isMapLoaded;
 extern bool	   g_isUpdated;
+extern int X;
+extern int Y;
 
 void checkGameGoal()
 {
@@ -58,6 +60,8 @@ void checkGameGoal()
 			g_CurrentLevel = 2;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
+			X = 122;
+			Y = 21;
 			//g_isUpdated = false;
 			//g_isMapLoaded = false;
 		}
@@ -68,6 +72,8 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 			//g_isMapLoaded = false;
+			X = 122;
+			Y = 21;
 		}
 		if (g_CurrentLevel == 3 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
@@ -76,6 +82,8 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 			//g_isMapLoaded = false;
+			X = 122;
+			Y = 21;
 		}
 		if (g_CurrentLevel == 4 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
@@ -84,6 +92,8 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 			//g_isMapLoaded = false;
+			X = 122;
+			Y = 21;
 		}
 		if (g_CurrentLevel == 5 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
@@ -92,6 +102,8 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 			//g_isMapLoaded = false;
+			X = 122;
+			Y = 21;
 		}
 		if (g_CurrentLevel == 6 && (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] == '+'))
 		{
@@ -100,6 +112,8 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			//g_isUpdated = false;
 			//g_isMapLoaded = false;
+			X = 122;
+			Y = 21;
 		}
 		g_isUpdated = false;
 		g_isMapLoaded = false;

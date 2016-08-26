@@ -13,6 +13,8 @@ char** txt = new char*[1000]; // <------- Read levels from txt into this 2d arra
 char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
 bool g_isUpdated;
 bool g_isMapLoaded;
+int Y;
+int X;
 
 // Game specific variables here
 extern int character_X;
@@ -41,6 +43,8 @@ Console g_Console(130, 40, "SP1 Framework");
 //--------------------------------------------------------------
 void init( void )
 {
+	Y = 21;
+	X = 122;
 	//loads the text box into the array
 	textbox = store_map(textbox, 1001);
     // Set precision for floating point output
@@ -241,6 +245,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y--;
+				Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -253,6 +258,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X--;
+			X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -265,6 +271,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y++;
+				Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -276,6 +283,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X++;
+			X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
