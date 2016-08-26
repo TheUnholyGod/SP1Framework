@@ -5,5 +5,6 @@
 #include "game.h"
 
 void KeyObtain();
+void isDoorOpen();
 
 #endif

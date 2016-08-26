@@ -13,6 +13,7 @@
 #include "creative.h"
 #include "instruction.h"
 #include "doors.h"
+#include <vector>
 #include <iostream>
 #include <iomanip>
 #include <sstream>

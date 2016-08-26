@@ -27,7 +27,7 @@ Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-int isKeyObtain, DoorStatus;
+bool g_DoorLocked, g_isKeyObtain;;
 
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -77,7 +77,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Arial");
 
 	// -------- VARIABLES FOR DOORS -------- //
-	isKeyObtain = 0;
+	g_isKeyObtain = false; g_DoorLocked = true;
 
 	//Initializes the Enemies
 	enemyinit(0);
@@ -157,7 +157,8 @@ void update(double dt)
 		g_isMapLoaded = true;
 	}
 	KeyObtain();
-    switch (g_eGameState)
+	isDoorOpen();
+	switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;

@@ -1,6 +1,7 @@
 #include"instruction.h"
 
 extern char** textbox;
+extern vector<COORD> locationDoor;
 
 void renderGameInstruction()
 {
