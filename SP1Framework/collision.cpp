@@ -20,7 +20,7 @@ bool colDetection(int levelnumber)
 	if (levelnumber == 3)
 		file.open("CampaignLevels/Level_3.txt");
 	if (levelnumber == 4)
-		file.open("CampaignLevels/Level_4.txt"); 
+		file.open("CampaignLevels/Level_4.txt");
 	if (levelnumber == 5)
 		file.open("CampaignLevels/Level_5.txt");
 	if (levelnumber == 6)
@@ -50,6 +50,11 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'D')
 				return false;
 		}
+		else
+		{
+			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 2] == 'W')
+				return false;
+		}
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
@@ -58,6 +63,11 @@ bool colDetection(int levelnumber)
 		if (g_DoorLocked == true)
 		{
 			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'D')
+				return false;
+		}
+		else
+		{
+			if (txt[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y - 1] == 'W')
 				return false;
 		}
 	}
@@ -70,6 +80,11 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W' || txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'D')
 				return false;
 		}
+		else
+		{
+			if (txt[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'W')
+				return false;
+		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
@@ -80,12 +95,19 @@ bool colDetection(int levelnumber)
 			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W' || txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'D')
 				return false;
 		}
-		return true;
-	}
-}
+		else
+		{
+			if (txt[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y - 1] == 'W')
+				return false;
+		}
 
-	bool creativeColDetection(int levelnumber)
-	{
+	}
+	return true;
+}
+		
+
+bool creativeColDetection(int levelnumber)
+{
 		char txt[130][25];
 		int height = 0;
 		int width = 0;
@@ -156,4 +178,4 @@ bool colDetection(int levelnumber)
 			}
 		}
 		return true;
-	}
+}

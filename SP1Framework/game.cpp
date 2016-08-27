@@ -79,8 +79,6 @@ void init( void )
 	// -------- VARIABLES FOR DOORS -------- //
 	g_isKeyObtain = false; g_DoorLocked = true;
 
-	//Initializes the Enemies
-	enemyinit(0);
 	//Initializes the Player
 	combatinit();
 }

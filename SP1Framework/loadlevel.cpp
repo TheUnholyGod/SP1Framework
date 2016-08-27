@@ -5,8 +5,6 @@
 	extern int character_X;
 	extern int character_Y;
 	extern bool g_isKeyObtain, g_DoorLocked;
-	extern vector<COORD> locationDoor;
-	extern vector<COORD> locationWall;
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
 	extern int Y;
@@ -177,7 +175,7 @@ void print_map(char ** field)
 			{
 				WORD color = 0x0B;
 				//convert legend to actual ascii characters
-				if (field[i][j] == '-')
+				if (field[i][j] == '-' || field[i][j] == 'k')
 				{
 					color = 0x07;
 					field[i][j] = (char)176;
@@ -187,16 +185,30 @@ void print_map(char ** field)
 					color = 0x0B;
 					field[i][j] = (char)178;
 				}
+				else if (field[i][j] == 'D')
+				{
+					if (g_DoorLocked == true)
+					{
+						color = 0x67;
+						field[i][j] = (char)178;
+					}
+
+					else
+					{
+						color = 0x07;
+						field[i][j] = (char)176;
+					}
+				}
 				else if (field[i][j] == 'K')
 				{
 					if (g_isKeyObtain==false)
 					{
-						color = 0x7C;
-						field[i][j] = (char)207;
+						field[i][j] = (char)177;
+						color = 0x67;
 					}
 					else
 					{
-						color = 0x00;
+						color = 0x07;
 						field[i][j] = (char)176;
 					}
 				}
