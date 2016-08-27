@@ -125,16 +125,20 @@ char** store_map(char** field, int levelnumber)
 		maxMapWidth = 130;
 		maxMapHeight = 39;
 	}
-	//stores the map data into a 2d array and returns it
-	for (unsigned int i = 0; i < maxMapHeight; i++)
+	if (file.is_open())
 	{
-		field[i] = new char[maxMapWidth];
-		for (unsigned int j = 0; j < maxMapWidth; j++)
+		//stores the map data into a 2d array and returns it
+		for (unsigned int i = 0; i < maxMapHeight; i++)
 		{
-			file >> field[i][j];
+			field[i] = new char[maxMapWidth];
+			for (unsigned int j = 0; j < maxMapWidth; j++)
+			{
+				file >> field[i][j];
+			}
 		}
+		file.close();
+		return field;
 	}
-	return field;
 }
 
 void print_map(char ** field)
@@ -185,7 +189,7 @@ void print_map(char ** field)
 				}
 				else if (field[i][j] == 'K')
 				{
-					if (g_isKeyObtain)
+					if (g_isKeyObtain==false)
 					{
 						color = 0x7C;
 						field[i][j] = (char)207;
@@ -251,7 +255,7 @@ void print_map(char ** field)
 				}
 				else if (field[i][j] == 'K')
 				{
-					if (g_isKeyObtain)
+					if (g_isKeyObtain==false)
 					{
 						color = 0x7C;
 						field[i][j] = (char)207;
