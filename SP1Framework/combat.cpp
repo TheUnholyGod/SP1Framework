@@ -515,7 +515,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.skeleton1;
 			if (animate == true)
 			{
-				display = enemypicture.skeleton2;;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_SKELETON2;
 				animate = false;
 			}
 			break;
@@ -524,7 +525,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.skeleton2;
 			if (animate == true)
 			{
-				display = enemypicture.skeleton1;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_SKELETON1;
 				animate = false;
 			}
 			break;
@@ -533,7 +535,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.Fish1;
 			if (animate == true)
 			{
-				display = enemypicture.Fish2;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_FISH2;
 				animate = false;
 			}
 			break;
@@ -542,7 +545,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.Fish2;
 			if (animate == true)
 			{
-				display = enemypicture.Fish1;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_FISH1;
 				animate = false;
 			}
 			break;
@@ -551,7 +555,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.spider1;
 			if (animate == true)
 			{
-				display = enemypicture.spider2;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_SPIDER2;
 				animate = false;
 			}
 			break;
@@ -560,7 +565,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.spider2;
 			if (animate == true)
 			{
-				display = enemypicture.spider1;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_SPIDER1;
 				animate = false;
 			}
 			break;
@@ -569,7 +575,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.robot1;
 			if (animate == true)
 			{
-				display = enemypicture.robot2;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_ROBOT2;
 				animate = false;
 			}
 			break;
@@ -578,7 +585,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.robot2;
 			if (animate == true)
 			{
-				display = enemypicture.robot1;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_ROBOT1;
 				animate = false;
 			}
 			break;
@@ -587,7 +595,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.KAMBENG1;
 			if (animate == true)
 			{
-				display = enemypicture.KAMBENG2;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_KAMBENG2;
 				animate = false;
 			}
 			break;
@@ -596,7 +605,8 @@ int thisisatimeforprojectiles = 0;
 			display = enemypicture.KAMBENG2;
 			if (animate == true)
 			{
-				display = enemypicture.KAMBENG1;
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_KAMBENG1;
 				animate = false;
 			}
 			break;
