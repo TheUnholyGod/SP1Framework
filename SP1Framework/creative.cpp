@@ -1,5 +1,6 @@
 #include "creative.h"
 
+extern bool g_isKeyObtain;
 extern bool g_isUpdated;
 extern bool g_isMapLoaded;
 extern char** creative;
@@ -14,6 +15,8 @@ extern int cY;
 
 void creativeGameplay()
 {
+	KeyObtain();
+	DoorOpen();
 	checkCreativeGameGoal();
 	processUserInput();
 	creativeMoveCharacter();

@@ -45,7 +45,7 @@ bool creativeColDetection(int levelnumber)
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] == (char)178 || map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X - 1] == (char)219)
+		if (map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] == (char)178 || map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] == (char)219)
 			return false;
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 1)

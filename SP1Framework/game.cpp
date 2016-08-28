@@ -12,10 +12,6 @@ char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
 bool    g_isKeyObtain;
-int     Y;
-int     X;
-int     cY;
-int     cX;
 
 // Game specific variables here
 int g_CurrentLevel;
