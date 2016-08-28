@@ -13,7 +13,17 @@ extern double g_dBounceTime;
 struct enemypic
 {
 	char** kambengF1 = new char*[53];
+	char** kambengF2 = new char*[53];
+	char** skeleton1 = new char*[53];
+	char** skeleton2 = new char*[53];
+	char** Fish1 = new char*[53];
+	char** Fish2 = new char*[53];
 	char** spider1 = new char*[53];
+	char** spider2 = new char*[53];
+	char** robot1 = new char*[53];
+	char** robot2 = new char*[53];
+	char** KAMBENG1 = new char*[53];
+	char** KAMBENG2 = new char*[53];
 }enemypicture;
 
 //-----Struct for Button Picture-----//
@@ -36,7 +46,7 @@ struct stringcompiled
 	string names[6];
 	string idleTexts;
 	string updateTexts[6];
-	string attacktext;
+	string attacktext[12];
 }stringz;
 
 //-----Object and Identifier Declaration-----//
@@ -62,10 +72,11 @@ int BossesDefeated = 0;
 int counter;
 int holddamage;
 int damagetaken;
-double thisisatime ;
+double thisisatime;
 double thisisatime2;
 double thisisatimeforspace;
 double waittime;
+double thisisatimeforanimation = g_dElapsedTime + 0.5;
 bool isUpPressed = true;
 bool isEnemyAttActive = false;
 bool whenSpacePressed = false;
@@ -73,6 +84,7 @@ bool charmoved = false;
 bool textboxprinted = false;
 bool updatedtextprinted = true;
 bool defended = false;
+bool animate = false;
 
 string projectile1 = "<=";
 string projectile2 = "=>";
@@ -143,7 +155,7 @@ int thisisatimeforprojectiles = 0;
 			characterspawn.Y = 35;
 			holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
 			enemy1.healthUpdate(holddamage);
-			waittime = g_dElapsedTime + 5;
+			waittime = g_dElapsedTime + 2.5;
 			updatedtextprinted = false;
 			combatgameplay = COMBAT_ATT_PLAYER_TEXTUPDATE;
 			return;
@@ -188,23 +200,24 @@ int thisisatimeforprojectiles = 0;
 				}
 				if (thisisatime2 <= g_dElapsedTime)
 				{
+					thisisacount = 0;
+					textboxprinted = false;
+					updatedtextprinted = false;
+					waittime = g_dElapsedTime + 2.5;
+					int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
+					damagetaken = player1.damageSustained(damage, player1.character.Defence) * counter;
+					player1.healthUpdate(damagetaken);
 					combatgameplay = COMBAT_ATT_UPDATEALLSTATS;
 				}
-			}
-			else
-			{
-				combatgameplay = COMBAT_ATT_UPDATEALLSTATS;
-				return;
 			}
 		}
 		else if (combatgameplay == COMBAT_ATT_UPDATEALLSTATS)
 		{
-			thisisacount = 0;
-			textboxprinted = false;
-			int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
-			damagetaken = player1.damageSustained(damage, player1.character.Defence) * counter;
-			player1.healthUpdate(hold);
 			isEnemyAttActive = false;
+			if (waittime > g_dElapsedTime) //use in display and for diff states
+			{
+				return;
+			}
 			combatgameplay = COMBAT_VICTORY;
 			return;
 		}
@@ -239,6 +252,7 @@ int thisisatimeforprojectiles = 0;
 			}
 			if (g_dElapsedTime >= thisisatime2)
 			{
+				waittime = g_dElapsedTime + 2.5;
 				combatgameplay = COMBAT_DEF_UPDATEALLSTATS;
 			}
 		}
@@ -251,6 +265,10 @@ int thisisatimeforprojectiles = 0;
 			counter = 0;
 			defended = true;
 			updatedtextprinted == false;
+			if (waittime > g_dElapsedTime) //use in display and for diff states
+			{
+				return;
+			}
 			combatgameplay = COMBAT_VICTORY;
 		}
 	}
@@ -475,10 +493,112 @@ int thisisatimeforprojectiles = 0;
 		{
 		case ENEMYPIC_KAMBENGF1:
 			display = enemypicture.kambengF1;
+			if (animate == true)
+			{
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_KAMBENGF2;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_KAMBENGF2:
+			display = enemypicture.kambengF2;
+			if (animate == true)
+			{
+				thisisatimeforanimation = g_dElapsedTime + 1;
+				displayno1 = ENEMYPIC_KAMBENGF1;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_SKELETON1:
+			display = enemypicture.skeleton1;
+			if (animate == true)
+			{
+				display = enemypicture.skeleton2;;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_SKELETON2:
+			display = enemypicture.skeleton2;
+			if (animate == true)
+			{
+				display = enemypicture.skeleton1;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_FISH1:
+			display = enemypicture.Fish1;
+			if (animate == true)
+			{
+				display = enemypicture.Fish2;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_FISH2:
+			display = enemypicture.Fish2;
+			if (animate == true)
+			{
+				display = enemypicture.Fish1;
+				animate = false;
+			}
 			break;
 
 		case ENEMYPIC_SPIDER1:
 			display = enemypicture.spider1;
+			if (animate == true)
+			{
+				display = enemypicture.spider2;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_SPIDER2:
+			display = enemypicture.spider2;
+			if (animate == true)
+			{
+				display = enemypicture.spider1;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_ROBOT1:
+			display = enemypicture.robot1;
+			if (animate == true)
+			{
+				display = enemypicture.robot2;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_ROBOT2:
+			display = enemypicture.robot2;
+			if (animate == true)
+			{
+				display = enemypicture.robot1;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_KAMBENG1:
+			display = enemypicture.KAMBENG1;
+			if (animate == true)
+			{
+				display = enemypicture.KAMBENG2;
+				animate = false;
+			}
+			break;
+
+		case ENEMYPIC_KAMBENG2:
+			display = enemypicture.KAMBENG2;
+			if (animate == true)
+			{
+				display = enemypicture.KAMBENG1;
+				animate = false;
+			}
 			break;
 
 		default:
@@ -498,6 +618,11 @@ int thisisatimeforprojectiles = 0;
 			}
 			combatdisplaycoord.X = 0;
 			combatdisplaycoord.Y++;
+		}
+		if (thisisatimeforanimation < g_dElapsedTime)
+		{
+			animate = true;
+			return;
 		}
 	}
 
@@ -546,7 +671,7 @@ int thisisatimeforprojectiles = 0;
 		lineoftext.X = 4;
 		lineoftext.Y = 32;
 
-		if (combatgameplay == COMBAT_ATT_PLAYER_TEXTUPDATE || combatgameplay == COMBAT_DEF_UPDATEALLSTATS)
+		if (combatgameplay == COMBAT_ATT_PLAYER_TEXTUPDATE)
 		{
 			string Damage = static_cast<ostringstream*>(&(ostringstream() << holddamage))->str();
 
@@ -577,7 +702,7 @@ int thisisatimeforprojectiles = 0;
 			lineoftext.X += stringz.names[name].length();
 			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[2]);
 		}
-		else if (combatgameplay == COMBAT_ATT_UPDATEALLSTATS)
+		else if (combatgameplay == COMBAT_ATT_UPDATEALLSTATS || combatgameplay == COMBAT_DEF_UPDATEALLSTATS)
 		{
 			string noOfTimesHit = static_cast<ostringstream*>(&(ostringstream() << counter))->str();
 			string damagetook = static_cast<ostringstream*>(&(ostringstream() << damagetaken))->str();
@@ -784,17 +909,17 @@ int thisisatimeforprojectiles = 0;
 	//-----Initilasing Player Stats-----//
 	void playerinit()
 	{
-		int Health = 100;
-		int Attack = 10;
-		int Defence = 10;
+		int health = 100;
+		int attack = 10;
+		int defence = 10;
 
-		player1.playerBase(Health, Attack, Defence);
+		player1.playerBase(health, attack, defence);
 	}
 
 	//-----Writing into Double Array-----//
 	void displayinit()
 	{
-		for (int i = 2; enemySelector < i; enemySelector++)
+		for (int i = 12; enemySelector < i; enemySelector++)
 		{
 			if (enemySelector == 0)
 			{
@@ -802,7 +927,47 @@ int thisisatimeforprojectiles = 0;
 			}
 			else if (enemySelector == 1)
 			{
+				enemypicture.kambengF2 = enemyselector(enemypicture.kambengF2, enemySelector);
+			}
+			else if (enemySelector == 2)
+			{
+				enemypicture.skeleton1 = enemyselector(enemypicture.skeleton1, enemySelector);
+			}
+			else if (enemySelector == 3)
+			{
+				enemypicture.skeleton2 = enemyselector(enemypicture.skeleton2, enemySelector);
+			}
+			else if (enemySelector == 4)
+			{
+				enemypicture.Fish1 = enemyselector(enemypicture.Fish1, enemySelector);
+			}
+			else if (enemySelector == 5)
+			{
+				enemypicture.Fish2 = enemyselector(enemypicture.Fish2, enemySelector);
+			}
+			else if (enemySelector == 6)
+			{
 				enemypicture.spider1 = enemyselector(enemypicture.spider1, enemySelector);
+			}
+			else if (enemySelector == 7)
+			{
+				enemypicture.spider2 = enemyselector(enemypicture.spider2, enemySelector);
+			}
+			else if (enemySelector == 8)
+			{
+				enemypicture.robot1 = enemyselector(enemypicture.robot1, enemySelector);
+			}
+			else if (enemySelector == 9)
+			{
+				enemypicture.robot2 = enemyselector(enemypicture.robot2, enemySelector);
+			}
+			else if (enemySelector == 10)
+			{
+				enemypicture.KAMBENG1 = enemyselector(enemypicture.KAMBENG1, enemySelector);
+			}
+			else if (enemySelector == 11)
+			{
+				enemypicture.KAMBENG2 = enemyselector(enemypicture.KAMBENG2, enemySelector);
 			}
 		}
 
@@ -845,9 +1010,29 @@ int thisisatimeforprojectiles = 0;
 		ifstream monster;
 
 		if (enemyno == 0)
-			monster.open("Combat/Goat1.txt");
+			monster.open("Combat/KambengF1.txt");
 		else if (enemyno == 1)
-			monster.open("Combat/Spider.txt");
+			monster.open("Combat/KambengF2.txt");
+		else if (enemyno == 2)
+			monster.open("Combat/Skeleton1.txt");
+		else if (enemyno == 3)
+			monster.open("Combat/Skeleton2.txt");
+		else if (enemyno == 4)
+			monster.open("Combat/Fish1.txt");
+		else if (enemyno == 5)
+			monster.open("Combat/Fish2.txt");
+		else if (enemyno == 6)
+			monster.open("Combat/Spider1.txt");
+		else if (enemyno == 7)
+			monster.open("Combat/Spider2.txt");
+		else if (enemyno == 8)
+			monster.open("Combat/Robot1.txt");
+		else if (enemyno == 9)
+			monster.open("Combat/Robot2.txt");
+		else if (enemyno == 10)
+			monster.open("Combat/KAMBENG1.txt");
+		else if (enemyno == 11)
+			monster.open("Combat/KAMBENG2.txt");
 
 		if (monster.is_open())
 		{
