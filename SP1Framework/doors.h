@@ -4,4 +4,7 @@
 
 #include "game.h"
 
+void KeyObtain();
+void DoorOpen();
+
 #endif

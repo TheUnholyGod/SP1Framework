@@ -24,15 +24,11 @@ void creativeMoveCharacter()
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
 	// Updating the location of the character based on the key press
-	// providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sCreaChar.m_cCreativeLocation.Y > 0)
 	{
-		//Beep(1440, 30);
-		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.Y--;
-			cY++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -40,12 +36,9 @@ void creativeMoveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sCreaChar.m_cCreativeLocation.X > 0)
 	{
-		//Beep(1440, 30);
-		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.X--;
-			cX++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -53,24 +46,18 @@ void creativeMoveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		//Beep(1440, 30);
-		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.Y++;
-			cY--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCreaChar.m_cCreativeLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		//Beep(1440, 30);
-		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.X++;
-			cX--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}

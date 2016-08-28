@@ -132,17 +132,30 @@ void saveMap(int levelnumber)
 			{
 				while (width < 130)
 				{
-					if (map[height][width] == (char)176) //converts the key and walkable area
+					//converts the ascii codes back to letters to be stored in txt
+					if (map[height][width] == (char)176) 
 					{
 						map[height][width] = '-';
 					}
-					else if (map[height][width] == (char)178) //converts wall 'W', to ascii character 178
+					else if (map[height][width] == (char)178) 
 					{
 						map[height][width] = 'W';
 					}
-					else if (map[height][width] == (char)177) //converts end point '+', to ascii character 177
+					else if (map[height][width] == (char)177)
 					{
 						map[height][width] = '+';
+					}
+					else if (map[height][width] == (char)168)
+					{
+						map[height][width] = 'K';
+					}
+					else if (map[height][width] == (char)219)
+					{
+						map[height][width] = 'D';
+					}
+					else if (map[height][width] == (char)254)
+					{
+						map[height][width] = 'B';
 					}
 					newfile << map[height][width]; //loads the map data into temp.txt
 					width++;

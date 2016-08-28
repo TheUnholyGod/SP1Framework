@@ -24,8 +24,6 @@ void checkGameGoal()
 			g_CurrentLevel = 2;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			X = 122;
-			Y = 21;
 			g_eGameState = S_LOADGAME;
 		}
 		if (g_CurrentLevel == 2 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))
@@ -33,8 +31,6 @@ void checkGameGoal()
 			g_CurrentLevel = 3;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			X = 122;
-			Y = 21;
 			g_eGameState = S_LOADGAME;
 		}
 		if (g_CurrentLevel == 3 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))
@@ -42,8 +38,6 @@ void checkGameGoal()
 			g_CurrentLevel = 4;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			X = 122;
-			Y = 21;
 			g_eGameState = S_LOADGAME;
 		}
 		if (g_CurrentLevel == 4 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))
@@ -51,8 +45,6 @@ void checkGameGoal()
 			g_CurrentLevel = 5;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			X = 122;
-			Y = 21;
 			g_eGameState = S_LOADGAME;
 		}
 		if (g_CurrentLevel == 5 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))
@@ -60,8 +52,6 @@ void checkGameGoal()
 			g_CurrentLevel = 6;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			X = 122;
-			Y = 21;
 			g_eGameState = S_LOADGAME;
 		}
 		if (g_CurrentLevel == 6 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))
@@ -69,8 +59,6 @@ void checkGameGoal()
 			g_CurrentLevel = 1;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			X = 122;
-			Y = 21;
 			g_eGameState = S_LOADGAME;
 		}
 		g_isUpdated = false;
@@ -85,8 +73,6 @@ void checkCreativeGameGoal()
 			g_CreativeLevel = 102;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			cX = 122;
-			cY = 21;
 			g_eGameState = S_LOADCREATIVE;
 		}
 		if (g_CreativeLevel == 102 && (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)177))
@@ -94,17 +80,13 @@ void checkCreativeGameGoal()
 			g_CreativeLevel = 103;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			cX = 122;
-			cY = 21;
 			g_eGameState = S_LOADCREATIVE;
 		}
 		if (g_CreativeLevel == 103 && (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)177))
 		{
 			g_CreativeLevel = 104;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
-			g_sCreaChar.m_cCreativeLocation.X = 1;
-			cX = 122;
-			cY = 21;
+			g_sCreaChar.m_cCreativeLocation.X = 1;;
 			g_eGameState = S_LOADCREATIVE;
 		}
 		if (g_CreativeLevel == 104 && (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)177))
@@ -112,8 +94,6 @@ void checkCreativeGameGoal()
 			g_CreativeLevel = 105;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			cX = 122;
-			cY = 21;
 			g_eGameState = S_LOADCREATIVE;
 		}
 		if (g_CreativeLevel == 105 && (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)177))
@@ -121,8 +101,6 @@ void checkCreativeGameGoal()
 			g_CreativeLevel = 106;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			cX = 122;
-			cY = 21;
 			g_eGameState = S_LOADCREATIVE;
 		}
 		if (g_CreativeLevel == 106 && (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)177))
@@ -130,8 +108,6 @@ void checkCreativeGameGoal()
 			g_CreativeLevel = 101;
 			g_sCreaChar.m_cCreativeLocation.Y = 2;
 			g_sCreaChar.m_cCreativeLocation.X = 1;
-			cX = 122;
-			cY = 21;
 			g_eGameState = S_LOADCREATIVE;
 		}
 		g_isUpdated = false;

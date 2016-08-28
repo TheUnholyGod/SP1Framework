@@ -11,6 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
+bool    g_isKeyObtain;
 int     Y;
 int     X;
 int     cY;
@@ -40,10 +41,6 @@ Console g_Console(130, 40, "SP1 Framework");
 void init( void )
 {
 	store_map(1000); //stores splash screen map
-	Y = 21;
-	X = 122;
-	cY = 21;
-	cX = 122;
 
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
@@ -51,6 +48,7 @@ void init( void )
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
+	g_isKeyObtain = false;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
@@ -216,6 +214,8 @@ void splashScreenWait()    // waits for time to pass in splash screen
 
 void gameplay()            // gameplay logic
 {
+	KeyObtain();
+	DoorOpen();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -236,7 +236,6 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y--;
-			Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -249,7 +248,6 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X--;
-			X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -262,7 +260,6 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y++;
-			Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -274,7 +271,6 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.X++;
-			X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}

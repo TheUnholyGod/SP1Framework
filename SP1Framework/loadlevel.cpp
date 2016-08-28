@@ -142,13 +142,13 @@ void print_map()
 	//Codes for the torch light effect (game mode)
 	if (g_eGameState == S_GAME)
 	{
-		unsigned int offsetX = g_sChar.m_cLocation.X - 6;
+		unsigned int offsetX = g_sChar.m_cLocation.X - 5;
 		unsigned int offsetY = g_sChar.m_cLocation.Y - 3;
-		unsigned int maxY = 25 - Y;
-		unsigned int maxX = 130 - X;
+		unsigned int maxY = g_sChar.m_cLocation.Y + 2;
+		unsigned int maxX = g_sChar.m_cLocation.X + 6;
 
 		//conditions for gamemode
-		if (g_sChar.m_cLocation.X <= 6)
+		if (g_sChar.m_cLocation.X <= 5)
 		{
 			offsetX = 0;
 		}
@@ -187,6 +187,21 @@ void print_map()
 					map[i][j] = (char)177;
 					color = 0x7C;
 				}
+				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
+				{
+					map[i][j] = (char)168;
+					color = 0x6E;
+				}
+				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
+				{
+					map[i][j] = (char)219;
+					color = 0x4C;
+				}
+				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
+				{
+					map[i][j] = (char)254;
+					color = 0x08;
+				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
 			}
@@ -195,12 +210,12 @@ void print_map()
 	//Codes for the torch light effect (creative mode)
 	else if (g_eGameState == S_CREATIVE)
 	{
-		unsigned int CoffsetX = g_sCreaChar.m_cCreativeLocation.X - 6;
+		unsigned int CoffsetX = g_sCreaChar.m_cCreativeLocation.X - 5;
 		unsigned int CoffsetY = g_sCreaChar.m_cCreativeLocation.Y - 3;
-		unsigned int CmaxY = maxMapHeight - cY;
-		unsigned int CmaxX = maxMapWidth - cX;
+		unsigned int CmaxY = g_sCreaChar.m_cCreativeLocation.Y + 2;
+		unsigned int CmaxX = g_sCreaChar.m_cCreativeLocation.X + 6;
 
-		if (g_sCreaChar.m_cCreativeLocation.X <= 6)
+		if (g_sCreaChar.m_cCreativeLocation.X <= 5)
 		{
 			CoffsetX = 0;
 		}
@@ -238,6 +253,21 @@ void print_map()
 				{
 					map[i][j] = (char)177;
 					color = 0x7C;
+				}
+				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
+				{
+					map[i][j] = (char)168;
+					color = 0x6E;
+				}
+				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
+				{
+					map[i][j] = (char)219;
+					color = 0x4C;
+				}
+				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
+				{
+					map[i][j] = (char)254;
+					color = 0x08;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
