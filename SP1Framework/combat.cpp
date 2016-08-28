@@ -30,6 +30,15 @@ struct textboxpic
 	char** attackbox = new char*[75];
 }textboxpicture;
 
+//-----Struct for Names-----//
+struct stringcompiled
+{
+	string names[6];
+	string idleTexts;
+	string updateTexts[6];
+	string attacktext;
+}stringz;
+
 //-----Object and Identifier Declaration-----//
 Player player1;
 Enemy enemy1;
@@ -51,7 +60,8 @@ int enemySelector = 0;
 int victory = 2;
 int BossesDefeated = 0;
 int counter;
-int nooflettersfortext = 0;
+int holddamage;
+int damagetaken;
 double thisisatime ;
 double thisisatime2;
 double thisisatimeforspace;
@@ -131,7 +141,7 @@ int thisisatimeforprojectiles = 0;
 		{
 			characterspawn.X = 64;
 			characterspawn.Y = 35;
-			int holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
+			holddamage = player1.damageDealt(player1.character.Attack, enemy1.boss1.Defence);
 			enemy1.healthUpdate(holddamage);
 			waittime = g_dElapsedTime + 5;
 			updatedtextprinted = false;
@@ -142,7 +152,6 @@ int thisisatimeforprojectiles = 0;
 		{
 			if (waittime > g_dElapsedTime) //use in display and for diff states
 			{
-				nooflettersfortext++;
 				return;
 			}
 			if (enemy1.boss1.Health == 0)
@@ -172,6 +181,7 @@ int thisisatimeforprojectiles = 0;
 				}
 				enemy1.bullet();
 				symbolMovement();
+				checkdamage();
 				if (g_dElapsedTime < thisisatime2)
 				{
 					return;
@@ -192,10 +202,9 @@ int thisisatimeforprojectiles = 0;
 			thisisacount = 0;
 			textboxprinted = false;
 			int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
-			int hold = player1.damageSustained(damage, player1.character.Defence) * counter;
+			damagetaken = player1.damageSustained(damage, player1.character.Defence) * counter;
 			player1.healthUpdate(hold);
 			isEnemyAttActive = false;
-			counter = 0;
 			combatgameplay = COMBAT_VICTORY;
 			return;
 		}
@@ -216,9 +225,16 @@ int thisisatimeforprojectiles = 0;
 		}
 		else if (combatgameplay == COMBAT_DEF_ENEMYGAME)
 		{
-			while (g_dElapsedTime < thisisatime2)
+			if ((projectileCoord[19].X == 73 && Xcoord[19] == 0) || (projectileCoord[19].X == 54 && Xcoord[19] == 1))
 			{
+				thisisacount = 0;
 				enemy1.enemyattackgame();
+			}
+			enemy1.bullet();
+			symbolMovement();
+			checkdamage();
+			if (g_dElapsedTime < thisisatime2)
+			{
 				return;
 			}
 			if (g_dElapsedTime >= thisisatime2)
@@ -234,6 +250,7 @@ int thisisatimeforprojectiles = 0;
 			isEnemyAttActive = false;
 			counter = 0;
 			defended = true;
+			updatedtextprinted == false;
 			combatgameplay = COMBAT_VICTORY;
 		}
 	}
@@ -241,6 +258,8 @@ int thisisatimeforprojectiles = 0;
 	//-----Checking for Victory-----//
 	int checkVictory()
 	{
+		counter = 0;
+
 		if (enemy1.boss1.Health == 0) //Win
 		{
 			combatgameplay = COMBAT_RELOOP;
@@ -261,7 +280,7 @@ int thisisatimeforprojectiles = 0;
 	//-----Adding a timer-----//
 	void holdtimer()
 	{
-		thisisatime2 = g_dElapsedTime + 15;
+		thisisatime2 = g_dElapsedTime + 5;
 	}
 
 	//-----Input Get-----//
@@ -403,6 +422,18 @@ int thisisatimeforprojectiles = 0;
 		}
 	}
 
+	//---Checking Damage from  the Enemy---//
+	void checkdamage()
+	{
+		for (int i = 0; i < 20; i++)
+		{
+			if (characterspawn.X == projectileCoord[i].X && characterspawn.Y == projectileCoord[i].Y)
+			{
+				counter++;
+			}
+		}
+	}
+
 //-------Combat Render-------//
 
 	//-----Combat Render-----//
@@ -429,7 +460,7 @@ int thisisatimeforprojectiles = 0;
 		}
 		if (updatedtextprinted == false)
 		{
-			printinglinesoftext();
+			printinglinesoftext(enemySelector);
 		}
 	}
 
@@ -508,30 +539,86 @@ int thisisatimeforprojectiles = 0;
 	}
 
 	//-----Printing the Update Text-----//
-	void printinglinesoftext()
+	void printinglinesoftext(int name)
 	{
-		for (int i = 0; i < 2; ++i)
+		unsigned int number_of_digits = 0;
+		int temp;
+		lineoftext.X = 4;
+		lineoftext.Y = 32;
+
+		if (combatgameplay == COMBAT_ATT_PLAYER_TEXTUPDATE || combatgameplay == COMBAT_DEF_UPDATEALLSTATS)
 		{
-			for (int j = 0; j < nooflettersfortext; j++)
+			string Damage = static_cast<ostringstream*>(&(ostringstream() << holddamage))->str();
+
+			for (temp = holddamage; temp >= 0; number_of_digits++)
 			{
-				if (textforline[i][j] == '-')
+				temp /= 10;
+				if (temp == 0)
 				{
-					textforline[i][j] = (char)(32);
+					number_of_digits++;
+					break;
 				}
-				g_Console.writeToBuffer(lineoftext, textforline[i][j]);
-				lineoftext.X++;
 			}
-			if (nooflettersfortext == 40)
+
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[0]);
+
+			lineoftext.X += 10;
+			g_Console.writeToBuffer(lineoftext, Damage);
+
+			lineoftext.X += number_of_digits;
+			g_Console.writeToBuffer(lineoftext, ' ');
+
+			lineoftext.X += 1;
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[1]);
+
+			lineoftext.X += 10;
+			g_Console.writeToBuffer(lineoftext, stringz.names[name]);
+
+			lineoftext.X += stringz.names[name].length();
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[2]);
+		}
+		else if (combatgameplay == COMBAT_ATT_UPDATEALLSTATS)
+		{
+			string noOfTimesHit = static_cast<ostringstream*>(&(ostringstream() << counter))->str();
+			string damagetook = static_cast<ostringstream*>(&(ostringstream() << damagetaken))->str();
+
+			for (temp = counter; temp >= 0; number_of_digits++)
 			{
-				lineoftext.X = 2;
-				lineoftext.Y++;
-				break;
+				temp /= 10;
+				if (temp == 0)
+				{
+					number_of_digits++;
+					break;
+				}
 			}
-			else
+
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[3]);
+			
+			lineoftext.X += 8;
+			g_Console.writeToBuffer(lineoftext, noOfTimesHit);
+
+			lineoftext.X += number_of_digits;
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[2]);
+
+			lineoftext.X = 4;
+			lineoftext.Y++;
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[4]);
+
+			for (temp = damagetaken; temp >= 0; number_of_digits++)
 			{
-				lineoftext.X = 2;
-				return;
+				temp /= 10;
+				if (temp == 0)
+				{
+					number_of_digits++;
+					break;
+				}
 			}
+
+			lineoftext.X += 9;
+			g_Console.writeToBuffer(lineoftext, damagetook);
+
+			lineoftext.X += number_of_digits;
+			g_Console.writeToBuffer(lineoftext, stringz.updateTexts[5]);
 		}
 	}
 
@@ -616,7 +703,6 @@ int thisisatimeforprojectiles = 0;
 	{
 		playerinit();
 		displayinit();
-		printingtextupdate();
 		enemyinit(0);
 	}
 
@@ -645,7 +731,7 @@ int thisisatimeforprojectiles = 0;
 				max = 50;
 				i++;
 				enemy1.init(att, max);
-				displayno1 = ENEMYPIC_SPIDER1;
+				displayno1 = ENEMYPIC_SKELETON1;
 				break;
 			}
 			else if (i == 2) //For Third Boss
@@ -654,7 +740,7 @@ int thisisatimeforprojectiles = 0;
 				max = 90;
 				i++;
 				enemy1.init(att, max);
-
+				displayno1 = ENEMYPIC_FISH1;
 				break;
 			}
 			else if (i == 3) //For Fourth Boss
@@ -663,6 +749,7 @@ int thisisatimeforprojectiles = 0;
 				max = 125;
 				i++;
 				enemy1.init(att, max);
+				displayno1 = ENEMYPIC_SPIDER1;
 				break;
 			}
 			else if (i == 4) //For Fifth Boss
@@ -671,6 +758,7 @@ int thisisatimeforprojectiles = 0;
 				max = 1000;
 				i++;
 				enemy1.init(att, max);
+				displayno1 = ENEMYPIC_ROBOT1;
 				break;
 			}
 			else if (i == 5) //For Sixth Boss
@@ -679,6 +767,7 @@ int thisisatimeforprojectiles = 0;
 				max = 450;
 				enemy1.init(att, max);
 				i++;
+				displayno1 = ENEMYPIC_KAMBENG1;
 				break;
 			}
 			else //For Normal AI
@@ -739,6 +828,12 @@ int thisisatimeforprojectiles = 0;
 			{
 				textboxpicture.attackbox = textboxdisplay(textboxpicture.attackbox, i);
 			}
+		}
+
+		for (int i = 0; i < 6; i++)
+		{
+			stringz.names[i] = namefilling(i);
+			stringz.updateTexts[i] = updatetext(i);
 		}
 	}
 
@@ -844,28 +939,100 @@ int thisisatimeforprojectiles = 0;
 	}
 
 	//-----Writing Text-----//
-	void printingtextupdate()
+	string updatetext(int number)
 	{
-		lineoftext.X = 2;
-		lineoftext.Y = 32;
+		string hold;
 		ifstream textlines;
 		textlines.open("Combat/CombatUpdateText.txt");
 
-		int height = 4;
-		int length = 40;
-
 		if (textlines.is_open())
 		{
-			for (int i = 0; i < height; i++)
+			if (number == 0)
 			{
-				textforline[i] = new char[length];
-
-				for (int j = 0; j < length; j++)
-				{
-					textlines >> textforline[i][j];
-				}
+				getline(textlines, hold);
+				return hold;
 			}
-			textlines.close();
+			else if (number == 1)
+			{
+				getline(textlines, hold);
+				getline(textlines, hold);
+				return hold;
+			}
+			else if (number == 2)
+			{
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				return hold;
+			}
+			else if (number == 3)
+			{
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				return hold;
+			}
+			else if (number == 4)
+			{
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				return hold;
+			}
+			else if (number == 5)
+			{
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				getline(textlines, hold);
+				return hold;
+			}
+		}
+	}
+
+	//-----Writing Names-----//
+	string namefilling(int no)
+	{
+		string hold;
+		ifstream name;
+		name.open("Combat/Names.txt");
+
+		if (name.is_open())
+		{
+			if (no == 0)
+			{
+				getline(name, hold);
+				return hold;
+			}
+			else if (no == 1)
+			{
+				getline(name, hold);
+				return hold;
+			}
+			else if (no == 2)
+			{
+				getline(name, hold);
+				return hold;
+			}
+			else if (no == 3)
+			{
+				getline(name, hold);
+				return hold;
+			}
+			else if (no == 4)
+			{
+				getline(name, hold);
+				return hold;
+			}
+			else if (no == 5)
+			{
+				getline(name, hold);
+				return hold;
+			}
 		}
 	}
 
@@ -1017,6 +1184,7 @@ void Enemy::enemyattackgame()
 	}
 }
 
+//---Update the Projectiles---//
 void  Enemy::bullet()
 {
 	if (thisisatimeforprojectiles > g_dElapsedTime)
@@ -1033,6 +1201,9 @@ void  Enemy::bullet()
 		{
 			if (projectileCoord[i].X == 73)
 			{
+				projectile[i].erase();
+				projectileCoord[i].X = 0;
+				projectileCoord[i].Y = 0;
 				continue;
 			}
 			else if (thisisacount % 2 == 1)
@@ -1048,6 +1219,9 @@ void  Enemy::bullet()
 		{
 			if (projectileCoord[i].X == 54)
 			{
+				projectile[i].erase();
+				projectileCoord[i].X = 0;
+				projectileCoord[i].Y = 0;
 				continue;
 			}
 			else if (thisisacount % 2 == 1)
