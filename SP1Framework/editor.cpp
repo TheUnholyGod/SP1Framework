@@ -13,11 +13,12 @@ extern double  g_dBounceTime;
 extern double  g_dElapsedTime;
 extern bool    g_abKeyPressed[K_COUNT];
 extern int	   g_CreativeLevel;
+extern char    map[40][130];
 
 void renderEditor()
 {
 	renderEditorInstruction();
-	print_map(creative);
+	print_map();
 	renderCursor();
 }
 void editor()
@@ -31,57 +32,39 @@ void moveCursor()
 	bool bSomethingHappened = false;
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
-	// Updating the location of the character based on the key press
-	// providing a beep sound whenver we shift the character
+
 	if (g_abKeyPressed[K_UP] && g_sCursor.m_cEditorLocation.Y > 0)
 	{
-		//Beep(1440, 30);
-		// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
-		//if (colDetection(g_CurrentLevel))
 		{
 			g_sCursor.m_cEditorLocation.Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			/*g_isMapLoaded = false;*/
 		}
 
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sCursor.m_cEditorLocation.X > 0)
 	{
-		//Beep(1440, 30);
-		// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
-		//if (colDetection(g_CurrentLevel))
 		{
 			g_sCursor.m_cEditorLocation.X--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			/*g_isMapLoaded = false;*/
 		}
 
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sCursor.m_cEditorLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		//Beep(1440, 30);
-		// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
-		//if (colDetection(g_CurrentLevel))
 		{
 			g_sCursor.m_cEditorLocation.Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			/*g_isMapLoaded = false;*/
-
 		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCursor.m_cEditorLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		//Beep(1440, 30);
-		// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
-		//if (colDetection(g_CurrentLevel))
 		{
 			g_sCursor.m_cEditorLocation.X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
-			/*g_isMapLoaded = false;*/
 		}
 
 	}
@@ -101,57 +84,67 @@ void renderCursor()
 }
 void editmap(int levelnumber,char change)
 {
-	char txt[130][25];
-	char replacement[130][25];
-	int height = 0;
-	int width = 0;
-	ifstream file;
-
-	switch (levelnumber)
+	map[g_sCursor.m_cEditorLocation.Y-1][g_sCursor.m_cEditorLocation.X] = change;
+}
+void edits()
+{
+	if (g_abKeyPressed[K_SPACE])
 	{
-	case 101: file.open("CreativeLevels/Level_1.txt");
-		break;
-	case 102: file.open("CreativeLevels/Level_2.txt");
-		break;
-	case 103: file.open("CreativeLevels/Level_3.txt");
-		break;
-	case 104: file.open("CreativeLevels/Level_4.txt");
-		break;
-	case 105: file.open("CreativeLevels/Level_5.txt");
-		break;
-	case 106: file.open("CreativeLevels/Level_6.txt");
-		break;
+		ch = '-';
+		editmap(g_CreativeLevel, ch);
+		g_isUpdated = false;
+		g_isMapLoaded = false;
 	}
-	if (file.is_open())
+	if (g_abKeyPressed[K_W])
 	{
-		while (height < 25)
-		{
-			while (width < 130)
-			{
-				file >> txt[width][height];
-				width++;
-			}
-			width = 0;
-			height++;
-		}
-		file.close();
+		ch = 'W';
+		editmap(g_CreativeLevel, ch);
+		g_isUpdated = false;
+		g_isMapLoaded = false;
 	}
-
+	if (g_abKeyPressed[K_D])
+	{
+		ch = 'D';
+		editmap(g_CreativeLevel, ch);
+		g_isUpdated = false;
+		g_isMapLoaded = false;
+	}
+	if (g_abKeyPressed[K_Q])
+	{
+		ch = '+';
+		editmap(g_CreativeLevel, ch);
+		g_isUpdated = false;
+		g_isMapLoaded = false;
+	}
+}
+void saveMap(int levelnumber)
+{
 	// opens/creates new file
 	ofstream newfile("temp.txt");
 	char oldname[] = "temp.txt";
 
-	txt[g_sCursor.m_cEditorLocation.X][g_sCursor.m_cEditorLocation.Y-1] = change;
 	{
-		height = 0;
-		width = 0;
+		int height = 0;
+		int width = 0;
 		if (newfile.is_open())
 		{
 			while (height < 25)
 			{
 				while (width < 130)
 				{
-					newfile << txt[width][height]; //loads the map data into temp.txt
+					if (map[height][width] == (char)176) //converts the key and walkable area
+					{
+						map[height][width] = '-';
+					}
+					else if (map[height][width] == (char)178) //converts wall 'W', to ascii character 178
+					{
+						map[height][width] = 'W';
+					}
+					else if (map[height][width] == (char)177) //converts end point '+', to ascii character 177
+					{
+						map[height][width] = '+';
+					}
+					newfile << map[height][width]; //loads the map data into temp.txt
 					width++;
 				}
 				newfile << "\n";
@@ -196,36 +189,5 @@ void editmap(int levelnumber,char change)
 			remove(newname);
 			rename(oldname, newname);
 		}
-	}
-}
-void edits()
-{
-	if (g_abKeyPressed[K_SPACE])
-	{
-		ch = '-';
-		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
-		g_isMapLoaded = false;
-	}
-	if (g_abKeyPressed[K_W])
-	{
-		ch = 'W';
-		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
-		g_isMapLoaded = false;
-	}
-	if (g_abKeyPressed[K_D])
-	{
-		ch = 'D';
-		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
-		g_isMapLoaded = false;
-	}
-	if (g_abKeyPressed[K_Q])
-	{
-		ch = '+';
-		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
-		g_isMapLoaded = false;
 	}
 }

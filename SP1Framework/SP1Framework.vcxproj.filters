@@ -43,6 +43,9 @@
     <ClCompile Include="doors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="load.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI Pathfinding.h">
@@ -82,6 +85,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="doors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="load.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

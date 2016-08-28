@@ -4,17 +4,17 @@
 	unsigned int maxMapHeight;
 	extern int character_X;
 	extern int character_Y;
-	extern bool g_isKeyObtain, g_DoorLocked;
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
 	extern int Y;
 	extern int X;
 	extern int cY;
 	extern int cX;
+	extern char map[40][130];
 	extern EGAMESTATES g_eGameState;
 
 ////////// Function CREATE THE FIELD //////////
-char** store_map(char** field, int levelnumber)
+void store_map(int levelnumber)
 {
 	ifstream file;
 	
@@ -128,27 +128,24 @@ char** store_map(char** field, int levelnumber)
 		//stores the map data into a 2d array and returns it
 		for (unsigned int i = 0; i < maxMapHeight; i++)
 		{
-			field[i] = new char[maxMapWidth];
 			for (unsigned int j = 0; j < maxMapWidth; j++)
 			{
-				file >> field[i][j];
+				file >> map[i][j];
 			}
 		}
 		file.close();
-		return field;
 	}
 }
 
-void print_map(char ** field)
+void print_map()
 {
 	//Codes for the torch light effect (game mode)
 	if (g_eGameState == S_GAME)
 	{
-	
 		unsigned int offsetX = g_sChar.m_cLocation.X - 6;
 		unsigned int offsetY = g_sChar.m_cLocation.Y - 3;
-		unsigned int maxY = maxMapHeight - Y;
-		unsigned int maxX = maxMapWidth - X;
+		unsigned int maxY = 25 - Y;
+		unsigned int maxX = 130 - X;
 
 		//conditions for gamemode
 		if (g_sChar.m_cLocation.X <= 6)
@@ -173,59 +170,31 @@ void print_map(char ** field)
 			c.Y = i + 1;
 			for (unsigned int j = offsetX; j < maxX; ++j)
 			{
-				WORD color = 0x0B;
+				WORD color = 0x07;
 				//convert legend to actual ascii characters
-				if (field[i][j] == '-' || field[i][j] == 'k')
+				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
 				{
 					color = 0x07;
-					field[i][j] = (char)176;
+					map[i][j] = (char)176;
 				}
-				else if (field[i][j] == 'W')
+				else if (map[i][j] == 'W' || map[i][j] == (char)178) //converts wall 'W', to ascii character 178
 				{
 					color = 0x0B;
-					field[i][j] = (char)178;
+					map[i][j] = (char)178;
 				}
-				else if (field[i][j] == 'D')
+				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
-					if (g_DoorLocked == true)
-					{
-						color = 0x67;
-						field[i][j] = (char)178;
-					}
-
-					else
-					{
-						color = 0x07;
-						field[i][j] = (char)176;
-					}
-				}
-				else if (field[i][j] == 'K')
-				{
-					if (g_isKeyObtain==false)
-					{
-						field[i][j] = (char)177;
-						color = 0x67;
-					}
-					else
-					{
-						color = 0x07;
-						field[i][j] = (char)176;
-					}
-				}
-				else if (field[i][j] == '+')
-				{
-					field[i][j] = (char)177;
+					map[i][j] = (char)177;
 					color = 0x7C;
 				}
 				c.X = j;
-				g_Console.writeToBuffer(c, field[i][j], color);
+				g_Console.writeToBuffer(c, map[i][j], color);
 			}
 		}
 	}
 	//Codes for the torch light effect (creative mode)
 	else if (g_eGameState == S_CREATIVE)
 	{
-
 		unsigned int CoffsetX = g_sCreaChar.m_cCreativeLocation.X - 6;
 		unsigned int CoffsetY = g_sCreaChar.m_cCreativeLocation.Y - 3;
 		unsigned int CmaxY = maxMapHeight - cY;
@@ -253,42 +222,28 @@ void print_map(char ** field)
 			c.Y = i + 1;
 			for (unsigned int j = CoffsetX; j < CmaxX; ++j)
 			{
-				WORD color = 0x0B;
+				WORD color = 0x07;
 				//convert legend to actual ascii characters
-				if (field[i][j] == '-')
+				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
 				{
 					color = 0x07;
-					field[i][j] = (char)176;
+					map[i][j] = (char)176;
 				}
-				else if (field[i][j] == 'W')
+				else if (map[i][j] == 'W' || map[i][j] == (char)178) //converts wall 'W', to ascii character 178
 				{
 					color = 0x0B;
-					field[i][j] = (char)178;
+					map[i][j] = (char)178;
 				}
-				else if (field[i][j] == 'K')
+				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
-					if (g_isKeyObtain==false)
-					{
-						color = 0x7C;
-						field[i][j] = (char)207;
-					}
-					else
-					{
-						color = 0x00;
-						field[i][j] = (char)176;
-					}
-				}
-				else if (field[i][j] == '+')
-				{
-					field[i][j] = (char)177;
+					map[i][j] = (char)177;
 					color = 0x7C;
 				}
 				c.X = j;
-				g_Console.writeToBuffer(c, field[i][j], color);
+				g_Console.writeToBuffer(c, map[i][j], color);
 			}
 		}
 	}
-
 	//For editor,menu and splashscreens
 	else
 	{
@@ -298,25 +253,30 @@ void print_map(char ** field)
 			c.Y = i + 1;
 			for (int j = 0; j < maxMapWidth; ++j)
 			{
-				WORD color = 0x0B;
+				WORD color = 0x07;
 				//convert legend to actual ascii characters
-				if (field[i][j] == '-')
+				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
 				{
 					color = 0x07;
-					field[i][j] = ' ';
+					map[i][j] = (char)176;
 				}
-				if (field[i][j] == 'W')
+				else if (map[i][j] == 'W' || map[i][j] == (char)178) //converts wall 'W', to ascii character 178
 				{
 					color = 0x0B;
-					field[i][j] = (char)178;
+					map[i][j] = (char)178;
 				}
-				if (field[i][j] == '+')
+				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
-					field[i][j] = (char)177;
+					map[i][j] = (char)177;
 					color = 0x7C;
 				}
+				else if (map[i][j] == '*') //converts the key and walkable area
+				{
+					color = 0x07;
+					map[i][j] = ' ';
+				}
 				c.X = j;
-				g_Console.writeToBuffer(c, field[i][j], color);
+				g_Console.writeToBuffer(c, map[i][j], color);
 			}
 		}
 	}

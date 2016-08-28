@@ -5,9 +5,8 @@ extern char** txt;
 
 void renderMenu()
 {
-	//char** txt = new char*[100];
-	txt = store_map(txt, 100);
-	print_map(txt);
+	store_map(100);
+	print_map();
 }
 void mainmenu()
 {

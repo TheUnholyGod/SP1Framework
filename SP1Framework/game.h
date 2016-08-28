@@ -12,6 +12,7 @@
 #include "combat.h"
 #include "creative.h"
 #include "instruction.h"
+#include "load.h"
 #include "doors.h"
 #include <vector>
 #include <iostream>
@@ -38,6 +39,7 @@ enum EKEYS
 	K_K,
 	K_Q,
 	K_C,
+	K_S,
     K_COUNT
 };
 
@@ -50,7 +52,10 @@ enum EGAMESTATES
 	S_COMBAT,
     S_COUNT,
 	S_EDITOR,
-	S_CREATIVE
+	S_CREATIVE,
+	S_LOADGAME,
+	S_LOADCREATIVE,
+	S_LOADEDITOR
 };
 
 // struct for the game character

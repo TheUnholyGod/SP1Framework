@@ -92,7 +92,7 @@ void renderCreative()
 }
 void creativeRenderMap()
 {
-	print_map(creative);
+	print_map();
 }
 void creativeRenderCharacter()
 {

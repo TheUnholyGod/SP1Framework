@@ -10,5 +10,6 @@ void renderCursor();
 void editmap(int levelnumber,char change);
 void edits();
 void renderEndpoint();
+void saveMap(int levelnumber);
 
 #endif // !_EDITOR_H

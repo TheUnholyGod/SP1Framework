@@ -8,15 +8,13 @@ using namespace std;
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
-char** textbox = new char*[100]; // <------- Read textbox from txt into this 2d array
-char** txt = new char*[1000]; // <------- Read levels from txt into this 2d array
-char** creative = new char*[1000]; // <------- Read creative levels from txt into this 2d array
-bool g_isUpdated;
-bool g_isMapLoaded;
-int Y;
-int X;
-int cY;
-int cX;
+char    map[40][130]; // <------ load map into this array
+bool    g_isUpdated;
+bool    g_isMapLoaded;
+int     Y;
+int     X;
+int     cY;
+int     cX;
 
 // Game specific variables here
 int g_CurrentLevel;
@@ -27,8 +25,6 @@ Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
-bool g_DoorLocked, g_isKeyObtain;;
-
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 // Console object
@@ -43,12 +39,12 @@ Console g_Console(130, 40, "SP1 Framework");
 //--------------------------------------------------------------
 void init( void )
 {
+	store_map(1000); //stores splash screen map
 	Y = 21;
 	X = 122;
 	cY = 21;
 	cX = 122;
-	//loads the text box into the array
-	textbox = store_map(textbox, 1001);
+
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
@@ -75,9 +71,6 @@ void init( void )
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
-
-	// -------- VARIABLES FOR DOORS -------- //
-	g_isKeyObtain = false; g_DoorLocked = true;
 
 	//Initializes the Player
 	combatinit();
@@ -125,6 +118,7 @@ void getInput( void )
 	g_abKeyPressed[K_Q]      = isKeyPressed(0x51);
 	g_abKeyPressed[K_K]      = isKeyPressed(0x4B);
 	g_abKeyPressed[K_C]      = isKeyPressed(0x43);
+	g_abKeyPressed[K_S]      = isKeyPressed(0x53);
 }
 
 //--------------------------------------------------------------
@@ -146,30 +140,26 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-	if (g_isMapLoaded == false)
-	{
-		//loads campaign map into array
-		txt = store_map(txt, g_CurrentLevel);
-		//loads creative map into array
-		creative = store_map(creative, g_CreativeLevel);
-		g_isMapLoaded = true;
-	}
-	KeyObtain();
-	isDoorOpen();
+
 	switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-		case S_MENU: mainmenu();
+		case S_MENU: mainmenu(); //process user inputs and decide which state the program will enter
 			break;
-		case S_EDITOR: editor();
+		case S_EDITOR: editor(); //process user inputs, move cursor and make amends to map array
 			break;
-		case S_COMBAT: combat();
+		case S_COMBAT: combat(); 
 			break;
-		case S_CREATIVE: creativeGameplay();
+		case S_CREATIVE: creativeGameplay(); //Creative mode, plays user created levels
 			break;
+		case S_LOADGAME: loadingGame(); //initialise maps based on level number, then changes to game state
+			break;
+		case S_LOADCREATIVE: loadingCreative(); //initialise maps based on level number, then changes to creative game state
+			break;
+		case S_LOADEDITOR: loadingEditor();
     }
 }
 //--------------------------------------------------------------
@@ -182,13 +172,13 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	if (g_isUpdated == false)
+	if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
-		clearScreen();      // clears the current screen and draw from scratch 
-		renderFramerate();  // renders debug information, frame rate, elapsed time, etc
+		clearScreen();        // clears the current screen and draw from scratch 
+		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
 		switch (g_eGameState)
 		{
-		case S_SPLASHSCREEN: renderSplashScreen();
+		case S_SPLASHSCREEN: renderSplashScreen(); //stores the splash screen map into array and renders it
 			g_isUpdated = false;
 			break;
 		case S_GAME: renderGame();
@@ -246,7 +236,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y--;
-				Y++;
+			Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -272,7 +262,7 @@ void moveCharacter()
 		if (colDetection(g_CurrentLevel))
 		{
 			g_sChar.m_cLocation.Y++;
-				Y--;
+			Y--;
 			bSomethingHappened = true;
 			g_isUpdated = false;
 		}
@@ -313,7 +303,6 @@ void processUserInput()
 		{
 			g_eGameState = S_MENU;
 			g_isUpdated = false; 
-			g_isMapLoaded = false;
 		}
 			
 	}
@@ -325,21 +314,15 @@ void processUserInput()
 		// start game if player hits the space key
 		if (g_abKeyPressed[K_SPACE])
 		{
-			g_eGameState = S_GAME;
-			g_isMapLoaded = false;
-			g_isUpdated = false;
+			g_eGameState = S_LOADGAME;
 		}
-		// Go to the level editor mode (TO DO)
 		if (g_abKeyPressed[K_C])
 		{
-			g_eGameState = S_CREATIVE;
-			g_isMapLoaded = false;
-			g_isUpdated = false;
+			g_eGameState = S_LOADCREATIVE;
 		}
 		if (g_abKeyPressed[K_K])
 		{
 			g_eGameState = S_COMBAT;
-			g_isMapLoaded = false;
 			g_isUpdated = false;
 		}
 			
@@ -349,14 +332,16 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isMapLoaded = false;
 			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_C])
 		{
-			g_eGameState = S_CREATIVE;
+			g_eGameState = S_LOADCREATIVE;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
+		}
+		if (g_abKeyPressed[K_S])
+		{
+			saveMap(g_CreativeLevel);
 		}
 	}
 	if (g_eGameState == S_CREATIVE)
@@ -365,13 +350,11 @@ void processUserInput()
 		{
 			g_eGameState = S_MENU;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
 		}
 		if (g_abKeyPressed[K_K])
 		{
-			g_eGameState = S_EDITOR;
+			g_eGameState = S_LOADEDITOR;
 			g_isUpdated = false;
-			g_isMapLoaded = false;
 		}
 	}
 
@@ -385,8 +368,7 @@ void clearScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
-	txt = store_map(txt, 1000);
-	print_map(txt);
+	print_map();
 }
 
 void renderGame()
@@ -399,7 +381,7 @@ void renderGame()
 void renderMap()
 {
 	// -------- TO STOP FLICKERING, DO CHECK CONDITION! IF CHARACTER IS NOT MOVING: STOP RENDERING, ELSE RENDER AGAIN! -------- //
-	print_map(txt);
+	print_map();
 }
 
 void renderCharacter()

@@ -11,7 +11,7 @@
 extern Console g_Console;
 using namespace std;
 
-char** store_map(char** field, int levelnumber);
-void print_map(char **field);
+void store_map(int levelnumber);
+void print_map();
 
 #endif // !_LOADLEVEL_H
