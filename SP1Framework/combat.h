@@ -81,7 +81,6 @@ public:
 	void playerBase(int health, int attack, int defence);
 
 	//---Display Update---//
-	
 	void display(COORD a);
 
 	//---Damage Done Calculation---//
