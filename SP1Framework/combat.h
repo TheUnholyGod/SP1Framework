@@ -37,7 +37,17 @@ enum COMBAT
 enum ENEMYPIC
 {
 	ENEMYPIC_KAMBENGF1,
-	ENEMYPIC_SPIDER1
+	ENEMYPIC_KAMBENGF2,
+	ENEMYPIC_SKELETON1,
+	ENEMYPIC_SKELETON2,
+	ENEMYPIC_FISH1,
+	ENEMYPIC_FISH2,
+	ENEMYPIC_SPIDER1,
+	ENEMYPIC_SPIDER2,
+	ENEMYPIC_ROBOT1,
+	ENEMYPIC_ROBOT2,
+	ENEMYPIC_KAMBENG1,
+	ENEMYPIC_KAMBENG2
 };
 
 //-----Enum for Button Picture-----//
@@ -146,7 +156,7 @@ char** textboxdisplay(char** textboxfill, int read);
 void renderCharacterSymbol(COORD a);
 void symbolMovement();
 void holdtimer();
-void printingtextupdate();
+string updatetext(int number);
 void displayinit();
 void enemyrender();
 void buttonrender();
@@ -156,6 +166,8 @@ void buttonsinput();
 void aftinput();
 void combatreloop();
 void printprojectiles(int arraycounter);
-void printinglinesoftext();
+void printinglinesoftext(int name);
+void checkdamage();
+string namefilling(int no);
 
 #endif //End of _COMBAT_H
