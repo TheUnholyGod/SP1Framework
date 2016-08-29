@@ -21,6 +21,7 @@ Enemy	g_sEnemy;
 Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
+SSelector   g_sSelector;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -64,8 +65,11 @@ void init( void )
 	// set initial position of the creative character
 	g_sCreaChar.m_cCreativeLocation.X = 1;
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
+	// set initial position of the menu selector
+	g_sSelector.m_cSelectorLocation.X = 50;
+	g_sSelector.m_cSelectorLocation.Y = 16;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Arial");
+    g_Console.setConsoleFont(0, 16, L"Raster");
 
 	//Initializes the Player
 	combatinit();
@@ -314,27 +318,6 @@ void processUserInput()
 			reset();
 			g_isUpdated = false;
 		}
-	}
-	if (g_eGameState == S_MENU)
-	{
-		// quits the game if player hits the escape key
-		if (g_abKeyPressed[K_ESCAPE])
-			g_bQuitGame = true;
-		// start game if player hits the space key
-		if (g_abKeyPressed[K_SPACE])
-		{
-			g_eGameState = S_LOADGAME;
-		}
-		if (g_abKeyPressed[K_C])
-		{
-			g_eGameState = S_LOADCREATIVE;
-		}
-		if (g_abKeyPressed[K_K])
-		{
-			g_eGameState = S_COMBAT;
-			g_isUpdated = false;
-		}
-			
 	}
 	if (g_eGameState == S_EDITOR)
 	{
