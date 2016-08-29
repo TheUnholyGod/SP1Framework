@@ -373,7 +373,7 @@ double thisisatimeforprojectiles = 0;
 			thisisatimeforspace = g_dElapsedTime + 2;
 		}
 		whenSpacePressed = false;
-		g_eGameState = S_GAME;
+		g_eGameState = S_LOADGAME;
 	}
 
 	//---Moving The Character---//
@@ -1392,7 +1392,7 @@ void  Enemy::bullet()
 	{
 		return;
 	}
-	thisisatimeforprojectiles = g_dElapsedTime + 0.25;
+	thisisatimeforprojectiles = g_dElapsedTime + 0.15;
 	if (thisisacount <= 19)
 	{
 		thisisacount++;
