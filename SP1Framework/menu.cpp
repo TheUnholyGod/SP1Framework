@@ -1,4 +1,4 @@
-#include "menu.h"
+﻿#include "menu.h"
 
 extern SSelector g_sSelector;
 extern Console g_sConsole;
@@ -14,6 +14,8 @@ void renderMenu()
 	print_map();
 	renderSelector();
 	menuInput();
+	g_Console.writeToBuffer(45, 36, "<Arrow Keys> to change Selection", 0x07);
+	g_Console.writeToBuffer(45, 37, "<SPACE>      to Select", 0x07);
 }
 void mainmenu()
 {
@@ -21,6 +23,10 @@ void mainmenu()
 }
 void renderSelector()
 {
+	if (g_abKeyPressed[K_Q])
+	{
+		renderTroll();
+	}
 	g_Console.writeToBuffer(g_sSelector.m_cSelectorLocation, (char)62, 0x07);
 	if (g_sSelector.m_cSelectorLocation.Y - 1 == 15)
 	{
@@ -102,5 +108,42 @@ void moveSelector()
 	if (bSomethingHappened)
 	{
 		g_dBounceTime = g_dElapsedTime + 0.125;
+	}
+}
+void renderTroll()
+{
+	char trolled[15][31];
+
+	ifstream troll("troll.txt");
+	if (troll.is_open())
+	{
+		for (unsigned int i = 0; i < 15; i++)
+		{
+			for (unsigned int j = 0; j < 31; j++)
+			{
+				troll >> trolled[i][j];
+			}
+		}
+		troll.close();
+	}
+	COORD c;
+	for (unsigned int i = 0; i < 15; ++i)
+	{
+		c.Y = i + 13;
+		for (unsigned int j = 0; j < 31; ++j)
+		{
+			if (trolled[i][j] == 'C')
+				trolled[i][j] = ' ';
+			if (trolled[i][j] == 'B')
+				trolled[i][j] = ' ';
+			if (trolled[i][j] == 'D')
+				trolled[i][j] = (char)223;
+			if (trolled[i][j] == 'E')
+				trolled[i][j] = (char)220;
+			if (trolled[i][j] == 'F')
+				trolled[i][j] = (char)219;
+			c.X = j + 5;
+			g_Console.writeToBuffer(c, trolled[i][j]);
+		}
 	}
 }

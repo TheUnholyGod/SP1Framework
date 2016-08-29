@@ -11,6 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
+bool    g_isTorchEnabled;
 int     g_KeysObtain, g_PicksObtain;
 
 // Game specific variables here
@@ -45,6 +46,7 @@ void init( void )
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
+	g_isTorchEnabled = true;
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
     g_eGameState = S_SPLASHSCREEN;
@@ -122,6 +124,7 @@ void getInput( void )
 	g_abKeyPressed[K_R]      = isKeyPressed(0x52);
 	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
+	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
 }
 
 //--------------------------------------------------------------
@@ -236,6 +239,11 @@ void moveCharacter()
         return;
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
+	if (g_abKeyPressed[K_T])
+	{
+		g_isTorchEnabled = !g_isTorchEnabled;
+		bSomethingHappened = true;
+	}
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
     {
 		moveBoulder();

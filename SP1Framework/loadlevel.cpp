@@ -6,6 +6,7 @@
 	extern int character_Y;
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
+	extern bool g_isTorchEnabled;
 	extern int Y;
 	extern int X;
 	extern int cY;
@@ -140,7 +141,7 @@ void store_map(int levelnumber)
 void print_map()
 {
 	//Codes for the torch light effect (game mode)
-	if (g_eGameState == S_GAME)
+	if (g_eGameState == S_GAME && g_isTorchEnabled == true)
 	{
 		unsigned int offsetX = g_sChar.m_cLocation.X - 5;
 		unsigned int offsetY = g_sChar.m_cLocation.Y - 3;
@@ -217,7 +218,7 @@ void print_map()
 		}
 	}
 	//Codes for the torch light effect (creative mode)
-	else if (g_eGameState == S_CREATIVE)
+	else if (g_eGameState == S_CREATIVE && g_isTorchEnabled == true)
 	{
 		unsigned int CoffsetX = g_sCreaChar.m_cCreativeLocation.X - 5;
 		unsigned int CoffsetY = g_sCreaChar.m_cCreativeLocation.Y - 3;

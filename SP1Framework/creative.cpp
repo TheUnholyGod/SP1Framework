@@ -10,6 +10,7 @@ extern SCreaChar g_sCreaChar;
 extern double  g_dBounceTime;
 extern double  g_dElapsedTime;
 extern bool    g_abKeyPressed[K_COUNT];
+extern bool    g_isTorchEnabled;
 extern int cX;
 extern int cY;
 
@@ -26,6 +27,11 @@ void creativeMoveCharacter()
 	bool bSomethingHappened = false;
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
+	if (g_abKeyPressed[K_T])
+	{
+		g_isTorchEnabled = !g_isTorchEnabled;
+		bSomethingHappened = true;
+	}
 	// Updating the location of the character based on the key press
 	if (g_abKeyPressed[K_UP] && g_sCreaChar.m_cCreativeLocation.Y > 0)
 	{
