@@ -85,6 +85,7 @@ bool textboxprinted = false;
 bool updatedtextprinted = true;
 bool defended = false;
 bool animate = false;
+bool projectiles = false;
 
 string projectile1 = "<=";
 string projectile2 = "=>";
@@ -275,22 +276,25 @@ int thisisatimeforprojectiles = 0;
 
 	//-----Checking for Victory-----//
 	int checkVictory()
-	{
+ 	{
 		counter = 0;
 
 		if (enemy1.boss1.Health == 0) //Win
 		{
 			combatgameplay = COMBAT_RELOOP;
+			victory = 1;
 			return 1;
 		}
 		else if (player1.character.Health == 0) //Lose
 		{
 			combatgameplay = COMBAT_RELOOP;
+			victory = 0;
 			return 0;
 		}
 		else //Continue
 		{
 			combatgameplay = COMBAT_GETINPUT;
+			victory = 2;
 			return 2;
 		}
 	}
@@ -361,15 +365,12 @@ int thisisatimeforprojectiles = 0;
 		}
 		else if (victory == 1)
 		{
-			if (isKeyPressed(VK_SPACE))
-			{
-				enemySelector += 1;
-				enemyinit(enemySelector);
-				victory = 2;
-				BossesDefeated++;
-				player1.statsUpdate(BossesDefeated);
-				thisisatimeforspace = g_dElapsedTime + 2;
-			}
+			enemySelector += 1;
+			enemyinit(enemySelector);
+			victory = 2;
+			BossesDefeated++;
+			player1.statsUpdate(BossesDefeated);
+			thisisatimeforspace = g_dElapsedTime + 2;
 		}
 		whenSpacePressed = false;
 		combatgameplay = COMBAT_GETINPUT;
@@ -825,9 +826,22 @@ int thisisatimeforprojectiles = 0;
 	//---Spawning Projectiles---//
 	void printprojectiles(int arraycounter)
 	{
-		for (int j = 0; j <= arraycounter; j++)
+		if (thisisatimeforprojectiles > g_dElapsedTime)
 		{
-			g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
+			projectiles = false;
+			return;
+		}
+		else
+		{
+			projectiles = true;
+			thisisatimeforprojectiles = g_dElapsedTime + 0.5;
+		}
+		if (projectiles == true)
+		{
+			for (int j = 0; j <= arraycounter; j++)
+			{
+				g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
+			}
 		}
 	}
 
@@ -871,7 +885,7 @@ int thisisatimeforprojectiles = 0;
 			}
 			else if (i == 2) //For Third Boss
 			{
-				att = 75;
+				att = 45;
 				max = 90;
 				i++;
 				enemy1.init(att, max);
@@ -880,7 +894,7 @@ int thisisatimeforprojectiles = 0;
 			}
 			else if (i == 3) //For Fourth Boss
 			{
-				att = 100;
+				att = 75;
 				max = 125;
 				i++;
 				enemy1.init(att, max);
@@ -980,6 +994,8 @@ int thisisatimeforprojectiles = 0;
 				enemypicture.KAMBENG2 = enemyselector(enemypicture.KAMBENG2, enemySelector);
 			}
 		}
+
+		enemySelector = 0;
 
 		for (int i = 0; i < 2; i++)
 		{
@@ -1429,8 +1445,8 @@ void  Enemy::bullet()
 			}
 		}
 	}
-	thisisatimeforprojectiles = g_dElapsedTime + 0.5;
 }
+
 
 /*/
 -End of Enemies Class-
@@ -1547,7 +1563,7 @@ void Player::statsUpdate(int killcount)
 	{
 		character.Health *= 1.5f;
 		character.MaxHealth *= 1.5f;
-		character.Attack = (character.Attack + 10) * 1.2f;
+		character.Attack = (character.Attack + 20) * 1.2f;
 		character.Defence = (character.Defence + 25) * 1.3f;
 	}
 }

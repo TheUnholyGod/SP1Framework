@@ -24,7 +24,7 @@ void checkGameGoal()
 			g_CurrentLevel = 2;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
-			g_eGameState = S_LOADGAME;
+			g_eGameState = S_COMBAT;
 		}
 		if (g_CurrentLevel == 2 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))
 		{
