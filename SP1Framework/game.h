@@ -14,6 +14,7 @@
 #include "instruction.h"
 #include "load.h"
 #include "doors.h"
+#include "movableObj.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -40,6 +41,7 @@ enum EKEYS
 	K_Q,
 	K_C,
 	K_S,
+	K_B,
     K_COUNT
 };
 

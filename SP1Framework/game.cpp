@@ -113,6 +113,7 @@ void getInput( void )
 	g_abKeyPressed[K_K]      = isKeyPressed(0x4B);
 	g_abKeyPressed[K_C]      = isKeyPressed(0x43);
 	g_abKeyPressed[K_S]      = isKeyPressed(0x53);
+	g_abKeyPressed[K_B]      = isKeyPressed(0x42);
 }
 
 //--------------------------------------------------------------
@@ -166,7 +167,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false) //boolean condition to control screen flickers
+	if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
 		clearScreen();        // clears the current screen and draw from scratch 
 		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
@@ -227,6 +228,7 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
     {
+		moveBoulder();
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE UP IF ITS NOT ' ' ---------------------------------------------// 
 		if (colDetection(g_CurrentLevel))
@@ -239,6 +241,7 @@ void moveCharacter()
     }
     if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
     {
+		moveBoulder();
         //Beep(1440, 30);
 	// --------------------------------- UNABLE TO MOVE LEFT IS ITS NOT ' ' -------------------------------------------//
 		if (colDetection(g_CurrentLevel))
@@ -251,10 +254,12 @@ void moveCharacter()
     }
     if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
     {
+		moveBoulder();
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE DOWN IF ITS NOT ' ' -----------------------------------------//
 		if (colDetection(g_CurrentLevel))
 		{
+			
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
 			g_isUpdated = false;
@@ -262,10 +267,12 @@ void moveCharacter()
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
+		moveBoulder();
         //Beep(1440, 30);
 	// ---------------------------------- UNABLE TO MOVE RIGHT IF ITS NOT ' ' ----------------------------------------//
 		if (colDetection(g_CurrentLevel))
 		{
+			
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
 			g_isUpdated = false;

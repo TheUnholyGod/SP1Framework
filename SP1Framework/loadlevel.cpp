@@ -172,7 +172,7 @@ void print_map()
 			{
 				WORD color = 0x07;
 				//convert legend to actual ascii characters
-				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
+				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the '-' and walkable area
 				{
 					color = 0x07;
 					map[i][j] = (char)176;
@@ -200,7 +200,7 @@ void print_map()
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x08;
+					color = 0x88;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -267,7 +267,7 @@ void print_map()
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x08;
+					color = 0x88;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -304,6 +304,21 @@ void print_map()
 				{
 					color = 0x07;
 					map[i][j] = ' ';
+				}
+				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
+				{
+					map[i][j] = (char)168;
+					color = 0x6E;
+				}
+				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
+				{
+					map[i][j] = (char)219;
+					color = 0x4C;
+				}
+				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
+				{
+					map[i][j] = (char)254;
+					color = 0x88;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);

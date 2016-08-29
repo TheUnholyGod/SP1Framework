@@ -29,6 +29,7 @@ void creativeMoveCharacter()
 	// Updating the location of the character based on the key press
 	if (g_abKeyPressed[K_UP] && g_sCreaChar.m_cCreativeLocation.Y > 0)
 	{
+		moveBoulder();
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.Y--;
@@ -39,6 +40,7 @@ void creativeMoveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sCreaChar.m_cCreativeLocation.X > 0)
 	{
+		moveBoulder();
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.X--;
@@ -49,6 +51,7 @@ void creativeMoveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
+		moveBoulder();
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.Y++;
@@ -58,6 +61,7 @@ void creativeMoveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCreaChar.m_cCreativeLocation.X < g_Console.getConsoleSize().X - 1)
 	{
+		moveBoulder();
 		if (creativeColDetection(g_CreativeLevel))
 		{
 			g_sCreaChar.m_cCreativeLocation.X++;
