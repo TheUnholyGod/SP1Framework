@@ -11,7 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
-bool    g_isKeyObtain;
+int     g_KeysObtain, g_PicksObtain;
 
 // Game specific variables here
 int g_CurrentLevel;
@@ -44,7 +44,8 @@ void init( void )
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
-	g_isKeyObtain = false;
+	g_KeysObtain = 0;
+	g_PicksObtain = 0;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
@@ -167,7 +168,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false) //boolean condition to control screen flickers
+	if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
 		clearScreen();        // clears the current screen and draw from scratch 
 		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
@@ -213,6 +214,8 @@ void gameplay()            // gameplay logic
 {
 	KeyObtain();
 	DoorOpen();
+	pickObtain();
+	objectStatus();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc

@@ -19,6 +19,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include "smashableObject.h"
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
