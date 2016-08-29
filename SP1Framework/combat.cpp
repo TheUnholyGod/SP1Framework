@@ -2,6 +2,7 @@
 
 //-----Extern Block-----//
 extern Console g_Console;
+extern EGAMESTATES g_eGameState;
 extern CStopWatch g_Timer;
 extern bool g_isUpdated;
 extern bool g_isUpdated;
@@ -91,11 +92,10 @@ string projectile1 = "<=";
 string projectile2 = "=>";
 string projectile[20];
 COORD projectileCoord[20];
-double ProjectileTime = 0;
 int Xcoord[20];
 int thisisacount;
 int hold = 0;
-int thisisatimeforprojectiles = 0;
+double thisisatimeforprojectiles = 0;
 
 
 /*/
@@ -302,7 +302,7 @@ int thisisatimeforprojectiles = 0;
 	//-----Adding a timer-----//
 	void holdtimer()
 	{
-		thisisatime2 = g_dElapsedTime + 5;
+		thisisatime2 = g_dElapsedTime + 15;
 	}
 
 	//-----Input Get-----//
@@ -373,7 +373,7 @@ int thisisatimeforprojectiles = 0;
 			thisisatimeforspace = g_dElapsedTime + 2;
 		}
 		whenSpacePressed = false;
-		combatgameplay = COMBAT_GETINPUT;
+		g_eGameState = S_GAME;
 	}
 
 	//---Moving The Character---//
@@ -802,12 +802,6 @@ int thisisatimeforprojectiles = 0;
 			combatdisplaycoord.X = 0;
 			combatdisplaycoord.Y++;
 		}
-
-		if (textboxprinted == false)
-		{
-			renderToScreen();
-		}
-
 		textboxprinted = true;
 	}
 
@@ -820,30 +814,27 @@ int thisisatimeforprojectiles = 0;
 			g_Console.writeToBuffer(a, (char)32);
 		}
 		g_Console.writeToBuffer(characterspawn, (char)64, charColor);
-		renderToScreen();
 	}
 
 	//---Spawning Projectiles---//
 	void printprojectiles(int arraycounter)
 	{
-		if (thisisatimeforprojectiles > g_dElapsedTime)
+		/*if (thisisatimeforprojectiles > g_dElapsedTime)
 		{
-			projectiles = false;
 			return;
 		}
 		else
 		{
-			projectiles = true;
 			thisisatimeforprojectiles = g_dElapsedTime + 0.5;
-		}
-		if (projectiles == true)
+		}*/
+
+
+		for (int j = 0; j <= arraycounter; j++)
 		{
-			for (int j = 0; j <= arraycounter; j++)
-			{
-				g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
-			}
+			g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
 		}
 	}
+	
 
 //-------Initalization of All Characters/Enemies-------//
 
@@ -1347,7 +1338,6 @@ void Enemy::display(COORD a, int i, int i1, int i2, int i3)
 	g_Console.writeToBuffer(a, "Boss Defence: ");
 	a.X += 14;
 	g_Console.writeToBuffer(a, Defence);
-	renderToScreen();
 }
 
 //---Calling for the attack---//
@@ -1402,11 +1392,12 @@ void  Enemy::bullet()
 	{
 		return;
 	}
+	thisisatimeforprojectiles = g_dElapsedTime + 0.25;
 	if (thisisacount <= 19)
 	{
 		thisisacount++;
 	}
-	for (int i = 0; i < thisisacount * 2; i++)
+	for (int i = 0; i < thisisacount; i++)
 	{
 		if (Xcoord[i] == 0)
 		{
@@ -1415,10 +1406,6 @@ void  Enemy::bullet()
 				projectile[i].erase();
 				projectileCoord[i].X = 0;
 				projectileCoord[i].Y = 0;
-				continue;
-			}
-			else if (thisisacount % 2 == 1)
-			{
 				continue;
 			}
 			else
@@ -1433,10 +1420,6 @@ void  Enemy::bullet()
 				projectile[i].erase();
 				projectileCoord[i].X = 0;
 				projectileCoord[i].Y = 0;
-				continue;
-			}
-			else if (thisisacount % 2 == 1)
-			{
 				continue;
 			}
 			else
