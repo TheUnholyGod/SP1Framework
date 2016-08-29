@@ -1,0 +1,9 @@
+diff a/SP1Framework/SP1Framework.vcxproj b/SP1Framework/SP1Framework.vcxproj	(rejected hunks)
+@@ -94,6 +94,7 @@
+     <ClCompile Include="main.cpp" />
+     <ClCompile Include="menu.cpp" />
+     <ClCompile Include="movableObj.cpp" />
++    <ClCompile Include="smashableObjects.cpp" />
+   </ItemGroup>
+   <ItemGroup>
+     <ClInclude Include="AI Pathfinding.h" />

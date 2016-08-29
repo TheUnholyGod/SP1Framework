@@ -115,6 +115,9 @@ void getInput( void )
 	g_abKeyPressed[K_C]      = isKeyPressed(0x43);
 	g_abKeyPressed[K_S]      = isKeyPressed(0x53);
 	g_abKeyPressed[K_B]      = isKeyPressed(0x42);
+	g_abKeyPressed[K_R]      = isKeyPressed(0x52);
+	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
+	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 }
 
 //--------------------------------------------------------------
@@ -306,7 +309,11 @@ void processUserInput()
 			g_eGameState = S_MENU;
 			g_isUpdated = false; 
 		}
-			
+		if (g_abKeyPressed[K_R])
+		{
+			reset();
+			g_isUpdated = false;
+		}
 	}
 	if (g_eGameState == S_MENU)
 	{
@@ -353,9 +360,14 @@ void processUserInput()
 			g_eGameState = S_MENU;
 			g_isUpdated = false;
 		}
-		if (g_abKeyPressed[K_K])
+		if (g_abKeyPressed[K_L])
 		{
 			g_eGameState = S_LOADEDITOR;
+			g_isUpdated = false;
+		}
+		if (g_abKeyPressed[K_R])
+		{
+			reset();
 			g_isUpdated = false;
 		}
 	}

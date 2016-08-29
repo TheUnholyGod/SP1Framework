@@ -94,6 +94,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="movableObj.cpp" />
+    <ClCompile Include="reset.cpp" />
     <ClCompile Include="smashableObjects.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +113,7 @@
     <ClInclude Include="loadlevel.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="movableObj.h" />
+    <ClInclude Include="reset.h" />
     <ClInclude Include="smashableObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

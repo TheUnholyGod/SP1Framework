@@ -271,12 +271,21 @@ void print_map()
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x4C;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
 					color = 0x88;
+				}
+				else if (map[i][j] == 'b' || map[i][j] == (char)220)
+				{
+					map[i][j] = (char)220;
+					color = 0x44;
+				}
+				else if (map[i][j] == 'P' || map[i][j] == (char)156)
+				{
+					map[i][j] = (char)156;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -322,12 +331,21 @@ void print_map()
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x4C;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
 					color = 0x88;
+				}
+				else if (map[i][j] == 'b' || map[i][j] == (char)220)
+				{
+					map[i][j] = (char)220;
+					color = 0x44;
+				}
+				else if (map[i][j] == 'P' || map[i][j] == (char)156)
+				{
+					map[i][j] = (char)156;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
