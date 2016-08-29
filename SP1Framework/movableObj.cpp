@@ -9,7 +9,7 @@ extern EGAMESTATES g_eGameState;
 
 void moveBoulder()
 {
-	if (g_eGameState = S_GAME)
+	if (g_eGameState == S_GAME)
 	{
 		if (g_abKeyPressed[K_LEFT] && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)254 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 2] == (char)176) //move left
 		{
@@ -36,7 +36,7 @@ void moveBoulder()
 			g_isUpdated = false;
 		}
 	}
-	if (g_eGameState = S_CREATIVE)
+	if (g_eGameState == S_CREATIVE)
 	{
 		if (g_abKeyPressed[K_LEFT] && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 1] == (char)254 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 2] == (char)176) //move left
 		{
