@@ -11,7 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
-bool    g_isKeyObtain;
+int     g_KeysObtain, g_PicksObtain;
 
 // Game specific variables here
 int g_CurrentLevel;
@@ -44,7 +44,8 @@ void init( void )
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
-	g_isKeyObtain = false;
+	g_KeysObtain = 0;
+	g_PicksObtain = 0;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
@@ -114,6 +115,9 @@ void getInput( void )
 	g_abKeyPressed[K_C]      = isKeyPressed(0x43);
 	g_abKeyPressed[K_S]      = isKeyPressed(0x53);
 	g_abKeyPressed[K_B]      = isKeyPressed(0x42);
+	g_abKeyPressed[K_R]      = isKeyPressed(0x52);
+	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
+	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 }
 
 //--------------------------------------------------------------
@@ -213,6 +217,8 @@ void gameplay()            // gameplay logic
 {
 	KeyObtain();
 	DoorOpen();
+	pickObtain();
+	objectStatus();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -303,7 +309,11 @@ void processUserInput()
 			g_eGameState = S_MENU;
 			g_isUpdated = false; 
 		}
-			
+		if (g_abKeyPressed[K_R])
+		{
+			reset();
+			g_isUpdated = false;
+		}
 	}
 	if (g_eGameState == S_MENU)
 	{
@@ -350,9 +360,14 @@ void processUserInput()
 			g_eGameState = S_MENU;
 			g_isUpdated = false;
 		}
-		if (g_abKeyPressed[K_K])
+		if (g_abKeyPressed[K_L])
 		{
 			g_eGameState = S_LOADEDITOR;
+			g_isUpdated = false;
+		}
+		if (g_abKeyPressed[K_R])
+		{
+			reset();
 			g_isUpdated = false;
 		}
 	}

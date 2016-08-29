@@ -130,6 +130,20 @@ void edits()
 		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
+	if (g_abKeyPressed[K_O])
+	{
+		ch = 'b';
+		editmap(g_CreativeLevel, ch);
+		g_isUpdated = false;
+		g_isMapLoaded = false;
+	}
+	if (g_abKeyPressed[K_P])
+	{
+		ch = 'P';
+		editmap(g_CreativeLevel, ch);
+		g_isUpdated = false;
+		g_isMapLoaded = false;
+	}
 }
 void saveMap(int levelnumber)
 {

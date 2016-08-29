@@ -15,10 +15,12 @@
 #include "load.h"
 #include "doors.h"
 #include "movableObj.h"
+#include "reset.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include "smashableObject.h"
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
@@ -42,6 +44,9 @@ enum EKEYS
 	K_C,
 	K_S,
 	K_B,
+	K_R,
+	K_P,
+	K_O,
     K_COUNT
 };
 
