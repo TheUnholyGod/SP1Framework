@@ -167,7 +167,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false) //boolean condition to control screen flickers
+	if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
 		clearScreen();        // clears the current screen and draw from scratch 
 		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
