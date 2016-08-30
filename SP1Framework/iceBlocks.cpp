@@ -7,6 +7,7 @@ extern EGAMESTATES	    g_eGameState;
 extern SCreaChar		g_sCreaChar;
 extern bool				g_isUpdated;
 extern string			g_playerDirection;
+extern double			g_dElapsedTime, g_SlidingSpeed;
 unsigned int			DirectionX = 0, DirectionY = 0; 
 
 void updateSlide()
@@ -53,6 +54,10 @@ void updateSlide()
 
 void sliding()
 {
+	bool isPlayerSliding = false;
+	if (g_SlidingSpeed > g_dElapsedTime)
+		return;
+
 	if (g_eGameState == S_GAME)
 	{
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING LEFT, SLIDE LEFT ---------------------- //
@@ -60,6 +65,7 @@ void sliding()
 		{
 			g_sChar.m_cLocation.X--;
 			g_sChar.m_cLocation.Y;
+			isPlayerSliding = true;
 		}
 
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING RIGHT, SLIDE RIGHT ---------------------- //
@@ -67,6 +73,7 @@ void sliding()
 		{
 			g_sChar.m_cLocation.X++;
 			g_sChar.m_cLocation.Y;
+			isPlayerSliding = true;
 		}
 
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING UP, SLIDE UP ---------------------- //
@@ -74,6 +81,7 @@ void sliding()
 		{
 			g_sChar.m_cLocation.X;
 			g_sChar.m_cLocation.Y--;
+			isPlayerSliding = true;
 		}
 
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING DOWN, SLIDE DOWN ---------------------- //
@@ -81,6 +89,12 @@ void sliding()
 		{
 			g_sChar.m_cLocation.X;
 			g_sChar.m_cLocation.Y++;
+			isPlayerSliding = true;
+		}
+
+		if (isPlayerSliding)
+		{
+			g_SlidingSpeed = g_dElapsedTime + 0.0125;
 		}
 	}
 }

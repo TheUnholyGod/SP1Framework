@@ -27,6 +27,7 @@ SSelector   g_sSelector;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+double  g_SlidingSpeed; // this is to control the speed of sliding
 // Console object
 Console g_Console(130, 40, "SP1 Framework");
 
@@ -44,6 +45,7 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+	g_SlidingSpeed = 0.0;
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
@@ -228,11 +230,8 @@ void gameplay()            // gameplay logic
 	DoorOpen();
 	pickObtain();
 	objectStatus();
-<<<<<<< HEAD
 	updateSlide();
 	sliding();
-=======
->>>>>>> 3a665b8610c96be0fd6bccf0c382670e7cb8343b
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
