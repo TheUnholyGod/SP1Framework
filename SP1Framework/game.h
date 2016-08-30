@@ -21,6 +21,7 @@
 #include <iomanip>
 #include <sstream>
 #include "smashableObject.h"
+#include "iceBlocks.h"
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
