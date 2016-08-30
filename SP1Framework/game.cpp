@@ -11,6 +11,7 @@ bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
+bool    g_isTorchEnabled;
 int     g_KeysObtain, g_PicksObtain;
 
 // Game specific variables here
@@ -21,6 +22,7 @@ Enemy	g_sEnemy;
 Enemy enemies[100];
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
+SSelector   g_sSelector;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -44,6 +46,7 @@ void init( void )
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
+	g_isTorchEnabled = true;
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
     g_eGameState = S_SPLASHSCREEN;
@@ -64,8 +67,11 @@ void init( void )
 	// set initial position of the creative character
 	g_sCreaChar.m_cCreativeLocation.X = 1;
 	g_sCreaChar.m_cCreativeLocation.Y = 2;
+	// set initial position of the menu selector
+	g_sSelector.m_cSelectorLocation.X = 50;
+	g_sSelector.m_cSelectorLocation.Y = 16;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Arial");
+    g_Console.setConsoleFont(0, 16, L"Raster");
 
 	//Initializes the Player
 	combatinit();
@@ -118,6 +124,7 @@ void getInput( void )
 	g_abKeyPressed[K_R]      = isKeyPressed(0x52);
 	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
+	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
 }
 
 //--------------------------------------------------------------
@@ -217,8 +224,6 @@ void gameplay()            // gameplay logic
 {
 	KeyObtain();
 	DoorOpen();
-	pickObtain();
-	objectStatus();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -232,6 +237,11 @@ void moveCharacter()
         return;
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
+	if (g_abKeyPressed[K_T])
+	{
+		g_isTorchEnabled = !g_isTorchEnabled;
+		bSomethingHappened = true;
+	}
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
     {
 		moveBoulder();
@@ -314,27 +324,6 @@ void processUserInput()
 			reset();
 			g_isUpdated = false;
 		}
-	}
-	if (g_eGameState == S_MENU)
-	{
-		// quits the game if player hits the escape key
-		if (g_abKeyPressed[K_ESCAPE])
-			g_bQuitGame = true;
-		// start game if player hits the space key
-		if (g_abKeyPressed[K_SPACE])
-		{
-			g_eGameState = S_LOADGAME;
-		}
-		if (g_abKeyPressed[K_C])
-		{
-			g_eGameState = S_LOADCREATIVE;
-		}
-		if (g_abKeyPressed[K_K])
-		{
-			g_eGameState = S_COMBAT;
-			g_isUpdated = false;
-		}
-			
 	}
 	if (g_eGameState == S_EDITOR)
 	{

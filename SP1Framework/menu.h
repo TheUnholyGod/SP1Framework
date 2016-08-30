@@ -10,5 +10,9 @@
 
 void renderMenu();
 void mainmenu();
+void renderSelector();
+void menuInput();
+void moveSelector();
+void renderTroll();
 
 #endif 

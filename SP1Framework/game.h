@@ -48,6 +48,7 @@ enum EKEYS
 	K_R,
 	K_P,
 	K_O,
+	K_T,
     K_COUNT
 };
 
@@ -77,9 +78,15 @@ struct SEditor
 {
 	COORD m_cEditorLocation;
 };
+//struct for the creative character
 struct SCreaChar
 {
 	COORD m_cCreativeLocation;
+};
+//struct for menu selector
+struct SSelector
+{
+	COORD m_cSelectorLocation;
 };
 
 
