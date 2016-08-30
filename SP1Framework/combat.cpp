@@ -50,6 +50,7 @@ struct stringcompiled
 	string attacktext[12];
 	string kambengProj[2];
 	string skeletonProj[11];
+	string fishProj[8];
 }stringz;
 
 //-----Object and Identifier Declaration-----//
@@ -101,6 +102,8 @@ double thisisatimeforprojectiles = 0;
 
 string SkeletonProjectile[6];
 COORD SkeletonProjectileCoord[6];
+string FishProjectile[20];
+COORD FishProjectileCoord[20];
 
 
 /*/
@@ -891,11 +894,27 @@ COORD SkeletonProjectileCoord[6];
 			break;
 
 		case ENEMYPIC_FISH1:
-			//Fish();
+			for (int i = 0; i < 2; i++)
+			{
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber], FishProjectile[arraynumber], 0x0C);
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber + 1], FishProjectile[arraynumber + 1], 0x0C);
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber + 2], FishProjectile[arraynumber + 2], 0x0C);
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber + 3], FishProjectile[arraynumber + 3], 0x0C);
+				arraynumber += 3;
+			}
+			arraynumber = 0;
 			break;
 
 		case ENEMYPIC_FISH2:
-			//Fish();
+			for (int i = 0; i < 2; i++)
+			{
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber], FishProjectile[arraynumber], 0x0C);
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber + 1], FishProjectile[arraynumber + 1], 0x0C);
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber + 2], FishProjectile[arraynumber + 2], 0x0C);
+				g_Console.writeToBuffer(FishProjectileCoord[arraynumber + 3], FishProjectile[arraynumber + 3], 0x0C);
+				arraynumber += 3;
+			}
+			arraynumber = 0;
 			break;
 
 		case ENEMYPIC_SPIDER1:
@@ -1362,6 +1381,10 @@ COORD SkeletonProjectileCoord[6];
 			{
 				getline(Projectiles, stringz.skeletonProj[i]);
 			}
+			for (int i = 0; i < 8; i++)
+			{
+				getline(Projectiles, stringz.fishProj[i]);
+			}
 		}
 	}
 
@@ -1617,7 +1640,45 @@ void Enemy::Skeleton()
 //---Fish Boss---//
 void Enemy::Fish()
 {
+	int fishloopcount = 0;
+	for (int i = 0; i < 5; i ++)
+	{
+		Xcoord[i] = rand() % 2;
+		if (Xcoord[i] == 0) //Setting projectile type and which directions
+		{
+			FishProjectileCoord[fishloopcount].X = 55;
+			FishProjectileCoord[fishloopcount + 1].X = 55;
+			FishProjectileCoord[fishloopcount + 2].X = 55;
+			FishProjectileCoord[fishloopcount + 3].X = 55;
+			FishProjectile[fishloopcount] = stringz.fishProj[0];
+			FishProjectile[fishloopcount + 1] = stringz.fishProj[1];
+			FishProjectile[fishloopcount + 2] = stringz.fishProj[2];
+			FishProjectile[fishloopcount + 3] = stringz.fishProj[3];
+		}
+		else
+		{
+			FishProjectileCoord[fishloopcount].X = 71;
+			FishProjectileCoord[fishloopcount + 1].X = 71;
+			FishProjectileCoord[fishloopcount + 2].X = 71;
+			FishProjectileCoord[fishloopcount + 3].X = 71;
+			FishProjectile[fishloopcount] = stringz.fishProj[4];
+			FishProjectile[fishloopcount + 1] = stringz.fishProj[5];
+			FishProjectile[fishloopcount + 2] = stringz.fishProj[6];
+			FishProjectile[fishloopcount + 3] = stringz.fishProj[7];
+		}
 
+		int Ycoord = (rand() % 6) + 31; //Randomize which row it spawns
+		FishProjectileCoord[fishloopcount].Y = Ycoord;
+		FishProjectileCoord[fishloopcount + 1].Y = Ycoord + 1;
+		FishProjectileCoord[fishloopcount + 2].Y = Ycoord + 2;
+
+		if ((FishProjectileCoord[fishloopcount].Y >= FishProjectileCoord[fishloopcount - 1].Y && FishProjectileCoord[fishloopcount].Y <= FishProjectileCoord[fishloopcount - 1].Y + 4) || (FishProjectileCoord[fishloopcount].Y <= FishProjectileCoord[fishloopcount - 1].Y && FishProjectileCoord[fishloopcount].Y >= FishProjectileCoord[fishloopcount - 1].Y - 4))
+		{
+			i--;
+			continue;
+		}
+		fishloopcount += 5;
+	}
 }
 
 //---Spider Boss---//
@@ -1749,7 +1810,7 @@ void Enemy::SkeletonUpdate()
 	{
 		return;
 	}
-	thisisatimeforprojectiles = g_dElapsedTime + 0.15;
+	thisisatimeforprojectiles = g_dElapsedTime + 0.10;
 	for (int i = 0; i < 2; i++)
 	{
 		if (Xcoord[coord] == 0)
@@ -1788,7 +1849,47 @@ void Enemy::SkeletonUpdate()
 //---Update for Fish Boss---//
 void Enemy::FishUpdate()
 {
-
+	int coord = 0;
+	if (thisisatimeforprojectiles > g_dElapsedTime)
+	{
+		return;
+	}
+	thisisatimeforprojectiles = g_dElapsedTime + 0.15;
+	for (int i = 0; i < 5; i++)
+	{
+		if (Xcoord[coord] == 0)
+		{
+			if (FishProjectileCoord[coord].X == 73 + 4)
+			{
+				enemyattackgame();
+				continue;
+			}
+			else
+			{
+				FishProjectileCoord[coord].X++;
+				FishProjectileCoord[coord + 1].X++;
+				FishProjectileCoord[coord + 2].X++;
+				FishProjectileCoord[coord + 3].X++;
+			}
+		}
+		else
+		{
+			if (FishProjectileCoord[coord].X == 54 - 4)
+			{
+				enemyattackgame();
+				continue;
+			}
+			else
+			{
+				FishProjectileCoord[coord].X--;
+				FishProjectileCoord[coord + 1].X--;
+				FishProjectileCoord[coord + 2].X--;
+				FishProjectileCoord[coord + 3].X--;
+			}
+		}
+		coord += 4;
+	}
+	coord = 0;
 }
 
 //---Update for Spider Boss---//
