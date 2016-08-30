@@ -12,10 +12,13 @@ char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
+bool    g_Level;
 int     g_KeysObtain, g_PicksObtain;
 string  g_playerDirection;
 
 // Game specific variables here
+int character_X;
+int character_Y;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
@@ -129,6 +132,7 @@ void getInput( void )
 	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
+	g_abKeyPressed[K_I]      = isKeyPressed(0x49);
 }
 
 //--------------------------------------------------------------

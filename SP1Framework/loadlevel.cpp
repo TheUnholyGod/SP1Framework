@@ -131,6 +131,11 @@ void store_map(int levelnumber)
 		{
 			for (unsigned int j = 0; j < maxMapWidth; j++)
 			{
+				if (map[i][j] == '!') //converts the key and walkable area
+				{
+					character_X = j;
+					character_Y = i;
+				}
 				file >> map[i][j];
 			}
 		}

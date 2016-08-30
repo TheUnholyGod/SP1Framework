@@ -5,10 +5,10 @@ extern Console g_Console;
 extern EGAMESTATES g_eGameState;
 extern CStopWatch g_Timer;
 extern bool g_isUpdated;
-extern bool g_isUpdated;
 extern double g_dElapsedTime;
 extern double g_dDeltaTime;
 extern double g_dBounceTime;
+extern bool g_Level;
 
 //-----Struct for Enemy Picture-----//
 struct enemypic
@@ -289,6 +289,7 @@ double thisisatimeforprojectiles = 0;
 		else if (player1.character.Health == 0) //Lose
 		{
 			combatgameplay = COMBAT_RELOOP;
+			enemy1.boss1.Health = enemy1.boss1.MaxHealth;
 			victory = 0;
 			return 0;
 		}
@@ -329,9 +330,6 @@ double thisisatimeforprojectiles = 0;
 	//-----After Input Is Recieved-----//
 	void aftinput()
 	{
-		if (thisisatimeforspace > g_dElapsedTime)
-			return;
-
 		if (isKeyPressed(VK_SPACE))
 		{
 			whenSpacePressed = true;
@@ -359,10 +357,10 @@ double thisisatimeforprojectiles = 0;
 	{
 		if (victory == 0)
 		{
-			if (isKeyPressed(VK_SPACE))
-			{
-				enemySelector = 0;
-			}
+			playerinit();
+			enemySelector = 0;
+			combatgameplay = COMBAT_GETINPUT;
+			g_eGameState = S_MENU;
 		}
 		else if (victory == 1)
 		{
@@ -375,7 +373,14 @@ double thisisatimeforprojectiles = 0;
 		}
 		whenSpacePressed = false;
 		combatgameplay = COMBAT_GETINPUT;
-		g_eGameState = S_LOADCREATIVE;
+		if (g_Level == true)
+		{
+			g_eGameState = S_LOADGAME;
+		}
+		else if (g_Level == false)
+		{
+			g_eGameState = S_LOADCREATIVE;
+		}
 	}
 
 	//---Moving The Character---//
