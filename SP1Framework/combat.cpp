@@ -927,7 +927,7 @@ double thisisatimeforprojectiles = 0;
 	void playerinit()
 	{
 		int health = 100;
-		int attack = 10;
+		int attack = 1000;
 		int defence = 10;
 
 		player1.playerBase(health, attack, defence);
@@ -1188,6 +1188,7 @@ double thisisatimeforprojectiles = 0;
 			}
 			else if (number == 5)
 			{
+				getline(textlines, hold);
 				getline(textlines, hold);
 				getline(textlines, hold);
 				getline(textlines, hold);
