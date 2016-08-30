@@ -15,6 +15,8 @@ bool    g_isTorchEnabled;
 int     g_KeysObtain, g_PicksObtain;
 
 // Game specific variables here
+int character_X;
+int character_Y;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
