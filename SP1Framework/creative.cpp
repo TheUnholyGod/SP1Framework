@@ -18,6 +18,8 @@ void creativeGameplay()
 {
 	KeyObtain();
 	DoorOpen();
+	pickObtain();
+	objectStatus();
 	checkCreativeGameGoal();
 	processUserInput();
 	creativeMoveCharacter();

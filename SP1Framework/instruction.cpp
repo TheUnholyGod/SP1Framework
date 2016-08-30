@@ -3,12 +3,21 @@
 void renderGameInstruction()
 {
 	renderTextBox();
-	g_Console.writeToBuffer(5, 28, "Hello, you are in game mode :D");
+	g_Console.writeToBuffer(5, 28, "<GAME MODE>");
+	g_Console.writeToBuffer(5, 29, "<Arrow Keys> to move character");
+	g_Console.writeToBuffer(5, 30, "<E>          to interact");
+	g_Console.writeToBuffer(5, 31, "<R>          to suicide (In case you screw up some boulders :P)");
+	g_Console.writeToBuffer(5, 32, "<M>          for main menu");
 }
 void renderCreativeInstruction()
 {
 	renderTextBox();
-	g_Console.writeToBuffer(5, 28, "Hello, you are in Creative mode :D");
+	g_Console.writeToBuffer(5, 28, "<CREATIVE MODE>");
+	g_Console.writeToBuffer(5, 29, "<Arrow Keys> to move character");
+	g_Console.writeToBuffer(5, 30, "<E>          to interact");
+	g_Console.writeToBuffer(5, 31, "<R>          to suicide (In case you screw up some boulders :P)");
+	g_Console.writeToBuffer(5, 32, "<L>          for level editor");
+	g_Console.writeToBuffer(5, 33, "<M>          for main menu");
 }
 void renderEditorInstruction()
 {
@@ -23,6 +32,8 @@ void renderEditorInstruction()
 	g_Console.writeToBuffer(5, 33, "<B>     for Movable Boulder");
 	g_Console.writeToBuffer(5, 34, "<P>     for Collectable Pickaxe");
 	g_Console.writeToBuffer(5, 35, "<O>     for Breakable Boulder");
+	g_Console.writeToBuffer(5, 36, "<Q>     for Game End point");
+	g_Console.writeToBuffer(5, 36, "<C>     for creative mode");
 }
 void renderTextBox()
 {
