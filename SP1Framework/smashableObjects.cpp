@@ -11,7 +11,7 @@ void pickObtain()
 {
 	if (g_eGameState == S_GAME)
 	{
-		if (g_abKeyPressed[K_E] && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)156)
+		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)156)
 		{
 			g_PicksObtain += 4;
 			map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = (char)176;
@@ -20,7 +20,7 @@ void pickObtain()
 
 	if (g_eGameState == S_CREATIVE)
 	{
-		if (g_abKeyPressed[K_E] && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)156)
+		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)156)
 		{
 			g_PicksObtain += 4;
 			map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] = (char)176;
