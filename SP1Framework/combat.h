@@ -187,5 +187,6 @@ void printinglinesoftext(int name);
 void checkdamage();
 string namefilling(int no);
 void projectilefilling();
+void arrayclear();
 
 #endif //End of _COMBAT_H

@@ -49,6 +49,7 @@ struct stringcompiled
 	string updateTexts[6];
 	string attacktext[12];
 	string kambengProj[2];
+	string skeletonProj[8];
 }stringz;
 
 //-----Object and Identifier Declaration-----//
@@ -234,6 +235,7 @@ double thisisatimeforprojectiles = 0;
 			isEnemyAttActive = true;
 			holdtimer();
 			textboxprinted = false;
+			enemy1.enemyattackgame();
 			combatgameplay = COMBAT_DEF_ENEMYGAME;
 			return;
 		}
@@ -281,12 +283,14 @@ double thisisatimeforprojectiles = 0;
 
 		if (enemy1.boss1.Health == 0) //Win
 		{
+			arrayclear();
 			combatgameplay = COMBAT_RELOOP;
 			victory = 1;
 			return 1;
 		}
 		else if (player1.character.Health == 0) //Lose
 		{
+			arrayclear();
 			combatgameplay = COMBAT_RELOOP;
 			enemy1.boss1.Health = enemy1.boss1.MaxHealth;
 			victory = 0;
@@ -294,6 +298,7 @@ double thisisatimeforprojectiles = 0;
 		}
 		else //Continue
 		{
+			arrayclear();
 			combatgameplay = COMBAT_GETINPUT;
 			victory = 2;
 			return 2;
@@ -461,6 +466,17 @@ double thisisatimeforprojectiles = 0;
 				damagecheck = g_dElapsedTime + 0.25;
 				counter++;
 			}
+		}
+	}
+
+	//---Clear Arrays---//
+	void arrayclear()
+	{
+		for (int i = 0; i < 20; i++)
+		{
+			projectile[i].erase();
+			projectileCoord[i].X = 0;
+			projectileCoord[i].Y = 0;
 		}
 	}
 
@@ -841,6 +857,7 @@ double thisisatimeforprojectiles = 0;
 	//-----Initalizing all Combat-----//
 	void combatinit()
 	{
+		srand(time(NULL));
 		playerinit();
 		displayinit();
 		enemyinit(0);
@@ -1261,8 +1278,14 @@ double thisisatimeforprojectiles = 0;
 
 		if (Projectiles.is_open())
 		{
-			getline(Projectiles,stringz.kambengProj[0]);
-			getline(Projectiles, stringz.kambengProj[1]);
+			for (int i = 0; i < 2; i++)
+			{
+				getline(Projectiles, stringz.kambengProj[i]);
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				getline(Projectiles, stringz.skeletonProj[i]);
+			}
 		}
 	}
 
@@ -1495,7 +1518,6 @@ void Enemy::bullet()
 //---Kambeng Boss---//
 void Enemy::Kambeng()
 {
-	srand(time(NULL));
 	for (int i = 0; i <= 19; i++)
 	{
 		Xcoord[i] = rand() % 2; //Randomize left or right
