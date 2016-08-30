@@ -12,6 +12,7 @@ char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
+bool    g_Level;
 int     g_KeysObtain, g_PicksObtain;
 string  g_playerDirection;
 
