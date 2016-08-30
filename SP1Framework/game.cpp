@@ -228,8 +228,11 @@ void gameplay()            // gameplay logic
 	DoorOpen();
 	pickObtain();
 	objectStatus();
+<<<<<<< HEAD
 	updateSlide();
 	sliding();
+=======
+>>>>>>> 3a665b8610c96be0fd6bccf0c382670e7cb8343b
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc

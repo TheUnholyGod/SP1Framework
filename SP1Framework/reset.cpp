@@ -3,6 +3,7 @@ extern int g_CurrentLevel;
 extern int g_CreativeLevel;
 extern EGAMESTATES g_eGameState;
 extern int g_KeysObtain;
+extern int g_PicksObtain;
 extern bool g_isUpdated;
 extern SGameChar g_sChar;
 extern SCreaChar g_sCreaChar;
@@ -14,7 +15,7 @@ void reset()
 		g_sChar.m_cLocation.Y = 2;
 		g_sChar.m_cLocation.X = 1;
 		g_KeysObtain = 0;
-		g_isUpdated = false;
+		g_PicksObtain = 0;
 		store_map(g_CurrentLevel);
 	}
 
@@ -23,7 +24,7 @@ void reset()
 		g_sCreaChar.m_cCreativeLocation.Y = 2;
 		g_sCreaChar.m_cCreativeLocation.X = 1;
 		g_KeysObtain = 0;
-		g_isUpdated = false;
+		g_PicksObtain = 0;
 		store_map(g_CreativeLevel);
 	}
 }

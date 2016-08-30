@@ -7,6 +7,8 @@ extern bool g_abKeyPressed[K_COUNT];
 extern double  g_dElapsedTime;
 extern double  g_dBounceTime;
 extern EGAMESTATES g_eGameState;
+extern int g_KeysObtain;
+extern int g_PicksObtain;
 
 void renderMenu()
 {
@@ -75,10 +77,14 @@ void menuInput()
 {
 	if (g_sSelector.m_cSelectorLocation.Y - 1 == 15 && g_abKeyPressed[K_SPACE]) //Game
 	{
+		g_KeysObtain = 0;
+		g_PicksObtain = 0;
 		g_eGameState = S_LOADGAME;
 	}
 	if (g_sSelector.m_cSelectorLocation.Y - 1 == 16 && g_abKeyPressed[K_SPACE]) //Creative
 	{
+		g_KeysObtain = 0;
+		g_PicksObtain = 0;
 		g_eGameState = S_LOADCREATIVE;
 	}
 	if (g_sSelector.m_cSelectorLocation.Y - 1 == 17 && g_abKeyPressed[K_SPACE]) //Controls

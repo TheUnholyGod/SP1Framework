@@ -78,6 +78,7 @@ double thisisatime2;
 double thisisatimeforspace;
 double waittime;
 double thisisatimeforanimation = g_dElapsedTime + 0.5;
+double damagecheck = g_dElapsedTime + 0.2;
 bool isUpPressed = true;
 bool isEnemyAttActive = false;
 bool whenSpacePressed = false;
@@ -373,7 +374,8 @@ double thisisatimeforprojectiles = 0;
 			thisisatimeforspace = g_dElapsedTime + 2;
 		}
 		whenSpacePressed = false;
-		g_eGameState = S_LOADGAME;
+		combatgameplay = COMBAT_GETINPUT;
+		g_eGameState = S_LOADCREATIVE;
 	}
 
 	//---Moving The Character---//
@@ -444,10 +446,15 @@ double thisisatimeforprojectiles = 0;
 	//---Checking Damage from  the Enemy---//
 	void checkdamage()
 	{
+		if (damagecheck > g_dElapsedTime)
+		{
+			return;
+		}
 		for (int i = 0; i < 20; i++)
 		{
 			if (characterspawn.X == projectileCoord[i].X && characterspawn.Y == projectileCoord[i].Y)
 			{
+				damagecheck = g_dElapsedTime + 0.25;
 				counter++;
 			}
 		}
@@ -819,16 +826,6 @@ double thisisatimeforprojectiles = 0;
 	//---Spawning Projectiles---//
 	void printprojectiles(int arraycounter)
 	{
-		/*if (thisisatimeforprojectiles > g_dElapsedTime)
-		{
-			return;
-		}
-		else
-		{
-			thisisatimeforprojectiles = g_dElapsedTime + 0.5;
-		}*/
-
-
 		for (int j = 0; j <= arraycounter; j++)
 		{
 			g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
@@ -1213,25 +1210,40 @@ double thisisatimeforprojectiles = 0;
 			else if (no == 1)
 			{
 				getline(name, hold);
+				getline(name, hold);
 				return hold;
 			}
 			else if (no == 2)
 			{
+				getline(name, hold);
+				getline(name, hold); 
 				getline(name, hold);
 				return hold;
 			}
 			else if (no == 3)
 			{
 				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
 				return hold;
 			}
 			else if (no == 4)
 			{
 				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
 				return hold;
 			}
 			else if (no == 5)
 			{
+				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
+				getline(name, hold);
 				getline(name, hold);
 				return hold;
 			}
@@ -1371,17 +1383,23 @@ void Enemy::enemyattackgame()
 
 		if (Xcoord[i] == 0) //Setting projectile type and which directions
 		{
-			projectileCoord[i].X = 54;
+			projectileCoord[i].X = 55;
 			projectile[i] = projectile2;
 		}
 		else
 		{
-			projectileCoord[i].X = 72;
+			projectileCoord[i].X = 71;
 			projectile[i] = projectile1;
 		}
 
-		int Ycoord = (rand() % 7) + 31; //Randomize which row it spawns
+		int Ycoord = (rand() % 8) + 31; //Randomize which row it spawns
 		projectileCoord[i].Y = Ycoord;
+
+		if (projectileCoord[i].Y == projectileCoord[i - 1].Y)
+		{
+			i--;
+			continue;
+		}
 	}
 }
 
