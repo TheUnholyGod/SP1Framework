@@ -4,7 +4,7 @@
 extern Console g_Console;
 extern EGAMESTATES g_eGameState;
 extern CStopWatch g_Timer;
-extern bool g_isUpdated;
+extern bool ;
 extern double g_dElapsedTime;
 extern double g_dDeltaTime;
 extern double g_dBounceTime;
@@ -471,7 +471,6 @@ double thisisatimeforprojectiles = 0;
 	void combatdisplay()
 	{
 		WORD color = 0x0B;
-		g_isUpdated = false;
 		enemy1.display(combatdisplaycoord, enemy1.boss1.Health, enemy1.boss1.MaxHealth, enemy1.boss1.Attack, enemy1.boss1.Defence);
 
 		enemyrender();
@@ -1080,12 +1079,10 @@ double thisisatimeforprojectiles = 0;
 		if (printno == 0)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Att.txt");
-			g_isUpdated = false;
 		}
 		else if (printno == 1)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Def.txt");
-			g_isUpdated = false;
 		}
 
 		if (buttons.is_open())

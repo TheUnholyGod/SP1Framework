@@ -1,6 +1,6 @@
 #include "editor.h"
 
-extern bool g_isUpdated;
+extern bool ;
 extern bool g_isMapLoaded;
 extern char** creative;
 extern int character_X;
@@ -38,7 +38,6 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.Y--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
 	}
@@ -47,7 +46,6 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.X--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
 	}
@@ -56,7 +54,6 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.Y++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCursor.m_cEditorLocation.X < g_Console.getConsoleSize().X - 1)
@@ -64,7 +61,6 @@ void moveCursor()
 		{
 			g_sCursor.m_cEditorLocation.X++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
 	}
@@ -92,63 +88,54 @@ void edits()
 	{
 		ch = '-';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_W])
 	{
 		ch = 'W';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_D])
 	{
 		ch = 'D';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_Q])
 	{
 		ch = '+';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_K])
 	{
 		ch = 'K';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_B])
 	{
 		ch = 'B';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_O])
 	{
 		ch = 'b';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_P])
 	{
 		ch = 'P';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 	if (g_abKeyPressed[K_I])
 	{
 		ch = 'I';
 		editmap(g_CreativeLevel, ch);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 }
