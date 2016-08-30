@@ -370,17 +370,17 @@ double thisisatimeforprojectiles = 0;
 			BossesDefeated++;
 			player1.statsUpdate(BossesDefeated);
 			thisisatimeforspace = g_dElapsedTime + 2;
+			if (g_Level == true)
+			{
+				g_eGameState = S_LOADGAME;
+			}
+			else if (g_Level == false)
+			{
+				g_eGameState = S_LOADCREATIVE;
+			}
 		}
 		whenSpacePressed = false;
 		combatgameplay = COMBAT_GETINPUT;
-		if (g_Level == true)
-		{
-			g_eGameState = S_LOADGAME;
-		}
-		else if (g_Level == false)
-		{
-			g_eGameState = S_LOADCREATIVE;
-		}
 	}
 
 	//---Moving The Character---//
