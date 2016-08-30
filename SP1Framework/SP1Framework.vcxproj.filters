@@ -55,6 +55,9 @@
     <ClCompile Include="reset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="iceBlocks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI Pathfinding.h">
@@ -106,6 +109,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="reset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iceBlocks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
