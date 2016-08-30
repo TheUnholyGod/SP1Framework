@@ -50,6 +50,44 @@ void updateSlide()
 				g_playerDirection = "Down";
 		}
 	}
+	if (g_eGameState == S_CREATIVE)
+	{
+		if (g_abKeyPressed[K_LEFT])
+		{
+			DirectionX = -1;
+			DirectionY = 0;
+
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223)
+				g_playerDirection = "Left";
+		}
+
+		if (g_abKeyPressed[K_RIGHT])
+		{
+			DirectionX = 1;
+			DirectionY = 0;
+
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223)
+				g_playerDirection = "Right";
+		}
+
+		if (g_abKeyPressed[K_UP])
+		{
+			DirectionX = 0;
+			DirectionY = 1;
+
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223)
+				g_playerDirection = "Up";
+		}
+
+		if (g_abKeyPressed[K_DOWN])
+		{
+			DirectionX = 0;
+			DirectionY = -1;
+
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223)
+				g_playerDirection = "Down";
+		}
+	}
 }
 
 void sliding()
@@ -89,6 +127,45 @@ void sliding()
 		{
 			g_sChar.m_cLocation.X;
 			g_sChar.m_cLocation.Y++;
+			isPlayerSliding = true;
+		}
+
+		if (isPlayerSliding)
+		{
+			g_SlidingSpeed = g_dElapsedTime + 0.0125;
+		}
+	}
+	if (g_eGameState == S_CREATIVE)
+	{
+		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING LEFT, SLIDE LEFT ---------------------- //
+		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == -1 && DirectionY == 0 && g_playerDirection != "Right")
+		{
+			g_sCreaChar.m_cCreativeLocation.X--;
+			g_sCreaChar.m_cCreativeLocation.Y;
+			isPlayerSliding = true;
+		}
+
+		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING RIGHT, SLIDE RIGHT ---------------------- //
+		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == 1 && DirectionY == 0 && g_playerDirection != "Left")
+		{
+			g_sCreaChar.m_cCreativeLocation.X++;
+			g_sCreaChar.m_cCreativeLocation.Y;
+			isPlayerSliding = true;
+		}
+
+		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING UP, SLIDE UP ---------------------- //
+		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == 0 && DirectionY == 1 && g_playerDirection != "Down")
+		{
+			g_sCreaChar.m_cCreativeLocation.X;
+			g_sCreaChar.m_cCreativeLocation.Y--;
+			isPlayerSliding = true;
+		}
+
+		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING DOWN, SLIDE DOWN ---------------------- //
+		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == 0 && DirectionY == -1 && g_playerDirection != "Up")
+		{
+			g_sCreaChar.m_cCreativeLocation.X;
+			g_sCreaChar.m_cCreativeLocation.Y++;
 			isPlayerSliding = true;
 		}
 

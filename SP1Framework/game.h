@@ -49,6 +49,7 @@ enum EKEYS
 	K_P,
 	K_O,
 	K_T,
+	K_I,
     K_COUNT
 };
 

@@ -20,6 +20,8 @@ void creativeGameplay()
 	DoorOpen();
 	pickObtain();
 	objectStatus();
+	updateSlide();
+	sliding();
 	checkCreativeGameGoal();
 	processUserInput();
 	creativeMoveCharacter();

@@ -131,6 +131,7 @@ void getInput( void )
 	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
+	g_abKeyPressed[K_I]      = isKeyPressed(0x49);
 }
 
 //--------------------------------------------------------------
