@@ -49,8 +49,9 @@ struct stringcompiled
 	string updateTexts[6];
 	string attacktext[12];
 	string kambengProj[2];
-	string skeletonProj[11];
+	string skeletonProj[3];
 	string fishProj[8];
+	string spiderProj[5];
 }stringz;
 
 //-----Object and Identifier Declaration-----//
@@ -85,7 +86,6 @@ double thisisatimeforanimation = g_dElapsedTime + 0.5;
 double damagecheck = g_dElapsedTime + 0.2;
 bool isUpPressed = true;
 bool isEnemyAttActive = false;
-bool whenSpacePressed = false;
 bool charmoved = false;
 bool textboxprinted = false;
 bool updatedtextprinted = true;
@@ -102,8 +102,10 @@ double thisisatimeforprojectiles = 0;
 
 string SkeletonProjectile[6];
 COORD SkeletonProjectileCoord[6];
-string FishProjectile[20];
-COORD FishProjectileCoord[20];
+string FishProjectile[8];
+COORD FishProjectileCoord[8];
+string SpiderProjectile[5];
+COORD SpiderProjectilCoord[5];
 
 
 /*/
@@ -345,12 +347,6 @@ COORD FishProjectileCoord[20];
 	{
 		if (isKeyPressed(VK_SPACE))
 		{
-			whenSpacePressed = true;
-			if (whenSpacePressed == true)
-			{
-				thisisatime = g_dElapsedTime;
-			}
-
 			if (victory == 2)
 			{
 				if (isUpPressed == true) //Attack
@@ -392,7 +388,6 @@ COORD FishProjectileCoord[20];
 				g_eGameState = S_LOADCREATIVE;
 			}
 		}
-		whenSpacePressed = false;
 		combatgameplay = COMBAT_GETINPUT;
 	}
 
@@ -860,14 +855,14 @@ COORD FishProjectileCoord[20];
 		case ENEMYPIC_KAMBENGF1:
 			for (int j = 0; j <= arraycounter; j++)
 			{
-				g_Console.writeToBuffer(projectileCoord[j], projectile[j]);
+				g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x0A);
 			}
 			break;
 
 		case ENEMYPIC_KAMBENGF2:
 			for (int j = 0; j <= arraycounter; j++)
 			{
-				g_Console.writeToBuffer(projectileCoord[j], projectile[j]);
+				g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x0A);
 			}
 			break;
 
@@ -918,11 +913,17 @@ COORD FishProjectileCoord[20];
 			break;
 
 		case ENEMYPIC_SPIDER1:
-			//Spider();
+			for (int i = 0; i < 5; i++)
+			{
+				g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i]);
+			}
 			break;
 
 		case ENEMYPIC_SPIDER2:
-			//Spider();
+			for (int i = 0; i < 5; i++)
+			{
+				g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i]);
+			}
 			break;
 
 		case ENEMYPIC_ROBOT1:
@@ -1377,13 +1378,17 @@ COORD FishProjectileCoord[20];
 			{
 				getline(Projectiles, stringz.kambengProj[i]);
 			}
-			for (int i = 0; i < 11; i++)
+			for (int i = 0; i < 3; i++)
 			{
 				getline(Projectiles, stringz.skeletonProj[i]);
 			}
 			for (int i = 0; i < 8; i++)
 			{
 				getline(Projectiles, stringz.fishProj[i]);
+			}
+			for (int i = 0; i < 5; i++)
+			{
+				getline(Projectiles, stringz.spiderProj[i]);
 			}
 		}
 	}
@@ -1610,18 +1615,18 @@ void Enemy::Skeleton()
 			SkeletonProjectileCoord[i].X = 55;
 			SkeletonProjectileCoord[i + 1].X = 55;
 			SkeletonProjectileCoord[i + 2].X = 55;
-			SkeletonProjectile[i] = stringz.skeletonProj[8];
-			SkeletonProjectile[i+1] = stringz.skeletonProj[9];
-			SkeletonProjectile[i+2] = stringz.skeletonProj[10];
+			SkeletonProjectile[i] = stringz.skeletonProj[0];
+			SkeletonProjectile[i+1] = stringz.skeletonProj[1];
+			SkeletonProjectile[i+2] = stringz.skeletonProj[2];
 		}
 		else
 		{
 			SkeletonProjectileCoord[i].X = 71;
 			SkeletonProjectileCoord[i + 1].X = 71;
 			SkeletonProjectileCoord[i + 2].X = 71;
-			SkeletonProjectile[i] = stringz.skeletonProj[8];
-			SkeletonProjectile[i + 1] = stringz.skeletonProj[9];
-			SkeletonProjectile[i + 2] = stringz.skeletonProj[10];
+			SkeletonProjectile[i] = stringz.skeletonProj[0];
+			SkeletonProjectile[i + 1] = stringz.skeletonProj[1];
+			SkeletonProjectile[i + 2] = stringz.skeletonProj[2];
 		}
 
 		int Ycoord = (rand() % 6) + 31; //Randomize which row it spawns
@@ -1629,7 +1634,7 @@ void Enemy::Skeleton()
 		SkeletonProjectileCoord[i + 1].Y = Ycoord + 1;
 		SkeletonProjectileCoord[i + 2].Y = Ycoord + 2;
 
-		if ((SkeletonProjectileCoord[i].Y >= SkeletonProjectileCoord[i - 1].Y && SkeletonProjectileCoord[i].Y <= SkeletonProjectileCoord[i - 1].Y + 4) || (SkeletonProjectileCoord[i].Y <= SkeletonProjectileCoord[i - 1].Y && SkeletonProjectileCoord[i].Y >= SkeletonProjectileCoord[i - 1].Y - 4))
+		if ((SkeletonProjectileCoord[i].Y == SkeletonProjectileCoord[i - 1].Y && SkeletonProjectileCoord[i].Y <= SkeletonProjectileCoord[i - 1].Y + 4) || (SkeletonProjectileCoord[i].Y <= SkeletonProjectileCoord[i - 1].Y && SkeletonProjectileCoord[i].Y == SkeletonProjectileCoord[i - 1].Y - 4))
 		{
 			i--;
 			continue;
@@ -1641,10 +1646,10 @@ void Enemy::Skeleton()
 void Enemy::Fish()
 {
 	int fishloopcount = 0;
-	for (int i = 0; i < 5; i ++)
+	for (int i = 0; i < 2; i++)
 	{
-		Xcoord[i] = rand() % 2;
-		if (Xcoord[i] == 0) //Setting projectile type and which directions
+		Xcoord[fishloopcount] = rand() % 2;
+		if (Xcoord[fishloopcount] == 0) //Setting projectile type and which directions
 		{
 			FishProjectileCoord[fishloopcount].X = 55;
 			FishProjectileCoord[fishloopcount + 1].X = 55;
@@ -1667,24 +1672,41 @@ void Enemy::Fish()
 			FishProjectile[fishloopcount + 3] = stringz.fishProj[7];
 		}
 
-		int Ycoord = (rand() % 6) + 31; //Randomize which row it spawns
+		int Ycoord = (rand() % 5) + 31; //Randomize which row it spawns
 		FishProjectileCoord[fishloopcount].Y = Ycoord;
 		FishProjectileCoord[fishloopcount + 1].Y = Ycoord + 1;
 		FishProjectileCoord[fishloopcount + 2].Y = Ycoord + 2;
+		FishProjectileCoord[fishloopcount + 3].Y = Ycoord + 3;
 
-		if ((FishProjectileCoord[fishloopcount].Y >= FishProjectileCoord[fishloopcount - 1].Y && FishProjectileCoord[fishloopcount].Y <= FishProjectileCoord[fishloopcount - 1].Y + 4) || (FishProjectileCoord[fishloopcount].Y <= FishProjectileCoord[fishloopcount - 1].Y && FishProjectileCoord[fishloopcount].Y >= FishProjectileCoord[fishloopcount - 1].Y - 4))
+		if ((FishProjectileCoord[fishloopcount].Y == FishProjectileCoord[fishloopcount - 1].Y && FishProjectileCoord[fishloopcount].Y <= FishProjectileCoord[fishloopcount - 1].Y + 1) || (FishProjectileCoord[fishloopcount].Y == FishProjectileCoord[fishloopcount - 1].Y && FishProjectileCoord[fishloopcount].Y >= FishProjectileCoord[fishloopcount - 1].Y - 1))
 		{
 			i--;
 			continue;
 		}
-		fishloopcount += 5;
+		fishloopcount += 4;
 	}
 }
 
 //---Spider Boss---//
 void Enemy::Spider()
 {
-
+	int i = 0;
+	Xcoord[0] = (rand() % 9) + 55;
+	
+	for (i = 0; i < 5; i++)
+	{
+		SpiderProjectilCoord[i].X = Xcoord[0];
+	}
+	SpiderProjectilCoord[0].Y = 35;
+	SpiderProjectilCoord[1].Y = 34;
+	SpiderProjectilCoord[2].Y = 33;
+	SpiderProjectilCoord[3].Y = 32;
+	SpiderProjectilCoord[4].Y = 31;
+	SpiderProjectile[0] = stringz.spiderProj[4];
+	SpiderProjectile[1] = stringz.spiderProj[3];
+	SpiderProjectile[2] = stringz.spiderProj[2];
+	SpiderProjectile[3] = stringz.spiderProj[1];
+	SpiderProjectile[4] = stringz.spiderProj[0];
 }
 
 //---Robot Boss---//
@@ -1815,7 +1837,7 @@ void Enemy::SkeletonUpdate()
 	{
 		if (Xcoord[coord] == 0)
 		{
-			if (SkeletonProjectileCoord[coord].X == 73 + 13)
+			if (SkeletonProjectileCoord[0].X == 73 + 13)
 			{
 				enemyattackgame();
 				continue;
@@ -1829,7 +1851,7 @@ void Enemy::SkeletonUpdate()
 		}
 		else
 		{
-			if (SkeletonProjectileCoord[coord].X == 54 - 13)
+			if (SkeletonProjectileCoord[0].X == 54 - 13)
 			{
 				enemyattackgame();
 				continue;
@@ -1850,16 +1872,17 @@ void Enemy::SkeletonUpdate()
 void Enemy::FishUpdate()
 {
 	int coord = 0;
+	int randomupdown;
 	if (thisisatimeforprojectiles > g_dElapsedTime)
 	{
 		return;
 	}
 	thisisatimeforprojectiles = g_dElapsedTime + 0.15;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (Xcoord[coord] == 0)
 		{
-			if (FishProjectileCoord[coord].X == 73 + 4)
+			if (FishProjectileCoord[0].X == 73 + 4)
 			{
 				enemyattackgame();
 				continue;
@@ -1870,11 +1893,46 @@ void Enemy::FishUpdate()
 				FishProjectileCoord[coord + 1].X++;
 				FishProjectileCoord[coord + 2].X++;
 				FishProjectileCoord[coord + 3].X++;
+				randomupdown = rand() % 3;
+				if (randomupdown == 1)
+				{
+					if (FishProjectileCoord[coord].Y <= 32)
+					{
+						FishProjectileCoord[coord].Y++;
+						FishProjectileCoord[coord + 1].Y++;
+						FishProjectileCoord[coord + 2].Y++;
+						FishProjectileCoord[coord + 3].Y++;
+					}
+					else if (FishProjectileCoord[coord].Y >= 35)
+					{
+						FishProjectileCoord[coord].Y--;
+						FishProjectileCoord[coord + 1].Y--;
+						FishProjectileCoord[coord + 2].Y--;
+						FishProjectileCoord[coord + 3].Y--;
+					}
+				}
+				else if (randomupdown = 2)
+				{
+					if (FishProjectileCoord[coord].Y >= 35)
+					{
+						FishProjectileCoord[coord].Y--;
+						FishProjectileCoord[coord + 1].Y--;
+						FishProjectileCoord[coord + 2].Y--;
+						FishProjectileCoord[coord + 3].Y--;
+					}
+					else if (FishProjectileCoord[coord].Y >= 32)
+					{
+						FishProjectileCoord[coord].Y++;
+						FishProjectileCoord[coord + 1].Y++;
+						FishProjectileCoord[coord + 2].Y++;
+						FishProjectileCoord[coord + 3].Y++;
+					}
+				}
 			}
 		}
 		else
 		{
-			if (FishProjectileCoord[coord].X == 54 - 4)
+			if (FishProjectileCoord[0].X == 54 - 4)
 			{
 				enemyattackgame();
 				continue;
@@ -1886,6 +1944,41 @@ void Enemy::FishUpdate()
 				FishProjectileCoord[coord + 2].X--;
 				FishProjectileCoord[coord + 3].X--;
 			}
+			randomupdown = rand() % 3;
+			if (randomupdown == 1)
+			{
+				if (FishProjectileCoord[coord].Y <= 32)
+				{
+					FishProjectileCoord[coord].Y++;
+					FishProjectileCoord[coord + 1].Y++;
+					FishProjectileCoord[coord + 2].Y++;
+					FishProjectileCoord[coord + 3].Y++;
+				}
+				else if (FishProjectileCoord[coord].Y >= 35)
+				{
+					FishProjectileCoord[coord].Y--;
+					FishProjectileCoord[coord + 1].Y--;
+					FishProjectileCoord[coord + 2].Y--;
+					FishProjectileCoord[coord + 3].Y--;
+				}
+			}
+			else if (randomupdown = 2)
+			{
+				if (FishProjectileCoord[coord].Y >= 35)
+				{
+					FishProjectileCoord[coord].Y--;
+					FishProjectileCoord[coord + 1].Y--;
+					FishProjectileCoord[coord + 2].Y--;
+					FishProjectileCoord[coord + 3].Y--;
+				}
+				else if (FishProjectileCoord[coord].Y >= 32)
+				{
+					FishProjectileCoord[coord].Y++;
+					FishProjectileCoord[coord + 1].Y++;
+					FishProjectileCoord[coord + 2].Y++;
+					FishProjectileCoord[coord + 3].Y++;
+				}
+			}
 		}
 		coord += 4;
 	}
@@ -1895,7 +1988,21 @@ void Enemy::FishUpdate()
 //---Update for Spider Boss---//
 void Enemy::SpiderUpdate()
 {
-
+	if (thisisatimeforprojectiles > g_dElapsedTime)
+	{
+		return;
+	}
+	thisisatimeforprojectiles = g_dElapsedTime + 0.15;
+	for (int i = 0; i < 5; i++)
+	{
+		SpiderProjectilCoord[i].Y++;
+		if (SpiderProjectilCoord[0].Y == 39)
+		{
+			enemyattackgame();
+			return;
+		}
+	}
+	
 }
 
 //---Update for Robot Boss---//
