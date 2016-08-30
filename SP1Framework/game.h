@@ -16,6 +16,7 @@
 #include "doors.h"
 #include "movableObj.h"
 #include "reset.h"
+#include "flare.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>

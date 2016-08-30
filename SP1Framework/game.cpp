@@ -7,13 +7,16 @@ using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
+double  g_flareTime;
 bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
-bool    ;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
 bool    g_Level;
+bool    g_isflareActive;
+bool    g_isTimerStarted;
 int     g_KeysObtain, g_PicksObtain;
+int     g_flares;
 string  g_playerDirection;
 
 // Game specific variables here
@@ -49,11 +52,14 @@ void init( void )
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
 	g_SlidingSpeed = 0.0;
+	g_flareTime = 0.0;
     // sets the initial state for the game
 	g_isMapLoaded = false;
 	g_isTorchEnabled = true;
+	g_isTimerStarted = false;
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
+	g_flares = 3;
 	g_playerDirection = "NULL";
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
@@ -214,7 +220,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		g_eGameState = S_MENU;
 		//play music
 		PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
-		g_isMapLoaded = false;
 	}
 }
 
@@ -226,6 +231,7 @@ void gameplay()            // gameplay logic
 	objectStatus();
 	updateSlide();
 	sliding();
+	flare();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
@@ -239,9 +245,15 @@ void moveCharacter()
         return;
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
+	
 	if (g_abKeyPressed[K_T])
 	{
-		g_isTorchEnabled = !g_isTorchEnabled;
+		if (g_flares > 0)
+		{
+			g_flares--;
+			g_isTimerStarted = false;
+			g_isflareActive = true;
+		}
 		bSomethingHappened = true;
 	}
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
@@ -303,7 +315,6 @@ void moveCharacter()
     {
         // set the bounce time to some time in the future to prevent accidental triggers
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-		g_isMapLoaded = false;
     }
 }
 
