@@ -211,7 +211,7 @@ void print_map()
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0x99;
+					color = 0xBB;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
@@ -296,7 +296,7 @@ void print_map()
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0x99;
+					color = 0xBB;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -361,7 +361,7 @@ void print_map()
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0x99;
+					color = 0xBB;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
