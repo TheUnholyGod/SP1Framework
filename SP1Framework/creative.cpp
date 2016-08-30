@@ -1,7 +1,7 @@
 #include "creative.h"
 
 extern bool g_isKeyObtain;
-extern bool g_isUpdated;
+extern bool ;
 extern bool g_isMapLoaded;
 extern char** creative;
 extern int g_CreativeLevel;
@@ -44,7 +44,6 @@ void creativeMoveCharacter()
 		{
 			g_sCreaChar.m_cCreativeLocation.Y--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
 	}
@@ -55,7 +54,6 @@ void creativeMoveCharacter()
 		{
 			g_sCreaChar.m_cCreativeLocation.X--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
 	}
@@ -66,7 +64,6 @@ void creativeMoveCharacter()
 		{
 			g_sCreaChar.m_cCreativeLocation.Y++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sCreaChar.m_cCreativeLocation.X < g_Console.getConsoleSize().X - 1)
@@ -76,7 +73,6 @@ void creativeMoveCharacter()
 		{
 			g_sCreaChar.m_cCreativeLocation.X++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
 	}

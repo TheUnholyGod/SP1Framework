@@ -6,7 +6,6 @@ extern SGameChar   g_sChar;
 extern bool		   g_abKeyPressed[K_COUNT];
 extern char        map[40][130];
 extern int	       g_KeysObtain;
-extern bool		   g_isUpdated;
 
 void KeyObtain()
 {
@@ -16,7 +15,6 @@ void KeyObtain()
 		{
 			g_KeysObtain++;
 			map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = (char)176;
-			g_isUpdated = false;
 		}
 	}
 	if (g_eGameState == S_CREATIVE)
@@ -25,7 +23,6 @@ void KeyObtain()
 		{
 			g_KeysObtain++;
 			map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] = (char)176;
-			g_isUpdated = false;
 		}
 	}
 }
