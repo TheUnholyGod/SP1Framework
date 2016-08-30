@@ -4,6 +4,7 @@
 
 #include "game.h"
 
+void updateSlide();
 void sliding();
 
 #endif

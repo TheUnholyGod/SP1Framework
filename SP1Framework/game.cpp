@@ -13,6 +13,7 @@ bool    g_isUpdated;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
 int     g_KeysObtain, g_PicksObtain;
+string  g_playerDirection;
 
 // Game specific variables here
 int g_CurrentLevel;
@@ -49,6 +50,7 @@ void init( void )
 	g_isTorchEnabled = true;
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
+	g_playerDirection = "NULL";
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
@@ -178,7 +180,7 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	if (g_isUpdated == false) //boolean condition to control screen flickers
+	//if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
 		clearScreen();        // clears the current screen and draw from scratch 
 		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
@@ -224,6 +226,10 @@ void gameplay()            // gameplay logic
 {
 	KeyObtain();
 	DoorOpen();
+	pickObtain();
+	objectStatus();
+	updateSlide();
+	sliding();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
