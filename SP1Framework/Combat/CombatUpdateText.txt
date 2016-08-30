@@ -3,4 +3,4 @@ damage to
 .
 Got hit 
 You took 
-damage.
+damage. 
