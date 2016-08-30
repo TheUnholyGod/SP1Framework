@@ -13,6 +13,7 @@ extern int Y;
 extern int cX;
 extern int cY;
 extern char map[40][130];
+extern int g_KeysObtain;
 
 //Checks if the player is on the end point, if true, teleports to next level and set spawn coordinates
 void checkGameGoal()
@@ -24,6 +25,7 @@ void checkGameGoal()
 			g_CurrentLevel = 2;
 			g_sChar.m_cLocation.Y = 2;
 			g_sChar.m_cLocation.X = 1;
+			g_KeysObtain = 0;
 			g_eGameState = S_COMBAT;
 		}
 		if (g_CurrentLevel == 2 && (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)177))

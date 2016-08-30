@@ -224,6 +224,8 @@ void gameplay()            // gameplay logic
 {
 	KeyObtain();
 	DoorOpen();
+	pickObtain();
+	objectStatus();
 	checkGameGoal();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
