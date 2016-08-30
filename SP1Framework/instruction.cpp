@@ -7,11 +7,10 @@ void renderGameInstruction()
 {
 	string key = to_string(g_KeysObtain);
 	string PickUse = to_string(g_PicksObtain);
-	renderTextBox();
 	g_Console.writeToBuffer(5, 28, "<GAME MODE>");
 	g_Console.writeToBuffer(5, 29, "<Arrow Keys> to move character");
 	g_Console.writeToBuffer(5, 30, "<E>          to interact");
-	g_Console.writeToBuffer(5, 31, "<R>          to suicide");
+	g_Console.writeToBuffer(5, 31, "<R>          to restart ");
 	g_Console.writeToBuffer(5, 32, "<M>          for main menu");
 	g_Console.writeToBuffer(40, 28, "Number of keys: ");
 	g_Console.writeToBuffer(40, 29, "Pickaxe uses left: ");

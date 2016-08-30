@@ -131,6 +131,11 @@ void store_map(int levelnumber)
 		{
 			for (unsigned int j = 0; j < maxMapWidth; j++)
 			{
+				if (map[i][j] == '!') //converts the key and walkable area
+				{
+					character_X = j;
+					character_Y = i;
+				}
 				file >> map[i][j];
 			}
 		}
@@ -207,6 +212,11 @@ void print_map()
 				{
 					map[i][j] = (char)220;
 					color = 0x44;
+				}
+				else if (map[i][j] == 'I' || map[i][j] == (char)223)
+				{
+					map[i][j] = (char)223;
+					color = 0xBB;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
@@ -288,6 +298,11 @@ void print_map()
 				{
 					map[i][j] = (char)156;
 				}
+				else if (map[i][j] == 'I' || map[i][j] == (char)223)
+				{
+					map[i][j] = (char)223;
+					color = 0xBB;
+				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
 			}
@@ -347,6 +362,11 @@ void print_map()
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
 					map[i][j] = (char)156;
+				}
+				else if (map[i][j] == 'I' || map[i][j] == (char)223)
+				{
+					map[i][j] = (char)223;
+					color = 0xBB;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
