@@ -49,6 +49,7 @@ void renderEditorInstruction()
 	g_Console.writeToBuffer(5, 36, "<Q>     for Game End point");
 	g_Console.writeToBuffer(5, 37, "<C>     for creative mode");
 	g_Console.writeToBuffer(5, 38, "<S>     to save");
+	g_Console.writeToBuffer(40, 29, "<I>     for Ice Block");
 }
 void renderTextBox()
 {

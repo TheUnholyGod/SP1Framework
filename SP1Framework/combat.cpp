@@ -4,7 +4,7 @@
 extern Console g_Console;
 extern EGAMESTATES g_eGameState;
 extern CStopWatch g_Timer;
-extern bool g_isUpdated;
+extern bool ;
 extern double g_dElapsedTime;
 extern double g_dDeltaTime;
 extern double g_dBounceTime;
@@ -48,6 +48,8 @@ struct stringcompiled
 	string idleTexts;
 	string updateTexts[6];
 	string attacktext[12];
+	string kambengProj[2];
+	string skeletonProj[8];
 }stringz;
 
 //-----Object and Identifier Declaration-----//
@@ -89,8 +91,6 @@ bool defended = false;
 bool animate = false;
 bool projectiles = false;
 
-string projectile1 = "<=";
-string projectile2 = "=>";
 string projectile[20];
 COORD projectileCoord[20];
 int Xcoord[20];
@@ -235,6 +235,7 @@ double thisisatimeforprojectiles = 0;
 			isEnemyAttActive = true;
 			holdtimer();
 			textboxprinted = false;
+			enemy1.enemyattackgame();
 			combatgameplay = COMBAT_DEF_ENEMYGAME;
 			return;
 		}
@@ -282,12 +283,14 @@ double thisisatimeforprojectiles = 0;
 
 		if (enemy1.boss1.Health == 0) //Win
 		{
+			arrayclear();
 			combatgameplay = COMBAT_RELOOP;
 			victory = 1;
 			return 1;
 		}
 		else if (player1.character.Health == 0) //Lose
 		{
+			arrayclear();
 			combatgameplay = COMBAT_RELOOP;
 			enemy1.boss1.Health = enemy1.boss1.MaxHealth;
 			victory = 0;
@@ -295,6 +298,7 @@ double thisisatimeforprojectiles = 0;
 		}
 		else //Continue
 		{
+			arrayclear();
 			combatgameplay = COMBAT_GETINPUT;
 			victory = 2;
 			return 2;
@@ -465,13 +469,23 @@ double thisisatimeforprojectiles = 0;
 		}
 	}
 
+	//---Clear Arrays---//
+	void arrayclear()
+	{
+		for (int i = 0; i < 20; i++)
+		{
+			projectile[i].erase();
+			projectileCoord[i].X = 0;
+			projectileCoord[i].Y = 0;
+		}
+	}
+
 //-------Combat Render-------//
 
 	//-----Combat Render-----//
 	void combatdisplay()
 	{
 		WORD color = 0x0B;
-		g_isUpdated = false;
 		enemy1.display(combatdisplaycoord, enemy1.boss1.Health, enemy1.boss1.MaxHealth, enemy1.boss1.Attack, enemy1.boss1.Defence);
 
 		enemyrender();
@@ -843,6 +857,7 @@ double thisisatimeforprojectiles = 0;
 	//-----Initalizing all Combat-----//
 	void combatinit()
 	{
+		srand(time(NULL));
 		playerinit();
 		displayinit();
 		enemyinit(0);
@@ -1019,6 +1034,7 @@ double thisisatimeforprojectiles = 0;
 			stringz.names[i] = namefilling(i);
 			stringz.updateTexts[i] = updatetext(i);
 		}
+		projectilefilling();
 	}
 
 	//-----Writing Enemy-----//
@@ -1080,12 +1096,10 @@ double thisisatimeforprojectiles = 0;
 		if (printno == 0)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Att.txt");
-			g_isUpdated = false;
 		}
 		else if (printno == 1)
 		{
 			buttons.open("Combat/Attack_Defend_Buttons_if_Def.txt");
-			g_isUpdated = false;
 		}
 
 		if (buttons.is_open())
@@ -1193,6 +1207,7 @@ double thisisatimeforprojectiles = 0;
 				getline(textlines, hold);
 				getline(textlines, hold);
 				getline(textlines, hold);
+				getline(textlines, hold);
 				return hold;
 			}
 		}
@@ -1251,6 +1266,25 @@ double thisisatimeforprojectiles = 0;
 				getline(name, hold);
 				getline(name, hold);
 				return hold;
+			}
+		}
+	}
+
+	//-----Filling in the Projectiles-----//
+	void projectilefilling()
+	{
+		ifstream Projectiles;
+		Projectiles.open("Combat/Projectiles.txt");
+
+		if (Projectiles.is_open())
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				getline(Projectiles, stringz.kambengProj[i]);
+			}
+			for (int i = 0; i < 8; i++)
+			{
+				getline(Projectiles, stringz.skeletonProj[i]);
 			}
 		}
 	}
@@ -1381,35 +1415,63 @@ void Enemy::healthUpdate(int damageDone)
 //---Boss Attack/Defend MiniGame---//
 void Enemy::enemyattackgame()
 {
-	srand(time(NULL));
-	for (int i = 0; i <= 19; i++)
+	switch (displayno1)
 	{
-		Xcoord[i] = rand() % 2; //Randomize left or right
+	case ENEMYPIC_KAMBENGF1:
+		Kambeng();
+		break;
 
-		if (Xcoord[i] == 0) //Setting projectile type and which directions
-		{
-			projectileCoord[i].X = 55;
-			projectile[i] = projectile2;
-		}
-		else
-		{
-			projectileCoord[i].X = 71;
-			projectile[i] = projectile1;
-		}
+	case ENEMYPIC_KAMBENGF2:
+		Kambeng();
+		break;
 
-		int Ycoord = (rand() % 8) + 31; //Randomize which row it spawns
-		projectileCoord[i].Y = Ycoord;
+	case ENEMYPIC_SKELETON1:
+		Skeleton();
+		break;
 
-		if (projectileCoord[i].Y == projectileCoord[i - 1].Y)
-		{
-			i--;
-			continue;
-		}
+	case ENEMYPIC_SKELETON2:
+		Skeleton();
+		break;
+
+	case ENEMYPIC_FISH1:
+		Fish();
+		break;
+
+	case ENEMYPIC_FISH2:
+		Fish();
+		break;
+
+	case ENEMYPIC_SPIDER1:
+		Spider();
+		break;
+
+	case ENEMYPIC_SPIDER2:
+		Spider();
+		break;
+
+	case ENEMYPIC_ROBOT1:
+		Robot();
+		break;
+
+	case ENEMYPIC_ROBOT2:
+		Robot();
+		break;
+
+	case ENEMYPIC_KAMBENG1:
+		UltimateKambeng();
+		break;
+
+	case ENEMYPIC_KAMBENG2:
+		UltimateKambeng();
+		break;
+
+	default:
+		break;
 	}
 }
 
 //---Update the Projectiles---//
-void  Enemy::bullet()
+void Enemy::bullet()
 {
 	if (thisisatimeforprojectiles > g_dElapsedTime)
 	{
@@ -1451,6 +1513,65 @@ void  Enemy::bullet()
 			}
 		}
 	}
+}
+
+//---Kambeng Boss---//
+void Enemy::Kambeng()
+{
+	for (int i = 0; i <= 19; i++)
+	{
+		Xcoord[i] = rand() % 2; //Randomize left or right
+
+		if (Xcoord[i] == 0) //Setting projectile type and which directions
+		{
+			projectileCoord[i].X = 55;
+			projectile[i] = stringz.kambengProj[0];
+		}
+		else
+		{
+			projectileCoord[i].X = 71;
+			projectile[i] = stringz.kambengProj[1];
+		}
+
+		int Ycoord = (rand() % 8) + 31; //Randomize which row it spawns
+		projectileCoord[i].Y = Ycoord;
+
+		if (projectileCoord[i].Y == projectileCoord[i - 1].Y)
+		{
+			i--;
+			continue;
+		}
+	}
+}
+
+//---Skeleton Boss---//
+void Enemy::Skeleton()
+{
+
+}
+
+//---Fish Boss---//
+void Enemy::Fish()
+{
+
+}
+
+//---Spider Boss---//
+void Enemy::Spider()
+{
+
+}
+
+//---Robot Boss---//
+void Enemy::Robot()
+{
+
+}
+
+//---FINALKAMBENG---//
+void Enemy::UltimateKambeng()
+{
+
 }
 
 

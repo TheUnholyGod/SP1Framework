@@ -9,7 +9,7 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
-bool    g_isUpdated;
+bool    ;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
 bool    g_Level;
@@ -50,7 +50,6 @@ void init( void )
     g_dBounceTime = 0.0;
 	g_SlidingSpeed = 0.0;
     // sets the initial state for the game
-	g_isUpdated = false;
 	g_isMapLoaded = false;
 	g_isTorchEnabled = true;
 	g_KeysObtain = 0;
@@ -186,33 +185,25 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
 		clearScreen();        // clears the current screen and draw from scratch 
 		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
 		switch (g_eGameState)
 		{
 		case S_SPLASHSCREEN: renderSplashScreen(); //stores the splash screen map into array and renders it
-			g_isUpdated = false;
 			break;
 		case S_GAME: renderGame();
-			g_isUpdated = false;
 			break;
 		case S_MENU: renderMenu();
-			g_isUpdated = false;
 			break;
 		case S_EDITOR: renderEditor();
-			g_isUpdated = false;
 			break;
 		case S_COMBAT: combatdisplay();
-			g_isUpdated = false;
 			break;
 		case S_CREATIVE: renderCreative();
-			g_isUpdated = false;
 			break;
 		}
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-		g_isUpdated = true;
 	}
 }
 
@@ -223,7 +214,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		g_eGameState = S_MENU;
 		//play music
 		PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
-		g_isUpdated = false;
 		g_isMapLoaded = false;
 	}
 }
@@ -263,7 +253,6 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
     }
@@ -276,7 +265,6 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
     }
@@ -290,7 +278,6 @@ void moveCharacter()
 			
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
@@ -303,7 +290,6 @@ void moveCharacter()
 			
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
         
     }
@@ -311,7 +297,6 @@ void moveCharacter()
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
         bSomethingHappened = true;
-		g_isUpdated = false;
     }
 
     if (bSomethingHappened)
@@ -329,12 +314,10 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false; 
 		}
 		if (g_abKeyPressed[K_R])
 		{
 			reset();
-			g_isUpdated = false;
 		}
 	}
 	if (g_eGameState == S_EDITOR)
@@ -342,12 +325,10 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_C])
 		{
 			g_eGameState = S_LOADCREATIVE;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_S])
 		{
@@ -359,17 +340,14 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_L])
 		{
 			g_eGameState = S_LOADEDITOR;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_R])
 		{
 			reset();
-			g_isUpdated = false;
 		}
 	}
 

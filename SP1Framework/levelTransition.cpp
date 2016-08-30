@@ -7,7 +7,7 @@ extern SCreaChar   g_sCreaChar;
 extern EGAMESTATES g_eGameState;
 extern bool    g_abKeyPressed[K_COUNT];
 extern bool	   g_isMapLoaded;
-extern bool	   g_isUpdated;
+extern bool	   ;
 extern int X;
 extern int Y;
 extern int cX;
@@ -63,7 +63,6 @@ void checkGameGoal()
 			g_sChar.m_cLocation.X = 1;
 			g_eGameState = S_COMBAT;
 		}
-		g_isUpdated = false;
 	}
 }
 void checkCreativeGameGoal()
@@ -112,6 +111,5 @@ void checkCreativeGameGoal()
 			g_sCreaChar.m_cCreativeLocation.X = 1;
 			g_eGameState = S_COMBAT;
 		}
-		g_isUpdated = false;
 	}
 }
