@@ -1,7 +1,6 @@
 #include "load.h"
 
 extern bool g_Level;
-extern bool ;
 extern int g_CurrentLevel;
 extern int g_CreativeLevel;
 extern EGAMESTATES g_eGameState;

@@ -1,6 +1,5 @@
 #include "editor.h"
 
-extern bool ;
 extern bool g_isMapLoaded;
 extern char** creative;
 extern int character_X;

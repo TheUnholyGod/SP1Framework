@@ -1,7 +1,6 @@
 #include "creative.h"
 
 extern bool g_isKeyObtain;
-extern bool ;
 extern bool g_isMapLoaded;
 extern char** creative;
 extern int g_CreativeLevel;

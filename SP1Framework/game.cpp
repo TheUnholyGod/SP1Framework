@@ -9,7 +9,6 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
-bool    ;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
 bool    g_Level;

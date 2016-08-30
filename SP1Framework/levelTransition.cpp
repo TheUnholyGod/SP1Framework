@@ -7,7 +7,6 @@ extern SCreaChar   g_sCreaChar;
 extern EGAMESTATES g_eGameState;
 extern bool    g_abKeyPressed[K_COUNT];
 extern bool	   g_isMapLoaded;
-extern bool	   ;
 extern int X;
 extern int Y;
 extern int cX;
