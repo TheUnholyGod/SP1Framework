@@ -156,6 +156,24 @@ public:
 
 	//---FINALKAMBENG---//
 	void UltimateKambeng();
+
+	//---Update for Kambeng Boss---//
+	void kambengUpdate();
+
+	//---Update for Skeleton Boss---//
+	void SkeletonUpdate();
+
+	//---Update for Fish Boss---//
+	void FishUpdate();
+
+	//---Update for Spider Boss---//
+	void SpiderUpdate();
+
+	//---Update for Robot Boss---//
+	void RobotUpdate();
+
+	//---Update for FINALKAMBENG---//
+	void UltimateKambengUpdate();
 };
 
 

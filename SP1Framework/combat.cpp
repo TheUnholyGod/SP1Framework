@@ -49,7 +49,7 @@ struct stringcompiled
 	string updateTexts[6];
 	string attacktext[12];
 	string kambengProj[2];
-	string skeletonProj[8];
+	string skeletonProj[11];
 }stringz;
 
 //-----Object and Identifier Declaration-----//
@@ -75,6 +75,7 @@ int BossesDefeated = 0;
 int counter;
 int holddamage;
 int damagetaken;
+int arraymax;
 double thisisatime;
 double thisisatime2;
 double thisisatimeforspace;
@@ -97,6 +98,9 @@ int Xcoord[20];
 int thisisacount;
 int hold = 0;
 double thisisatimeforprojectiles = 0;
+
+string SkeletonProjectile[6];
+COORD SkeletonProjectileCoord[6];
 
 
 /*/
@@ -188,7 +192,7 @@ double thisisatimeforprojectiles = 0;
 		{
 			if (enemy1.boss1.Health != 0 && player1.character.Health != 0)
 			{
-				if ((projectileCoord[19].X == 73 && Xcoord[19] == 0) || (projectileCoord[19].X == 54 && Xcoord[19] == 1))
+				if (enemySelector == 0 && ((projectileCoord[19].X == 73 && Xcoord[19] == 0) || (projectileCoord[19].X == 54 && Xcoord[19] == 1)))
 				{
 					thisisacount = 0;
 					enemy1.enemyattackgame();
@@ -241,7 +245,7 @@ double thisisatimeforprojectiles = 0;
 		}
 		else if (combatgameplay == COMBAT_DEF_ENEMYGAME)
 		{
-			if ((projectileCoord[19].X == 73 && Xcoord[19] == 0) || (projectileCoord[19].X == 54 && Xcoord[19] == 1))
+			if (enemySelector == 0 && ((projectileCoord[19].X == 73 && Xcoord[19] == 0) || (projectileCoord[19].X == 54 && Xcoord[19] == 1)))
 			{
 				thisisacount = 0;
 				enemy1.enemyattackgame();
@@ -261,6 +265,7 @@ double thisisatimeforprojectiles = 0;
 		}
 		else if (combatgameplay == COMBAT_DEF_UPDATEALLSTATS)
 		{
+			thisisacount = 0;
 			int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
 			int hold = player1.damageSustained(damage, player1.character.Defence) * counter;
 			player1.healthUpdate(hold);
@@ -268,6 +273,7 @@ double thisisatimeforprojectiles = 0;
 			counter = 0;
 			defended = true;
 			updatedtextprinted == false;
+			arrayclear();
 			if (waittime > g_dElapsedTime) //use in display and for diff states
 			{
 				return;
@@ -845,9 +851,79 @@ double thisisatimeforprojectiles = 0;
 	//---Spawning Projectiles---//
 	void printprojectiles(int arraycounter)
 	{
-		for (int j = 0; j <= arraycounter; j++)
+		int arraynumber = 0;
+		switch (displayno1)
 		{
-			g_Console.writeToBuffer(projectileCoord[j], projectile[j], 0x03);
+		case ENEMYPIC_KAMBENGF1:
+			for (int j = 0; j <= arraycounter; j++)
+			{
+				g_Console.writeToBuffer(projectileCoord[j], projectile[j]);
+			}
+			break;
+
+		case ENEMYPIC_KAMBENGF2:
+			for (int j = 0; j <= arraycounter; j++)
+			{
+				g_Console.writeToBuffer(projectileCoord[j], projectile[j]);
+			}
+			break;
+
+		case ENEMYPIC_SKELETON1:
+			for (int i = 0; i < 2; i++)
+			{
+				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber], SkeletonProjectile[arraynumber], 0x0C);
+				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber + 1], SkeletonProjectile[arraynumber + 1], 0x0C);
+				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber + 2], SkeletonProjectile[arraynumber + 2], 0x0C);
+				arraynumber += 3;
+			}
+			arraynumber = 0;
+			break;
+
+		case ENEMYPIC_SKELETON2:
+			for (int i = 0; i < 2;i++)
+			{
+				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber], SkeletonProjectile[arraynumber], 0x0C);
+				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber + 1], SkeletonProjectile[arraynumber + 1], 0x0C);
+				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber + 2], SkeletonProjectile[arraynumber + 2], 0x0C);
+				arraynumber += 3;
+			}
+			arraynumber = 0;
+			break;
+
+		case ENEMYPIC_FISH1:
+			//Fish();
+			break;
+
+		case ENEMYPIC_FISH2:
+			//Fish();
+			break;
+
+		case ENEMYPIC_SPIDER1:
+			//Spider();
+			break;
+
+		case ENEMYPIC_SPIDER2:
+			//Spider();
+			break;
+
+		case ENEMYPIC_ROBOT1:
+			//Robot();
+			break;
+
+		case ENEMYPIC_ROBOT2:
+			//Robot();
+			break;
+
+		case ENEMYPIC_KAMBENG1:
+			//UltimateKambeng();
+			break;
+
+		case ENEMYPIC_KAMBENG2:
+			//UltimateKambeng();
+			break;
+
+		default:
+			break;
 		}
 	}
 	
@@ -942,7 +1018,7 @@ double thisisatimeforprojectiles = 0;
 	void playerinit()
 	{
 		int health = 100;
-		int attack = 10;
+		int attack = 1000;
 		int defence = 10;
 
 		player1.playerBase(health, attack, defence);
@@ -1282,7 +1358,7 @@ double thisisatimeforprojectiles = 0;
 			{
 				getline(Projectiles, stringz.kambengProj[i]);
 			}
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 11; i++)
 			{
 				getline(Projectiles, stringz.skeletonProj[i]);
 			}
@@ -1470,8 +1546,158 @@ void Enemy::enemyattackgame()
 	}
 }
 
+//---Kambeng Boss---//
+void Enemy::Kambeng()
+{
+	for (int i = 0; i <= 19; i++)
+	{
+		Xcoord[i] = rand() % 2; //Randomize left or right
+
+		if (Xcoord[i] == 0) //Setting projectile type and which directions
+		{
+			projectileCoord[i].X = 55;
+			projectile[i] = stringz.kambengProj[0];
+		}
+		else
+		{
+			projectileCoord[i].X = 71;
+			projectile[i] = stringz.kambengProj[1];
+		}
+
+		int Ycoord = (rand() % 8) + 31; //Randomize which row it spawns
+		projectileCoord[i].Y = Ycoord;
+
+		if (projectileCoord[i].Y == projectileCoord[i - 1].Y)
+		{
+			i--;
+			continue;
+		}
+	}
+}
+
+//---Skeleton Boss---//
+void Enemy::Skeleton()
+{
+	for (int i = 0; i <= 3; i+=3)
+	{
+		Xcoord[i] = rand() % 2; //Randomize left or right
+
+		if (Xcoord[i] == 0) //Setting projectile type and which directions
+		{
+			SkeletonProjectileCoord[i].X = 55;
+			SkeletonProjectileCoord[i + 1].X = 55;
+			SkeletonProjectileCoord[i + 2].X = 55;
+			SkeletonProjectile[i] = stringz.skeletonProj[8];
+			SkeletonProjectile[i+1] = stringz.skeletonProj[9];
+			SkeletonProjectile[i+2] = stringz.skeletonProj[10];
+		}
+		else
+		{
+			SkeletonProjectileCoord[i].X = 71;
+			SkeletonProjectileCoord[i + 1].X = 71;
+			SkeletonProjectileCoord[i + 2].X = 71;
+			SkeletonProjectile[i] = stringz.skeletonProj[8];
+			SkeletonProjectile[i + 1] = stringz.skeletonProj[9];
+			SkeletonProjectile[i + 2] = stringz.skeletonProj[10];
+		}
+
+		int Ycoord = (rand() % 6) + 31; //Randomize which row it spawns
+		SkeletonProjectileCoord[i].Y = Ycoord;
+		SkeletonProjectileCoord[i + 1].Y = Ycoord + 1;
+		SkeletonProjectileCoord[i + 2].Y = Ycoord + 2;
+
+		if ((SkeletonProjectileCoord[i].Y >= SkeletonProjectileCoord[i - 1].Y && SkeletonProjectileCoord[i].Y <= SkeletonProjectileCoord[i - 1].Y + 4) || (SkeletonProjectileCoord[i].Y <= SkeletonProjectileCoord[i - 1].Y && SkeletonProjectileCoord[i].Y >= SkeletonProjectileCoord[i - 1].Y - 4))
+		{
+			i--;
+			continue;
+		}
+	}
+}
+
+//---Fish Boss---//
+void Enemy::Fish()
+{
+
+}
+
+//---Spider Boss---//
+void Enemy::Spider()
+{
+
+}
+
+//---Robot Boss---//
+void Enemy::Robot()
+{
+
+}
+
+//---FINALKAMBENG---//
+void Enemy::UltimateKambeng()
+{
+
+}
+
 //---Update the Projectiles---//
 void Enemy::bullet()
+{
+	switch (displayno1)
+	{
+	case ENEMYPIC_KAMBENGF1:
+		kambengUpdate();
+		break;
+
+	case ENEMYPIC_KAMBENGF2:
+		kambengUpdate();
+		break;
+
+	case ENEMYPIC_SKELETON1:
+		SkeletonUpdate();
+		break;
+
+	case ENEMYPIC_SKELETON2:
+		SkeletonUpdate();
+		break;
+
+	case ENEMYPIC_FISH1:
+		FishUpdate();
+		break;
+
+	case ENEMYPIC_FISH2:
+		FishUpdate();
+		break;
+
+	case ENEMYPIC_SPIDER1:
+		SpiderUpdate();
+		break;
+
+	case ENEMYPIC_SPIDER2:
+		SpiderUpdate();
+		break;
+
+	case ENEMYPIC_ROBOT1:
+		RobotUpdate();
+		break;
+
+	case ENEMYPIC_ROBOT2:
+		RobotUpdate();
+		break;
+
+	case ENEMYPIC_KAMBENG1:
+		UltimateKambengUpdate();
+		break;
+
+	case ENEMYPIC_KAMBENG2:
+		UltimateKambengUpdate();
+		break;
+
+	default:
+		break;
+	}
+}
+
+//---Update for Kambeng Boss---//
+void Enemy::kambengUpdate()
 {
 	if (thisisatimeforprojectiles > g_dElapsedTime)
 	{
@@ -1515,65 +1741,73 @@ void Enemy::bullet()
 	}
 }
 
-//---Kambeng Boss---//
-void Enemy::Kambeng()
+//---Update for Skeleton Boss---//
+void Enemy::SkeletonUpdate()
 {
-	for (int i = 0; i <= 19; i++)
+	int coord = 0;
+	if (thisisatimeforprojectiles > g_dElapsedTime)
 	{
-		Xcoord[i] = rand() % 2; //Randomize left or right
-
-		if (Xcoord[i] == 0) //Setting projectile type and which directions
+		return;
+	}
+	thisisatimeforprojectiles = g_dElapsedTime + 0.15;
+	for (int i = 0; i < 2; i++)
+	{
+		if (Xcoord[coord] == 0)
 		{
-			projectileCoord[i].X = 55;
-			projectile[i] = stringz.kambengProj[0];
+			if (SkeletonProjectileCoord[coord].X == 73 + 13)
+			{
+				enemyattackgame();
+				continue;
+			}
+			else
+			{
+				SkeletonProjectileCoord[coord].X++;
+				SkeletonProjectileCoord[coord + 1].X++;
+				SkeletonProjectileCoord[coord + 2].X++;
+			}
 		}
 		else
 		{
-			projectileCoord[i].X = 71;
-			projectile[i] = stringz.kambengProj[1];
+			if (SkeletonProjectileCoord[coord].X == 54 - 13)
+			{
+				enemyattackgame();
+				continue;
+			}
+			else
+			{
+				SkeletonProjectileCoord[coord].X--;
+				SkeletonProjectileCoord[coord + 1].X--;
+				SkeletonProjectileCoord[coord + 2].X--;
+			}
 		}
-
-		int Ycoord = (rand() % 8) + 31; //Randomize which row it spawns
-		projectileCoord[i].Y = Ycoord;
-
-		if (projectileCoord[i].Y == projectileCoord[i - 1].Y)
-		{
-			i--;
-			continue;
-		}
+		coord += 3;
 	}
+	coord = 0;
 }
 
-//---Skeleton Boss---//
-void Enemy::Skeleton()
+//---Update for Fish Boss---//
+void Enemy::FishUpdate()
 {
 
 }
 
-//---Fish Boss---//
-void Enemy::Fish()
+//---Update for Spider Boss---//
+void Enemy::SpiderUpdate()
 {
 
 }
 
-//---Spider Boss---//
-void Enemy::Spider()
+//---Update for Robot Boss---//
+void Enemy::RobotUpdate()
 {
 
 }
 
-//---Robot Boss---//
-void Enemy::Robot()
+//---Update for FINALKAMBENG---//
+void Enemy::UltimateKambengUpdate()
 {
 
 }
-
-//---FINALKAMBENG---//
-void Enemy::UltimateKambeng()
-{
-
-}
-
 
 /*/
 -End of Enemies Class-
