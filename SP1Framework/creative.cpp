@@ -12,6 +12,9 @@ extern bool    g_abKeyPressed[K_COUNT];
 extern bool    g_isTorchEnabled;
 extern int cX;
 extern int cY;
+extern int g_flares;
+extern bool g_isTimerStarted;
+extern bool g_isflareActive;
 
 void creativeGameplay()
 {
@@ -21,6 +24,7 @@ void creativeGameplay()
 	objectStatus();
 	updateSlide();
 	sliding();
+	flare();
 	checkCreativeGameGoal();
 	processUserInput();
 	creativeMoveCharacter();
@@ -32,7 +36,12 @@ void creativeMoveCharacter()
 		return;
 	if (g_abKeyPressed[K_T])
 	{
-		g_isTorchEnabled = !g_isTorchEnabled;
+		if (g_flares > 0)
+		{
+			g_flares--;
+			g_isTimerStarted = false;
+			g_isflareActive = true;
+		}
 		bSomethingHappened = true;
 	}
 	// Updating the location of the character based on the key press

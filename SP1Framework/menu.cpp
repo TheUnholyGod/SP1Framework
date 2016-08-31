@@ -55,6 +55,7 @@ void renderSelector()
 		g_Console.writeToBuffer(52, 18, "Controls", 0x0C);
 		g_Console.writeToBuffer(50, 25, "<Arrow Keys> to move", 0x0C);
 		g_Console.writeToBuffer(50, 26, "<E>          to interact", 0x0C);
+		g_Console.writeToBuffer(50, 26, "<T>          to use flares", 0x0C);
 	}
 	else
 	{

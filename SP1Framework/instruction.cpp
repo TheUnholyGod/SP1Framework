@@ -21,7 +21,35 @@ void renderGameInstruction()
 	g_Console.writeToBuffer(60, 28, key, 0x0A);
 	g_Console.writeToBuffer(60, 29, PickUse, 0x0A);
 	g_Console.writeToBuffer(60, 30, flare, 0x0A);
-
+	g_Console.writeToBuffer(65, 28, "<LEGEND>");
+	ostringstream legend;
+	legend.str("");
+	legend << "Wall           = " << (char)178;
+	g_Console.writeToBuffer(65, 29, legend.str(),0x0B);
+	legend.str("");
+	legend << "Walkable tile  = " << (char)176;
+	g_Console.writeToBuffer(65, 30, legend.str(), 0x07);
+	legend.str("");
+	legend << "End point      = " << (char)177;
+	g_Console.writeToBuffer(65, 31, legend.str(), 0x0A);
+	legend.str("");
+	legend << "Key            = " << (char)168;
+	g_Console.writeToBuffer(65, 32, legend.str(), 0x0E);
+	legend.str("");
+	legend << "Door           = " << (char)219;
+	g_Console.writeToBuffer(65, 33, legend.str(), 0x0E);
+	legend.str("");
+	legend << "Movable object = " << (char)254;
+	g_Console.writeToBuffer(65, 34, legend.str(), 0x08);
+	legend.str("");
+	legend << "Smashable rock = " << (char)220;
+	g_Console.writeToBuffer(65, 35, legend.str(), 0x04);
+	legend.str("");
+	legend << "Pickaxe        = " << (char)156;
+	g_Console.writeToBuffer(65, 36, legend.str());
+	legend.str("");
+	legend << "Ice block      = " << (char)223;
+	g_Console.writeToBuffer(65, 37, legend.str(), 0x0B);
 }
 void renderCreativeInstruction()
 {
@@ -41,6 +69,34 @@ void renderCreativeInstruction()
 	g_Console.writeToBuffer(60, 28, key, 0x0A);
 	g_Console.writeToBuffer(60, 29, PickUse, 0x0A);
 	g_Console.writeToBuffer(60, 30, flare, 0x0A);
+	ostringstream legend;
+	legend.str("");
+	legend << "Wall           = " << (char)178;
+	g_Console.writeToBuffer(65, 29, legend.str(), 0x0B);
+	legend.str("");
+	legend << "Walkable tile  = " << (char)176;
+	g_Console.writeToBuffer(65, 30, legend.str(), 0x07);
+	legend.str("");
+	legend << "End point      = " << (char)177;
+	g_Console.writeToBuffer(65, 31, legend.str(), 0x0A);
+	legend.str("");
+	legend << "Key            = " << (char)168;
+	g_Console.writeToBuffer(65, 32, legend.str(), 0x0E);
+	legend.str("");
+	legend << "Door           = " << (char)219;
+	g_Console.writeToBuffer(65, 33, legend.str(), 0x0E);
+	legend.str("");
+	legend << "Movable object = " << (char)254;
+	g_Console.writeToBuffer(65, 34, legend.str(), 0x08);
+	legend.str("");
+	legend << "Smashable rock = " << (char)220;
+	g_Console.writeToBuffer(65, 35, legend.str(), 0x04);
+	legend.str("");
+	legend << "Pickaxe        = " << (char)156;
+	g_Console.writeToBuffer(65, 36, legend.str());
+	legend.str("");
+	legend << "Ice block      = " << (char)223;
+	g_Console.writeToBuffer(65, 37, legend.str(), 0x0B);
 }
 void renderEditorInstruction()
 {
@@ -57,6 +113,34 @@ void renderEditorInstruction()
 	g_Console.writeToBuffer(5, 37, "<C>     for creative mode");
 	g_Console.writeToBuffer(5, 38, "<S>     to save");
 	g_Console.writeToBuffer(40, 29, "<I>     for Ice Block");
+	ostringstream legend;
+	legend.str("");
+	legend << "Wall           = " << (char)178;
+	g_Console.writeToBuffer(65, 29, legend.str(), 0x0B);
+	legend.str("");
+	legend << "Walkable tile  = " << (char)176;
+	g_Console.writeToBuffer(65, 30, legend.str(), 0x07);
+	legend.str("");
+	legend << "End point      = " << (char)177;
+	g_Console.writeToBuffer(65, 31, legend.str(), 0x0A);
+	legend.str("");
+	legend << "Key            = " << (char)168;
+	g_Console.writeToBuffer(65, 32, legend.str(), 0x0E);
+	legend.str("");
+	legend << "Door           = " << (char)219;
+	g_Console.writeToBuffer(65, 33, legend.str(), 0x0E);
+	legend.str("");
+	legend << "Movable object = " << (char)254;
+	g_Console.writeToBuffer(65, 34, legend.str(), 0x08);
+	legend.str("");
+	legend << "Smashable rock = " << (char)220;
+	g_Console.writeToBuffer(65, 35, legend.str(), 0x04);
+	legend.str("");
+	legend << "Pickaxe        = " << (char)156;
+	g_Console.writeToBuffer(65, 36, legend.str());
+	legend.str("");
+	legend << "Ice block      = " << (char)223;
+	g_Console.writeToBuffer(65, 37, legend.str(), 0x0B);
 }
 void renderTextBox()
 {

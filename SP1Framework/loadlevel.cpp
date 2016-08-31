@@ -191,32 +191,32 @@ void print_map()
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x7C;
+					color = 0x0A;
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x6E;
+					color = 0x0E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x6E;
+					color = 0x0E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x08;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x44;
+					color = 0x04;
 				}
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0xBB;
+					color = 0x0B;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
@@ -272,36 +272,36 @@ void print_map()
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x7C;
+					color = 0x0A;
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x6E;
+					color = 0x0E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x6E;
+					color = 0x0E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x08;
 				}
-				else if (map[i][j] == 'b' || map[i][j] == (char)220)
+				else if (map[i][j] == 'b' || map[i][j] == (char)220) //smashable boulder
 				{
 					map[i][j] = (char)220;
-					color = 0x44;
+					color = 0x04;
 				}
-				else if (map[i][j] == 'P' || map[i][j] == (char)156)
+				else if (map[i][j] == 'P' || map[i][j] == (char)156) //Pickaxe
 				{
 					map[i][j] = (char)156;
 				}
-				else if (map[i][j] == 'I' || map[i][j] == (char)223)
+				else if (map[i][j] == 'I' || map[i][j] == (char)223) //ice blocks
 				{
 					map[i][j] = (char)223;
-					color = 0xBB;
+					color = 0x0B;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -332,41 +332,40 @@ void print_map()
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x7C;
-				}
-				else if (map[i][j] == '*') //converts the key and walkable area
-				{
-					color = 0x07;
-					map[i][j] = ' ';
+					color = 0x0A;
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x6E;
+					color = 0x0E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x6E;
+					color = 0x0E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x08;
 				}
-				else if (map[i][j] == 'b' || map[i][j] == (char)220)
+				else if (map[i][j] == 'b' || map[i][j] == (char)220) //smashable boulder
 				{
 					map[i][j] = (char)220;
-					color = 0x44;
+					color = 0x04;
 				}
-				else if (map[i][j] == 'P' || map[i][j] == (char)156)
+				else if (map[i][j] == 'P' || map[i][j] == (char)156) //Pickaxe
 				{
 					map[i][j] = (char)156;
 				}
-				else if (map[i][j] == 'I' || map[i][j] == (char)223)
+				else if (map[i][j] == 'I' || map[i][j] == (char)223) //ice blocks
 				{
 					map[i][j] = (char)223;
-					color = 0xBB;
+					color = 0x0B;
+				}
+				else if (map[i][j] == '*' || map[i][j] == (char)223) //faces
+				{
+					map[i][j] = ' ';
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
