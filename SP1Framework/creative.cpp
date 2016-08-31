@@ -45,7 +45,7 @@ void creativeMoveCharacter()
 		bSomethingHappened = true;
 	}
 	// Updating the location of the character based on the key press
-	if (g_abKeyPressed[K_UP] && g_sCreaChar.m_cCreativeLocation.Y > 0)
+	if (g_abKeyPressed[K_UP] && g_sCreaChar.m_cCreativeLocation.Y > 1)
 	{
 		moveBoulder();
 		if (creativeColDetection(g_CreativeLevel))
@@ -65,7 +65,7 @@ void creativeMoveCharacter()
 		}
 
 	}
-	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 1)
+	if (g_abKeyPressed[K_DOWN] && g_sCreaChar.m_cCreativeLocation.Y < g_Console.getConsoleSize().Y - 15)
 	{
 		moveBoulder();
 		if (creativeColDetection(g_CreativeLevel))

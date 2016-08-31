@@ -312,7 +312,7 @@ void moveCharacter()
 		}
 		bSomethingHappened = true;
 	}
-    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 1)
     {
 		moveBoulder();
         //Beep(1440, 30);
@@ -336,7 +336,7 @@ void moveCharacter()
 		}
 
     }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 15)
     {
 		moveBoulder();
         //Beep(1440, 30);
@@ -385,10 +385,6 @@ void processUserInput()
 		if (g_abKeyPressed[K_R])
 		{
 			reset();
-		}
-		if (g_abKeyPressed[K_O])
-		{
-			g_eGameState = S_GAMEOVER;
 		}
 	}
 	if (g_eGameState == S_EDITOR)
