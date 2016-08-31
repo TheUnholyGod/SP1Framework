@@ -91,7 +91,6 @@ void creativeMoveCharacter()
 		g_isMapLoaded = false;
 	}
 }
-
 void renderCreative()
 {
 	renderCreativeInstruction();
