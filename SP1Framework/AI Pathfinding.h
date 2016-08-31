@@ -13,33 +13,33 @@
 
 using namespace std;
 
-class Enemy
+class AI
 {
 private:
 	int x;
 	int y;
 	char dir;
-	char dirOld;
-	char dirNew;
 	char dirOpp;
 
 public:
 
+	int AI_id;
 	COORD m_eLocation;
 	bool m_bActive;
-	void EnemyMove(int, int);
-	void AIPathfinding(bool[4]);
+	void xCorridorMove();
+	void yCorridorMove();
+	void AIPathfinding();
 	void RandomDirection();
-	void GetOpposite();
-	bool EnemyCollision();
+	void GetOpp();
+	bool AICollision(int);
 	void ChangePos();
 };
 
 const int KAMBENG = 0;
 
-const char no_collision[1] = { '-' };
-
 const char directions[4] = { 'w', 'a', 's', 'd' };
+const char xDirections[2] = {'a', 'd'};
+const char yDirections[2] = {'w', 's'};
 
 
 #endif

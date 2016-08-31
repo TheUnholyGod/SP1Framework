@@ -2,10 +2,13 @@
 
 	unsigned int maxMapWidth;
 	unsigned int maxMapHeight;
+	extern bool SpikesActivated;
+	extern bool DeathPitOpened;
 	extern int character_X;
 	extern int character_Y;
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
+	extern Player player1;
 	extern bool g_isTorchEnabled;
 	extern int Y;
 	extern int X;
@@ -222,6 +225,43 @@ void print_map()
 				{
 					map[i][j] = (char)156;
 				}
+				else if (map[i][j] == 'o' || map[i][j] == (char)196 || map[i][j] == (char)215)
+				{
+					if (SpikesActivated == true)
+					{
+						map[i][j] = (char)215;
+						color = 0x07;
+						if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
+						{
+							player1.healthUpdate(10);
+						}
+						
+					}
+					if (SpikesActivated == false)
+					{
+						map[i][j] = (char)196;
+						color = 0x07;
+					}
+				}
+				else if (map[i][j] == 'x' || map[i][j] == (char)255 || map[i][j] == (char)240)
+				{
+					if (DeathPitOpened == true)
+					{
+						map[i][j] = (char)255;
+						color = 0x07;
+
+						if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)255)
+						{
+							g_eGameState = S_MENU;
+						}
+					}
+					if (DeathPitOpened == false)
+					{
+						map[i][j] = (char)240;
+						color = 0x07;
+					}
+				}
+				
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
 			}
