@@ -70,7 +70,6 @@ void moveCursor()
 		g_isMapLoaded = false;
 	}
 }
-
 void renderCursor()
 {
 	// Draw the location of the cursor

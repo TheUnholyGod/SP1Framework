@@ -4,7 +4,6 @@ extern SGameChar		g_sChar;
 extern SCreaChar		g_sCreaChar;
 extern bool				g_abKeyPressed[K_COUNT];
 extern char				map[40][130];
-extern string			g_playerDirection;
 
 bool colDetection(int levelnumber)
 {

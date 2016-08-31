@@ -1,146 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="combat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="editor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy AI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="levelTransition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="loadlevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\timer.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\console.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="creative.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="instruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="doors.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="load.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="movableObj.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="smashableObjects.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="reset.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Traps.cpp">
-=======
-    <ClCompile Include="iceBlocks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="flare.cpp">
->>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="collision.cpp" />
+    <ClCompile Include="creative.cpp" />
+    <ClCompile Include="doors.cpp" />
+    <ClCompile Include="Enemy AI.cpp" />
+    <ClCompile Include="combat.cpp" />
+    <ClCompile Include="editor.cpp" />
+    <ClCompile Include="flare.cpp" />
+    <ClCompile Include="Framework\console.cpp" />
+    <ClCompile Include="Framework\timer.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="iceBlocks.cpp" />
+    <ClCompile Include="instruction.cpp" />
+    <ClCompile Include="levelTransition.cpp" />
+    <ClCompile Include="load.cpp" />
+    <ClCompile Include="loadlevel.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="movableObj.cpp" />
+    <ClCompile Include="reset.cpp" />
+    <ClCompile Include="smashableObjects.cpp" />
+    <ClCompile Include="Traps.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AI Pathfinding.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="combat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="editor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="loadlevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\console.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\timer.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="creative.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="instruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="levelTransition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="doors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="load.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="movableObj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="smashableObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="reset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Traps.h">
-=======
-    <ClInclude Include="iceBlocks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="flare.h">
->>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{e90e63bf-ac2f-4468-9021-6e2a2d046ea5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Framework">
-      <UniqueIdentifier>{5f6827b7-f051-49ac-b4e6-eef6fdcdeb02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{222e790d-5aab-4ccf-9ead-6956d1bb005c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Framework">
-      <UniqueIdentifier>{ef00b11e-34b0-4016-b6af-4652425bf8e3}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="AI Pathfinding.h" />
+    <ClInclude Include="collision.h" />
+    <ClInclude Include="combat.h" />
+    <ClInclude Include="creative.h" />
+    <ClInclude Include="doors.h" />
+    <ClInclude Include="editor.h" />
+    <ClInclude Include="flare.h" />
+    <ClInclude Include="Framework\console.h" />
+    <ClInclude Include="Framework\timer.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="iceBlocks.h" />
+    <ClInclude Include="instruction.h" />
+    <ClInclude Include="levelTransition.h" />
+    <ClInclude Include="load.h" />
+    <ClInclude Include="loadlevel.h" />
+    <ClInclude Include="menu.h" />
+    <ClInclude Include="movableObj.h" />
+    <ClInclude Include="reset.h" />
+    <ClInclude Include="smashableObject.h" />
+    <ClInclude Include="Traps.h" />
   </ItemGroup>
 </Project>
