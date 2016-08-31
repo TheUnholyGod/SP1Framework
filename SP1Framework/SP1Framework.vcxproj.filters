@@ -55,7 +55,14 @@
     <ClCompile Include="reset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Traps.cpp">
+=======
+    <ClCompile Include="iceBlocks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="flare.cpp">
+>>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,7 +118,14 @@
     <ClInclude Include="reset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Traps.h">
+=======
+    <ClInclude Include="iceBlocks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flare.h">
+>>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

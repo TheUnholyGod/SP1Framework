@@ -138,6 +138,42 @@ public:
 
 	//---Updating the Bullets---//
 	void bullet();
+
+	//---Kambeng Boss---//
+	void Kambeng();
+
+	//---Skeleton Boss---//
+	void Skeleton();
+
+	//---Fish Boss---//
+	void Fish();
+
+	//---Spider Boss---//
+	void Spider();
+
+	//---Robot Boss---//
+	void Robot();
+
+	//---FINALKAMBENG---//
+	void UltimateKambeng();
+
+	//---Update for Kambeng Boss---//
+	void kambengUpdate();
+
+	//---Update for Skeleton Boss---//
+	void SkeletonUpdate();
+
+	//---Update for Fish Boss---//
+	void FishUpdate();
+
+	//---Update for Spider Boss---//
+	void SpiderUpdate();
+
+	//---Update for Robot Boss---//
+	void RobotUpdate();
+
+	//---Update for FINALKAMBENG---//
+	void UltimateKambengUpdate();
 };
 
 
@@ -168,5 +204,7 @@ void printprojectiles(int arraycounter);
 void printinglinesoftext(int name);
 void checkdamage();
 string namefilling(int no);
+void projectilefilling();
+void arrayclear();
 
 #endif //End of _COMBAT_H

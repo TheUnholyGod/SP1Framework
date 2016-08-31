@@ -17,11 +17,13 @@
 #include "doors.h"
 #include "movableObj.h"
 #include "reset.h"
+#include "flare.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 #include "smashableObject.h"
+#include "iceBlocks.h"
 
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
@@ -49,6 +51,7 @@ enum EKEYS
 	K_P,
 	K_O,
 	K_T,
+	K_I,
     K_COUNT
 };
 

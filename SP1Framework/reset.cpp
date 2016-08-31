@@ -4,7 +4,6 @@ extern int g_CreativeLevel;
 extern EGAMESTATES g_eGameState;
 extern int g_KeysObtain;
 extern int g_PicksObtain;
-extern bool g_isUpdated;
 extern SGameChar g_sChar;
 extern SCreaChar g_sCreaChar;
 

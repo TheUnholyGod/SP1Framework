@@ -7,6 +7,7 @@ using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
+<<<<<<< HEAD
 double  g_dSpikeTriggerTime;
 double	g_dSpikeActivationTime;
 double  g_dDeathPitTriggerTime;
@@ -19,14 +20,23 @@ bool SpikesActivated;
 bool SpikeSwitch;
 bool ProjectileFired;
 bool ProjectileCollision;
+=======
+double  g_flareTime;
+>>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
 bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
-bool    g_isUpdated;
 bool    g_isMapLoaded;
 bool    g_isTorchEnabled;
+bool    g_Level;
+bool    g_isflareActive;
+bool    g_isTimerStarted;
 int     g_KeysObtain, g_PicksObtain;
+int     g_flares;
+string  g_playerDirection;
 
 // Game specific variables here
+int character_X;
+int character_Y;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
@@ -40,8 +50,12 @@ SSelector   g_sSelector;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+<<<<<<< HEAD
 double	g_dProjBounceTime;
 double	g_dEnemyBounceTime;
+=======
+double  g_SlidingSpeed; // this is to control the speed of sliding
+>>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
 // Console object
 Console g_Console(130, 40, "SP1 Framework");
 
@@ -59,6 +73,7 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+<<<<<<< HEAD
 	g_dElapsedTime = 0.0;
 	g_dBounceTime = 0.0;
 	g_dProjBounceTime = 0.0;
@@ -69,16 +84,25 @@ void init( void )
 	g_dDeathPitActivationTime = 12.0;
 	g_dProjectileFireTime = 0.5;
 	g_dProjectileTravelTime = 0.75;
+=======
+	g_SlidingSpeed = 0.0;
+	g_flareTime = 0.0;
+>>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
     // sets the initial state for the game
-	g_isUpdated = false;
 	g_isMapLoaded = false;
 	g_isTorchEnabled = true;
+<<<<<<< HEAD
 	SpikesActivated = false;
 	DeathPitOpened = false;
 	ProjectileFired = true;
 	ProjectileCollision = false;
+=======
+	g_isTimerStarted = false;
+>>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
+	g_flares = 3;
+	g_playerDirection = "NULL";
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
@@ -175,6 +199,7 @@ void getInput( void )
 	g_abKeyPressed[K_P]      = isKeyPressed(0x50);
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
+	g_abKeyPressed[K_I]      = isKeyPressed(0x49);
 }
 
 //--------------------------------------------------------------
@@ -227,33 +252,25 @@ void update(double dt)
 //--------------------------------------------------------------
 void render()
 {
-	//if (g_isUpdated == false) //boolean condition to control screen flickers
 	{
 		clearScreen();        // clears the current screen and draw from scratch 
 		renderFramerate();    // renders debug information, frame rate, elapsed time, etc
 		switch (g_eGameState)
 		{
 		case S_SPLASHSCREEN: renderSplashScreen(); //stores the splash screen map into array and renders it
-			g_isUpdated = false;
 			break;
 		case S_GAME: renderGame();
-			g_isUpdated = false;
 			break;
 		case S_MENU: renderMenu();
-			g_isUpdated = false;
 			break;
 		case S_EDITOR: renderEditor();
-			g_isUpdated = false;
 			break;
 		case S_COMBAT: combatdisplay();
-			g_isUpdated = false;
 			break;
 		case S_CREATIVE: renderCreative();
-			g_isUpdated = false;
 			break;
 		}
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-		g_isUpdated = true;
 	}
 }
 
@@ -264,8 +281,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		g_eGameState = S_MENU;
 		//play music
 		PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
-		g_isUpdated = false;
-		g_isMapLoaded = false;
 	}
 }
 
@@ -275,6 +290,9 @@ void gameplay()            // gameplay logic
 	DoorOpen();
 	pickObtain();
 	objectStatus();
+	updateSlide();
+	sliding();
+	flare();
 	checkGameGoal();
 	Spikes();
 	DeathPit();
@@ -290,9 +308,15 @@ void moveCharacter()
         return;
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
+	
 	if (g_abKeyPressed[K_T])
 	{
-		g_isTorchEnabled = !g_isTorchEnabled;
+		if (g_flares > 0)
+		{
+			g_flares--;
+			g_isTimerStarted = false;
+			g_isflareActive = true;
+		}
 		bSomethingHappened = true;
 	}
     if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
@@ -304,7 +328,6 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
     }
@@ -317,7 +340,6 @@ void moveCharacter()
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
 
     }
@@ -331,7 +353,6 @@ void moveCharacter()
 			
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
     }
     if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
@@ -344,7 +365,6 @@ void moveCharacter()
 			
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
-			g_isUpdated = false;
 		}
         
     }
@@ -352,14 +372,12 @@ void moveCharacter()
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
         bSomethingHappened = true;
-		g_isUpdated = false;
     }
 
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-		g_isMapLoaded = false;
     }
 }
 
@@ -370,12 +388,10 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false; 
 		}
 		if (g_abKeyPressed[K_R])
 		{
 			reset();
-			g_isUpdated = false;
 		}
 	}
 	if (g_eGameState == S_EDITOR)
@@ -383,12 +399,10 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_C])
 		{
 			g_eGameState = S_LOADCREATIVE;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_S])
 		{
@@ -400,17 +414,14 @@ void processUserInput()
 		if (g_abKeyPressed[K_M])
 		{
 			g_eGameState = S_MENU;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_L])
 		{
 			g_eGameState = S_LOADEDITOR;
-			g_isUpdated = false;
 		}
 		if (g_abKeyPressed[K_R])
 		{
 			reset();
-			g_isUpdated = false;
 		}
 	}
 
