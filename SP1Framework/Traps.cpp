@@ -19,6 +19,7 @@ extern double g_dDeathPitTriggerTime;
 extern double g_dDeathPitActivationTime;
 extern double g_dProjectileTravelTime;
 extern double g_dProjectileFireTime;
+extern bool g_isMapLoaded;
 extern char map[40][130];
 
 

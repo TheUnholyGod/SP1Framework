@@ -108,6 +108,8 @@ string FishProjectile[8];
 COORD FishProjectileCoord[8];
 string SpiderProjectile[5];
 COORD SpiderProjectilCoord[5];
+COORD RobotSafeSpot[10];
+char RobotElectric[9][18];
 
 
 /*/
@@ -1077,7 +1079,7 @@ COORD SpiderProjectilCoord[5];
 			break;
 
 		case ENEMYPIC_SKELETON2:
-			for (int i = 0; i < 2;i++)
+			for (int i = 0; i < 2; i++)
 			{
 				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber], SkeletonProjectile[arraynumber], 0x0C);
 				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber + 1], SkeletonProjectile[arraynumber + 1], 0x0C);
@@ -1126,11 +1128,23 @@ COORD SpiderProjectilCoord[5];
 			break;
 
 		case ENEMYPIC_ROBOT1:
-			//Robot();
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 18; j++)
+				{
+					g_Console.writeToBuffer(56, 31, RobotElectric[i][j]);
+				}
+			}
 			break;
 
 		case ENEMYPIC_ROBOT2:
-			//Robot();
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 18; j++)
+				{
+					g_Console.writeToBuffer(56, 31, RobotElectric[i][j]);
+				}
+			}
 			break;
 
 		case ENEMYPIC_KAMBENG1:
@@ -1238,7 +1252,7 @@ COORD SpiderProjectilCoord[5];
 	{
 		int health = 100;
 		int attack = 1000;
-		int defence = 10;
+		int defence = 10000;
 
 		player1.playerBase(health, attack, defence);
 	}
@@ -1911,7 +1925,12 @@ void Enemy::Spider()
 //---Robot Boss---//
 void Enemy::Robot()
 {
-
+	for (int i = 0; i < 10; i++)
+	{
+		RobotSafeSpot[i].X = (rand() % 18) + 56;
+		RobotSafeSpot[i].Y = (rand() % 8) + 31;
+		RobotElectric[RobotSafeSpot[i].X - 56][RobotSafeSpot[i].Y - 31] = '0';
+	}
 }
 
 //---FINALKAMBENG---//
@@ -2207,7 +2226,21 @@ void Enemy::SpiderUpdate()
 //---Update for Robot Boss---//
 void Enemy::RobotUpdate()
 {
-
+	if (thisisatimeforprojectiles > g_dElapsedTime)
+	{
+		return;
+	}
+	thisisatimeforprojectiles = g_dElapsedTime + 5;
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 18; j++)
+		{
+			if (RobotElectric[i][j] != 0)
+			{
+				RobotElectric[i][j] = '1';
+			}
+		}
+	}
 }
 
 //---Update for FINALKAMBENG---//

@@ -11,7 +11,6 @@ extern double g_dElapsedTime;
 int height = 0;
 int width = 0;
 
-extern bool g_isUpdated;
 
 void AI::xCorridorMove()
 {
