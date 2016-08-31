@@ -21,7 +21,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -98,6 +98,7 @@
     <ClCompile Include="movableObj.cpp" />
     <ClCompile Include="reset.cpp" />
     <ClCompile Include="smashableObjects.cpp" />
+    <ClCompile Include="Traps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI Pathfinding.h" />
@@ -119,6 +120,7 @@
     <ClInclude Include="movableObj.h" />
     <ClInclude Include="reset.h" />
     <ClInclude Include="smashableObject.h" />
+    <ClInclude Include="Traps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
