@@ -76,6 +76,7 @@ void init( void )
 	g_dDeathPitTriggerTime = 9.0;
 	g_dDeathPitActivationTime = 12.0;
 	g_dProjectileFireTime = 0.5;
+	g_dProjectileTravelTime = 0.75;
 	g_SlidingSpeed = 0.0;
 	g_flareTime = 0.0;
     // sets the initial state for the game
@@ -227,6 +228,9 @@ void update(double dt)
 		case S_LOADCREATIVE: loadingCreative(); //initialise maps based on level number, then changes to creative game state
 			break;
 		case S_LOADEDITOR: loadingEditor();
+			break;
+		case S_GAMEOVER: mainmenu();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -255,6 +259,8 @@ void render()
 		case S_COMBAT: combatdisplay();
 			break;
 		case S_CREATIVE: renderCreative();
+			break;
+		case S_GAMEOVER: renderMenu();
 			break;
 		}
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -306,7 +312,7 @@ void moveCharacter()
 		}
 		bSomethingHappened = true;
 	}
-    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 1)
     {
 		moveBoulder();
         //Beep(1440, 30);
@@ -330,7 +336,7 @@ void moveCharacter()
 		}
 
     }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 15)
     {
 		moveBoulder();
         //Beep(1440, 30);

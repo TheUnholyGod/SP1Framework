@@ -146,7 +146,6 @@ void Projectile::ProjectileMove()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dProjBounceTime = g_dElapsedTime + 0.250; // 125ms should be enough
-		g_isMapLoaded = false;
 	}
 
 }

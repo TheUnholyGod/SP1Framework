@@ -6,7 +6,6 @@ extern AI * AIEnemy;
 extern vector<AI *>EnemyArray;
 extern int g_CurrentLevel;
 extern char map[40][130];
-extern bool g_isMapLoaded;
 extern double g_dEnemyBounceTime;
 extern double g_dElapsedTime;
 int height = 0;
@@ -271,21 +270,18 @@ void AI::ChangePos()
 	{
 		bEnemySomethingHappened = true;
 		--AIEnemy->m_eLocation.X;
-
 	}
 
 	else if (dir == 'd')
 	{
 		bEnemySomethingHappened = true;
 		++AIEnemy->m_eLocation.X;
-
 	}
 
 	else if (dir == 'w')
 	{
 		bEnemySomethingHappened = true;
 		--AIEnemy->m_eLocation.Y;
-
 	}
 	else if (dir == 's')
 	{
@@ -297,7 +293,6 @@ void AI::ChangePos()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dEnemyBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-		g_isMapLoaded = false;
 	}
 
 }

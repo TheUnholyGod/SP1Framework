@@ -67,7 +67,8 @@ enum EGAMESTATES
 	S_CREATIVE,
 	S_LOADGAME,
 	S_LOADCREATIVE,
-	S_LOADEDITOR
+	S_LOADEDITOR,
+	S_GAMEOVER
 };
 
 // struct for the game character
