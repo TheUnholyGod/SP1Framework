@@ -109,7 +109,7 @@ COORD FishProjectileCoord[8];
 string SpiderProjectile[5];
 COORD SpiderProjectilCoord[5];
 COORD RobotSafeSpot[10];
-char RobotElectric[9][18];
+char RobotElectric[7][17];
 
 
 /*/
@@ -373,14 +373,14 @@ char RobotElectric[9][18];
 			playerinit();
 			enemySelector = 0;
 			combatgameplay = COMBAT_GETINPUT;
-			g_eGameState = S_MENU;
+			g_eGameState = S_GAMEOVER;
 			if (g_Level == true)
 			{
-				
+				g_CurrentLevel = 1;
 			}
 			else if (g_Level == false)
 			{
-				g_eGameState = S_LOADCREATIVE;
+				g_CreativeLevel = 101;
 			}
 		}
 		else if (victory == 1)
@@ -654,11 +654,29 @@ char RobotElectric[9][18];
 			break;
 
 		case ENEMYPIC_ROBOT1:
-			//Robot();
+			for (int i = 0; i < 17; i++)
+			{
+				for (int j = 0; j < 7; j++)
+				{
+					if (RobotElectric[i][j] == '1')
+					{
+						counter++;
+					}
+				}
+			}
 			break;
 
 		case ENEMYPIC_ROBOT2:
-			//Robot();
+			for (int i = 0; i < 17; i++)
+			{
+				for (int j = 0; j < 7; j++)
+				{
+					if (RobotElectric[i][j] == '1')
+					{
+						counter++;
+					}
+				}
+			}
 			break;
 
 		case ENEMYPIC_KAMBENG1:
@@ -709,8 +727,8 @@ char RobotElectric[9][18];
 		}
 		else
 		{
-			renderCharacterSymbol(characterspawn);
 			printprojectiles(thisisacount);
+			renderCharacterSymbol(characterspawn);
 		}
 	}
 
@@ -1128,21 +1146,21 @@ char RobotElectric[9][18];
 			break;
 
 		case ENEMYPIC_ROBOT1:
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 7; i++)
 			{
-				for (int j = 0; j < 18; j++)
+				for (int j = 0; j < 17; j++)
 				{
-					g_Console.writeToBuffer(56, 31, RobotElectric[i][j]);
+					g_Console.writeToBuffer(56 + j, 31 + i, RobotElectric[i][j]);
 				}
 			}
 			break;
 
 		case ENEMYPIC_ROBOT2:
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 7; i++)
 			{
-				for (int j = 0; j < 18; j++)
+				for (int j = 0; j < 17; j++)
 				{
-					g_Console.writeToBuffer(56, 31, RobotElectric[i][j]);
+					g_Console.writeToBuffer(56 + j, 31 + i, RobotElectric[i][j]);
 				}
 			}
 			break;
@@ -2228,16 +2246,30 @@ void Enemy::RobotUpdate()
 {
 	if (thisisatimeforprojectiles > g_dElapsedTime)
 	{
+		for (int i = 0; i < 7; i++)
+		{
+			for (int j = 0; j < 17; j++)
+			{
+				if (RobotElectric[i][j] != '0')
+				{
+					RobotElectric[i][j] = ' ';
+				}
+			}
+		}
 		return;
 	}
 	thisisatimeforprojectiles = g_dElapsedTime + 5;
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 7; i++)
 	{
-		for (int j = 0; j < 18; j++)
+		for (int j = 0; j < 17; j++)
 		{
-			if (RobotElectric[i][j] != 0)
+			if (RobotElectric[i][j] != '0')
 			{
 				RobotElectric[i][j] = '1';
+			}
+			else if (RobotElectric[i][j] == '0')
+			{
+				RobotElectric[i][j] == ' ';
 			}
 		}
 	}
