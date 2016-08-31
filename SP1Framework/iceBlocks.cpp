@@ -5,7 +5,6 @@ extern bool				g_abKeyPressed[K_COUNT];
 extern SGameChar	    g_sChar;
 extern EGAMESTATES	    g_eGameState;
 extern SCreaChar		g_sCreaChar;
-extern bool				;
 extern string			g_playerDirection;
 extern double			g_dElapsedTime, g_SlidingSpeed;
 unsigned int			DirectionX = 0, DirectionY = 0; 
