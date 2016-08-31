@@ -20,7 +20,6 @@ extern double g_dDeathPitActivationTime;
 extern double g_dProjectileTravelTime;
 extern double g_dProjectileFireTime;
 extern bool g_isMapLoaded;
-extern bool g_isUpdated;
 extern char map[40][130];
 
 
@@ -110,7 +109,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			--AIProjectile->m_pLocation.X;
 		}
@@ -120,7 +118,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			++AIProjectile->m_pLocation.X;
 		}
@@ -131,7 +128,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			--AIProjectile->m_pLocation.Y;
 		}
@@ -141,7 +137,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			++AIProjectile->m_pLocation.Y;
 		}

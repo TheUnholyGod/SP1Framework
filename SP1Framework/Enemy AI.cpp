@@ -12,7 +12,6 @@ extern double g_dElapsedTime;
 int height = 0;
 int width = 0;
 
-extern bool g_isUpdated;
 
 void AI::xCorridorMove()
 {
@@ -270,7 +269,6 @@ void AI::ChangePos()
 		return;
 	if (dir == 'a')
 	{
-		g_isUpdated = false;
 		bEnemySomethingHappened = true;
 		--AIEnemy->m_eLocation.X;
 
@@ -278,7 +276,6 @@ void AI::ChangePos()
 
 	else if (dir == 'd')
 	{
-		g_isUpdated = false;
 		bEnemySomethingHappened = true;
 		++AIEnemy->m_eLocation.X;
 
@@ -286,14 +283,12 @@ void AI::ChangePos()
 
 	else if (dir == 'w')
 	{
-		g_isUpdated = false;
 		bEnemySomethingHappened = true;
 		--AIEnemy->m_eLocation.Y;
 
 	}
 	else if (dir == 's')
 	{
-		g_isUpdated = false;
 		bEnemySomethingHappened = true;
 		++AIEnemy->m_eLocation.Y;
 
