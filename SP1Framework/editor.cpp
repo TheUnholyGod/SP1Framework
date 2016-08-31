@@ -32,7 +32,7 @@ void moveCursor()
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
 
-	if (g_abKeyPressed[K_UP] && g_sCursor.m_cEditorLocation.Y > 0)
+	if (g_abKeyPressed[K_UP] && g_sCursor.m_cEditorLocation.Y > 1)
 	{
 		{
 			g_sCursor.m_cEditorLocation.Y--;
@@ -48,7 +48,7 @@ void moveCursor()
 		}
 
 	}
-	if (g_abKeyPressed[K_DOWN] && g_sCursor.m_cEditorLocation.Y < g_Console.getConsoleSize().Y - 1)
+	if (g_abKeyPressed[K_DOWN] && g_sCursor.m_cEditorLocation.Y < g_Console.getConsoleSize().Y - 15)
 	{
 		{
 			g_sCursor.m_cEditorLocation.Y++;
@@ -70,7 +70,6 @@ void moveCursor()
 		g_isMapLoaded = false;
 	}
 }
-
 void renderCursor()
 {
 	// Draw the location of the cursor

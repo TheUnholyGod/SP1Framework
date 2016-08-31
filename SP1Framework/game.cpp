@@ -67,6 +67,10 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+<<<<<<< HEAD
+=======
+	g_dElapsedTime = 0.0;
+>>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
 	g_dBounceTime = 0.0;
 	g_dProjBounceTime = 0.0;
 	g_dEnemyBounceTime = 0.0;
@@ -233,6 +237,9 @@ void update(double dt)
 		case S_LOADCREATIVE: loadingCreative(); //initialise maps based on level number, then changes to creative game state
 			break;
 		case S_LOADEDITOR: loadingEditor();
+			break;
+		case S_GAMEOVER: mainmenu();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -261,6 +268,8 @@ void render()
 		case S_COMBAT: combatdisplay();
 			break;
 		case S_CREATIVE: renderCreative();
+			break;
+		case S_GAMEOVER: renderMenu();
 			break;
 		}
 		renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -312,7 +321,7 @@ void moveCharacter()
 		}
 		bSomethingHappened = true;
 	}
-    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 1)
     {
 		moveBoulder();
         //Beep(1440, 30);
@@ -336,7 +345,7 @@ void moveCharacter()
 		}
 
     }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 15)
     {
 		moveBoulder();
         //Beep(1440, 30);

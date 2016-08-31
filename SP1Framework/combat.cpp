@@ -9,6 +9,8 @@ extern double g_dElapsedTime;
 extern double g_dDeltaTime;
 extern double g_dBounceTime;
 extern bool g_Level;
+extern int g_CurrentLevel;
+extern int g_CreativeLevel;
 
 //-----Struct for Enemy Picture-----//
 struct enemypic
@@ -106,6 +108,8 @@ string FishProjectile[8];
 COORD FishProjectileCoord[8];
 string SpiderProjectile[5];
 COORD SpiderProjectilCoord[5];
+COORD RobotSafeSpot[10];
+char RobotElectric[9][18];
 
 
 /*/
@@ -265,19 +269,19 @@ COORD SpiderProjectilCoord[5];
 			if (g_dElapsedTime >= thisisatime2)
 			{
 				waittime = g_dElapsedTime + 2.5;
+				thisisacount = 0;
+				int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
+				int hold = player1.damageSustained(damage, player1.character.Defence) * counter;
+				player1.healthUpdate(hold);
+				isEnemyAttActive = false;
+				counter = 0;
+				defended = true;
+				updatedtextprinted = false;
 				combatgameplay = COMBAT_DEF_UPDATEALLSTATS;
 			}
 		}
 		else if (combatgameplay == COMBAT_DEF_UPDATEALLSTATS)
 		{
-			thisisacount = 0;
-			int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
-			int hold = player1.damageSustained(damage, player1.character.Defence) * counter;
-			player1.healthUpdate(hold);
-			isEnemyAttActive = false;
-			counter = 0;
-			defended = true;
-			updatedtextprinted == false;
 			arrayclear();
 			if (waittime > g_dElapsedTime) //use in display and for diff states
 			{
@@ -370,6 +374,14 @@ COORD SpiderProjectilCoord[5];
 			enemySelector = 0;
 			combatgameplay = COMBAT_GETINPUT;
 			g_eGameState = S_MENU;
+			if (g_Level == true)
+			{
+				
+			}
+			else if (g_Level == false)
+			{
+				g_eGameState = S_LOADCREATIVE;
+			}
 		}
 		else if (victory == 1)
 		{
@@ -459,17 +471,206 @@ COORD SpiderProjectilCoord[5];
 	//---Checking Damage from  the Enemy---//
 	void checkdamage()
 	{
+		int check;
 		if (damagecheck > g_dElapsedTime)
 		{
 			return;
 		}
-		for (int i = 0; i < 20; i++)
+
+		switch (displayno1)
 		{
-			if (characterspawn.X == projectileCoord[i].X && characterspawn.Y == projectileCoord[i].Y)
+		case ENEMYPIC_KAMBENGF1:
+			for (int i = 0; i < 20; i++)
 			{
-				damagecheck = g_dElapsedTime + 0.25;
-				counter++;
+				if (characterspawn.X == projectileCoord[i].X && characterspawn.Y == projectileCoord[i].Y)
+				{
+					damagecheck = g_dElapsedTime + 0.25;
+					counter++;
+				}
 			}
+			break;
+
+		case ENEMYPIC_KAMBENGF2:
+			for (int i = 0; i < 20; i++)
+			{
+				if (characterspawn.X == projectileCoord[i].X && characterspawn.Y == projectileCoord[i].Y)
+				{
+					damagecheck = g_dElapsedTime + 0.25;
+					counter++;
+				}
+			}
+			break;
+
+		case ENEMYPIC_SKELETON1:
+			check = 0;
+			for (int i = 0; i < 2; i++)
+			{
+				if (Xcoord[check] == 0)
+				{
+					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+
+				}
+				else if (Xcoord[check] == 1)
+				{
+					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+				}
+
+				check += 3;
+			}
+			break;
+
+		case ENEMYPIC_SKELETON2:
+			check = 0;
+			for (int i = 0; i < 2; i++)
+			{
+				if (Xcoord[check] == 0)
+				{
+					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+
+				}
+				else if (Xcoord[check] == 1)
+				{
+					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 2.5;
+						counter++;
+					}
+				}
+
+				check += 3;
+			}
+			break;
+
+		case ENEMYPIC_FISH1:
+			check = 0;
+			for (int i = 0; i < 2; i++)
+			{
+				if (Xcoord[check] == 0)
+				{
+					if ((characterspawn.X >= FishProjectileCoord[i + 1].X && characterspawn.Y >= FishProjectileCoord[i + 1].Y) || (characterspawn.X <= FishProjectileCoord[i + 1].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+					else if ((characterspawn.X == FishProjectileCoord[i + 2].X && characterspawn.Y >= FishProjectileCoord[i + 2].Y) || (characterspawn.X <= FishProjectileCoord[i + 2].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+
+				}
+				else if (Xcoord[check] == 1)
+				{
+					if ((characterspawn.X >= FishProjectileCoord[i + 1].X && characterspawn.Y >= FishProjectileCoord[i + 1].Y) || (characterspawn.X <= FishProjectileCoord[i + 1].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+					else if ((characterspawn.X == FishProjectileCoord[i + 2].X && characterspawn.Y >= FishProjectileCoord[i + 2].Y) || (characterspawn.X <= FishProjectileCoord[i + 2].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+				}
+
+				check += 4;
+			}
+			break;
+
+		case ENEMYPIC_FISH2:
+			check = 0;
+			for (int i = 0; i < 2; i++)
+			{
+				if (Xcoord[check] == 0)
+				{
+					if ((characterspawn.X >= FishProjectileCoord[i + 1].X && characterspawn.Y >= FishProjectileCoord[i + 1].Y) || (characterspawn.X <= FishProjectileCoord[i + 1].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+					else if ((characterspawn.X == FishProjectileCoord[i + 2].X && characterspawn.Y >= FishProjectileCoord[i + 2].Y) || (characterspawn.X <= FishProjectileCoord[i + 2].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+
+				}
+				else if (Xcoord[check] == 1)
+				{
+					if ((characterspawn.X >= FishProjectileCoord[i + 1].X && characterspawn.Y >= FishProjectileCoord[i + 1].Y) || (characterspawn.X <= FishProjectileCoord[i + 1].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 1].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+					else if ((characterspawn.X == FishProjectileCoord[i + 2].X && characterspawn.Y >= FishProjectileCoord[i + 2].Y) || (characterspawn.X <= FishProjectileCoord[i + 2].X + 3 && characterspawn.Y <= FishProjectileCoord[i + 2].Y))
+					{
+						damagecheck = g_dElapsedTime + 5;
+						counter++;
+					}
+				}
+
+				check += 4;
+			}
+			break;
+
+		case ENEMYPIC_SPIDER1:
+			//Spider();
+			break;
+
+		case ENEMYPIC_SPIDER2:
+			//Spider();
+			break;
+
+		case ENEMYPIC_ROBOT1:
+			//Robot();
+			break;
+
+		case ENEMYPIC_ROBOT2:
+			//Robot();
+			break;
+
+		case ENEMYPIC_KAMBENG1:
+			//UltimateKambeng();
+			break;
+
+		case ENEMYPIC_KAMBENG2:
+			//UltimateKambeng();
+			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -501,15 +702,15 @@ COORD SpiderProjectilCoord[5];
 		if (isEnemyAttActive == false)
 		{
 			player1.display(combatdisplaycoord);
+			if (updatedtextprinted == false)
+			{
+				printinglinesoftext(enemySelector);
+			}
 		}
 		else
 		{
 			renderCharacterSymbol(characterspawn);
 			printprojectiles(thisisacount);
-		}
-		if (updatedtextprinted == false)
-		{
-			printinglinesoftext(enemySelector);
 		}
 	}
 
@@ -878,7 +1079,7 @@ COORD SpiderProjectilCoord[5];
 			break;
 
 		case ENEMYPIC_SKELETON2:
-			for (int i = 0; i < 2;i++)
+			for (int i = 0; i < 2; i++)
 			{
 				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber], SkeletonProjectile[arraynumber], 0x0C);
 				g_Console.writeToBuffer(SkeletonProjectileCoord[arraynumber + 1], SkeletonProjectile[arraynumber + 1], 0x0C);
@@ -927,11 +1128,23 @@ COORD SpiderProjectilCoord[5];
 			break;
 
 		case ENEMYPIC_ROBOT1:
-			//Robot();
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 18; j++)
+				{
+					g_Console.writeToBuffer(56, 31, RobotElectric[i][j]);
+				}
+			}
 			break;
 
 		case ENEMYPIC_ROBOT2:
-			//Robot();
+			for (int i = 0; i < 9; i++)
+			{
+				for (int j = 0; j < 18; j++)
+				{
+					g_Console.writeToBuffer(56, 31, RobotElectric[i][j]);
+				}
+			}
 			break;
 
 		case ENEMYPIC_KAMBENG1:
@@ -974,7 +1187,7 @@ COORD SpiderProjectilCoord[5];
 				max = 1;
 				i++;
 				enemy1.init(att, max);
-				enemy1.boss1.Defence = 50;
+				enemy1.boss1.Defence = 1;
 				displayno1 = ENEMYPIC_KAMBENGF1;
 				break;
 			}
@@ -1039,7 +1252,7 @@ COORD SpiderProjectilCoord[5];
 	{
 		int health = 100;
 		int attack = 1000;
-		int defence = 10;
+		int defence = 10000;
 
 		player1.playerBase(health, attack, defence);
 	}
@@ -1712,7 +1925,12 @@ void Enemy::Spider()
 //---Robot Boss---//
 void Enemy::Robot()
 {
-
+	for (int i = 0; i < 10; i++)
+	{
+		RobotSafeSpot[i].X = (rand() % 18) + 56;
+		RobotSafeSpot[i].Y = (rand() % 8) + 31;
+		RobotElectric[RobotSafeSpot[i].X - 56][RobotSafeSpot[i].Y - 31] = '0';
+	}
 }
 
 //---FINALKAMBENG---//
@@ -2008,7 +2226,21 @@ void Enemy::SpiderUpdate()
 //---Update for Robot Boss---//
 void Enemy::RobotUpdate()
 {
-
+	if (thisisatimeforprojectiles > g_dElapsedTime)
+	{
+		return;
+	}
+	thisisatimeforprojectiles = g_dElapsedTime + 5;
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 18; j++)
+		{
+			if (RobotElectric[i][j] != 0)
+			{
+				RobotElectric[i][j] = '1';
+			}
+		}
+	}
 }
 
 //---Update for FINALKAMBENG---//

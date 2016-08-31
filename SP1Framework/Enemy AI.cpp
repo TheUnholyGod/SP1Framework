@@ -6,13 +6,11 @@ extern AI * AIEnemy;
 extern vector<AI *>EnemyArray;
 extern int g_CurrentLevel;
 extern char map[40][130];
-extern bool g_isMapLoaded;
 extern double g_dEnemyBounceTime;
 extern double g_dElapsedTime;
 int height = 0;
 int width = 0;
 
-extern bool g_isUpdated;
 
 void AI::xCorridorMove()
 {
@@ -197,15 +195,21 @@ void AI::ChangePos2()
 		return;
 	if (dir == 'a')
 	{
+<<<<<<< HEAD
 		if (AICollision(g_CurrentLevel))
 		{
 			bEnemySomethingHappened = true;
 			--AIEnemy->m_eLocation.X;
 		}
+=======
+		bEnemySomethingHappened = true;
+		--AIEnemy->m_eLocation.X;
+>>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
 	}
 
 	else if (dir == 'd')
 	{
+<<<<<<< HEAD
 
 		if (AICollision(g_CurrentLevel))
 		{
@@ -213,10 +217,15 @@ void AI::ChangePos2()
 			++AIEnemy->m_eLocation.X;
 		}
 
+=======
+		bEnemySomethingHappened = true;
+		++AIEnemy->m_eLocation.X;
+>>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
 	}
 
 	else if (dir == 'w')
 	{
+<<<<<<< HEAD
 
 		if (AICollision(g_CurrentLevel))
 		{
@@ -235,13 +244,21 @@ void AI::ChangePos2()
 			++AIEnemy->m_eLocation.Y;
 		};
 
+=======
+		bEnemySomethingHappened = true;
+		--AIEnemy->m_eLocation.Y;
+	}
+	else if (dir == 's')
+	{
+		bEnemySomethingHappened = true;
+		++AIEnemy->m_eLocation.Y;
+>>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
 
 	}
 	if (bEnemySomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dEnemyBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-		g_isMapLoaded = false;
 	}
 
 }

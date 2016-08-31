@@ -21,7 +21,6 @@ extern double g_dDeathPitActivationTime;
 extern double g_dProjectileTravelTime;
 extern double g_dProjectileFireTime;
 extern bool g_isMapLoaded;
-extern bool g_isUpdated;
 extern char map[40][130];
 
 
@@ -160,7 +159,6 @@ void Projectile::ProjectileMove()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dProjBounceTime = g_dElapsedTime + 0.250; // 125ms should be enough
-		g_isMapLoaded = false;
 	}
 
 }
