@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <queue>
 #include "game.h"
 
 using namespace std;
@@ -16,10 +17,8 @@ using namespace std;
 class AI
 {
 private:
-	int x;
-	int y;
+
 	char dir;
-	char dirOpp;
 
 public:
 
@@ -30,9 +29,23 @@ public:
 	void yCorridorMove();
 	void AIPathfinding();
 	void RandomDirection();
-	void GetOpp();
+	void Pathfinding();
 	bool AICollision(int);
 	void ChangePos();
+	void RandomDirection2();
+	void ChangePos2();
+	bool AICollision2(int);
+};
+
+struct Node
+{
+	void NodeStart();
+	void NodeEnd();
+	int NodeX;
+	int NodeY;
+	float f;
+	float g;
+	float h;
 };
 
 const int KAMBENG = 0;

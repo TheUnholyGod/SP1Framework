@@ -13,6 +13,7 @@ extern bool SpikeSwitch;
 extern int g_CurrentLevel;
 extern double g_dProjBounceTime;
 extern double g_dElapsedTime;
+extern double g_dElapsed2Time;
 extern double g_dSpikeTriggerTime;
 extern double g_dSpikeActivationTime;
 extern double g_dDeathPitTriggerTime;
@@ -26,7 +27,10 @@ extern char map[40][130];
 
 void Spikes()
 {
+	if (g_eGameState == S_GAME)
+	{
 
+		//-------- CODE FOR THE TRAPS TO "OPEN" & "CLOSE" -------- //
 		if (g_dElapsedTime > g_dSpikeTriggerTime)
 		{
 			SpikesActivated = true;
@@ -39,6 +43,14 @@ void Spikes()
 			g_dSpikeActivationTime = 3.0 + g_dSpikeTriggerTime;
 
 		}
+
+		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)215)
+		{
+			g_eGameState == S_GameOver;
+		}
+	}
+
+
 }
 
 void DeathPit()
@@ -47,7 +59,7 @@ void DeathPit()
 	if (g_dElapsedTime > g_dDeathPitTriggerTime)
 	{
 		DeathPitOpened = true;
-		g_dDeathPitTriggerTime = 9.0 + g_dElapsedTime;
+		g_dDeathPitTriggerTime = 13.0 + g_dElapsedTime;
 	
 	}
 	if (g_dElapsedTime > g_dDeathPitActivationTime)
@@ -59,10 +71,11 @@ void DeathPit()
 }
 void Projectile::ProjectileFire(char proj_direction, int InitX, int InitY)
 {	
-		
+	projdir = proj_direction;
+
 	if(ProjectileCollision(g_CurrentLevel) == true)
 	{
-		projdir = 'w';
+		
 		ProjectileMove();
 	}
 	else
@@ -70,7 +83,7 @@ void Projectile::ProjectileFire(char proj_direction, int InitX, int InitY)
 		AIProjectile->m_pLocation.X = InitX;
 		AIProjectile->m_pLocation.Y = InitY;
 	}
-		
+
 }
 
 
@@ -110,7 +123,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			--AIProjectile->m_pLocation.X;
 		}
@@ -120,7 +132,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			++AIProjectile->m_pLocation.X;
 		}
@@ -131,7 +142,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			--AIProjectile->m_pLocation.Y;
 		}
@@ -141,7 +151,6 @@ void Projectile::ProjectileMove()
 	{
 		if (ProjectileCollision(g_CurrentLevel))
 		{
-			g_isUpdated = false;
 			bProjectileSomethingHappened = true;
 			++AIProjectile->m_pLocation.Y;
 		}

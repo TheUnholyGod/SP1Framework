@@ -7,7 +7,6 @@ using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
-<<<<<<< HEAD
 double  g_dSpikeTriggerTime;
 double	g_dSpikeActivationTime;
 double  g_dDeathPitTriggerTime;
@@ -20,9 +19,7 @@ bool SpikesActivated;
 bool SpikeSwitch;
 bool ProjectileFired;
 bool ProjectileCollision;
-=======
 double  g_flareTime;
->>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
 bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isMapLoaded;
@@ -50,12 +47,9 @@ SSelector   g_sSelector;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
-<<<<<<< HEAD
 double	g_dProjBounceTime;
 double	g_dEnemyBounceTime;
-=======
 double  g_SlidingSpeed; // this is to control the speed of sliding
->>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
 // Console object
 Console g_Console(130, 40, "SP1 Framework");
 
@@ -73,32 +67,25 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
-<<<<<<< HEAD
-	g_dElapsedTime = 0.0;
 	g_dBounceTime = 0.0;
 	g_dProjBounceTime = 0.0;
 	g_dEnemyBounceTime = 0.0;
 	g_dSpikeTriggerTime = 5.0;
 	g_dSpikeActivationTime = 8.0;
-	g_dDeathPitTriggerTime = 9.0;
-	g_dDeathPitActivationTime = 12.0;
+	g_dDeathPitTriggerTime = 13.0;
+	g_dDeathPitActivationTime = 16.0;
 	g_dProjectileFireTime = 0.5;
 	g_dProjectileTravelTime = 0.75;
-=======
 	g_SlidingSpeed = 0.0;
 	g_flareTime = 0.0;
->>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
     // sets the initial state for the game
 	g_isMapLoaded = false;
 	g_isTorchEnabled = true;
-<<<<<<< HEAD
 	SpikesActivated = false;
 	DeathPitOpened = false;
 	ProjectileFired = true;
 	ProjectileCollision = false;
-=======
 	g_isTimerStarted = false;
->>>>>>> cfa6ab502a86b51085aaaf4ac137847af43ba5d1
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
 	g_flares = 3;
@@ -114,7 +101,6 @@ void init( void )
 		AIEnemy->AI_id = 1;
 		EnemyArray.push_back(AIEnemy);
 
-
 		AIEnemy = new class AI;
 		AIEnemy->m_eLocation.X = 4;
 		AIEnemy->m_eLocation.Y = 8;
@@ -128,6 +114,12 @@ void init( void )
 		AIProjectile->m_pLocation.X = 2;
 		AIProjectile->m_pLocation.Y = 4;
 		AIProjectile->Proj_id = 1;
+		ProjectileArray.push_back(AIProjectile);
+
+		AIProjectile = new class Projectile;
+		AIProjectile->m_pLocation.X = 3;
+		AIProjectile->m_pLocation.Y = 4;
+		AIProjectile->Proj_id = 2;
 		ProjectileArray.push_back(AIProjectile);
 	}
 
@@ -221,6 +213,7 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
+	
 	switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -465,7 +458,8 @@ void renderEnemy()
 	WORD enemyColor = 0xFF;
 
 	EnemyArray.at(0)->RandomDirection();
-	
+	EnemyArray.at(0)->RandomDirection2();
+
 	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
 	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
 
@@ -478,8 +472,7 @@ void renderProjectile()
 	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
 
 	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
-
-
+	g_Console.writeToBuffer(ProjectileArray.at(1)->m_pLocation, (char)164, projectileColor);
 }
 void renderFramerate()
 {

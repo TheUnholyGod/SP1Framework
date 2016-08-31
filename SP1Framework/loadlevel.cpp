@@ -235,7 +235,6 @@ void print_map()
 						{
 							player1.healthUpdate(10);
 						}
-						
 					}
 					if (SpikesActivated == false)
 					{
@@ -249,10 +248,9 @@ void print_map()
 					{
 						map[i][j] = (char)255;
 						color = 0x07;
-
-						if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)255)
+						if (map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)255)
 						{
-							g_eGameState = S_MENU;
+							
 						}
 					}
 					if (DeathPitOpened == false)
@@ -260,8 +258,8 @@ void print_map()
 						map[i][j] = (char)240;
 						color = 0x07;
 					}
-				}
-				
+					
+				}	
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
 			}
