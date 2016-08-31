@@ -7,6 +7,18 @@ using namespace std;
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
+double  g_dSpikeTriggerTime;
+double	g_dSpikeActivationTime;
+double  g_dDeathPitTriggerTime;
+double	g_dDeathPitActivationTime;
+double	g_dProjectileTravelTime;
+double	g_dProjectileFireTime;
+double	g_dProjectileWaitTime;
+bool DeathPitOpened;
+bool SpikesActivated;
+bool SpikeSwitch;
+bool ProjectileFired;
+bool ProjectileCollision;
 bool    g_abKeyPressed[K_COUNT];
 char    map[40][130]; // <------ load map into this array
 bool    g_isUpdated;
@@ -18,14 +30,18 @@ int     g_KeysObtain, g_PicksObtain;
 int g_CurrentLevel;
 int g_CreativeLevel;
 SGameChar   g_sChar;
-Enemy	g_sEnemy;
-Enemy enemies[100];
+vector<AI *>EnemyArray;
+AI * AIEnemy;
+vector<Projectile *>ProjectileArray;
+Projectile * AIProjectile;
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 SSelector   g_sSelector;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+double	g_dProjBounceTime;
+double	g_dEnemyBounceTime;
 // Console object
 Console g_Console(130, 40, "SP1 Framework");
 
@@ -43,23 +59,57 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+	g_dElapsedTime = 0.0;
+	g_dBounceTime = 0.0;
+	g_dProjBounceTime = 0.0;
+	g_dEnemyBounceTime = 0.0;
+	g_dSpikeTriggerTime = 5.0;
+	g_dSpikeActivationTime = 8.0;
+	g_dDeathPitTriggerTime = 9.0;
+	g_dDeathPitActivationTime = 12.0;
+	g_dProjectileFireTime = 0.5;
+	g_dProjectileTravelTime = 0.75;
     // sets the initial state for the game
 	g_isUpdated = false;
 	g_isMapLoaded = false;
 	g_isTorchEnabled = true;
+	SpikesActivated = false;
+	DeathPitOpened = false;
+	ProjectileFired = true;
+	ProjectileCollision = false;
 	g_KeysObtain = 0;
 	g_PicksObtain = 0;
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
+	if (g_CurrentLevel == 1)
+	{
+		AIEnemy = new class AI;
+		AIEnemy->m_eLocation.X = 3;
+		AIEnemy->m_eLocation.Y = 7;
+		AIEnemy->AI_id = 1;
+		EnemyArray.push_back(AIEnemy);
+
+
+		AIEnemy = new class AI;
+		AIEnemy->m_eLocation.X = 4;
+		AIEnemy->m_eLocation.Y = 8;
+		AIEnemy->AI_id = 2;
+		EnemyArray.push_back(AIEnemy);
+	}
+
+	if (g_CurrentLevel == 1)
+	{
+		AIProjectile = new class Projectile;
+		AIProjectile->m_pLocation.X = 2;
+		AIProjectile->m_pLocation.Y = 4;
+		AIProjectile->Proj_id = 1;
+		ProjectileArray.push_back(AIProjectile);
+	}
+
 	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
-	//g_sEnemy.m_eLocation.X = 25;
-	//g_sEnemy.m_eLocation.Y = 16;
-    g_sChar.m_bActive = true;
-	//g_sEnemy.m_bActive = true;
-	g_sChar.m_cLocation.Y = 2; //g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
 	// sets the initial position of the cursor
 	g_sCursor.m_cEditorLocation.X = g_Console.getConsoleSize().X / 2;
@@ -146,7 +196,6 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
 	switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -227,6 +276,8 @@ void gameplay()            // gameplay logic
 	pickObtain();
 	objectStatus();
 	checkGameGoal();
+	Spikes();
+	DeathPit();
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
                         // sound can be played here too.
@@ -381,6 +432,8 @@ void renderGame()
 	renderGameInstruction();
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	renderEnemy();
+	renderProjectile();
 }
 
 void renderMap()
@@ -390,19 +443,33 @@ void renderMap()
 }
 
 void renderCharacter()
-{ 
-    // Draw the location of the character
-    WORD charColor = 0x0C;
-	WORD enemyColor = 0xFF;
-    g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
+{
+	// Draw the location of the character
+	WORD charColor = 0x0C;
+	g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
-	//if (g_sEnemy.m_bActive)
-	//{
-	//	enemies[KAMBENG].EnemyMove(g_sChar.m_cLocation.Y, g_sChar.m_cLocation.X);
-	//}
-	//g_Console.writeToBuffer(g_sEnemy.m_eLocation, (char)178, enemyColor);
 }
+void renderEnemy()
+{
+	WORD enemyColor = 0xFF;
 
+	EnemyArray.at(0)->RandomDirection();
+	
+	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
+	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
+
+
+}
+void renderProjectile()
+{
+	WORD projectileColor = 0x06;
+	
+	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
+
+	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
+
+
+}
 void renderFramerate()
 {
     COORD c;

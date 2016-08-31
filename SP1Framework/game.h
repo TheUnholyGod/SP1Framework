@@ -5,13 +5,14 @@
 #include "Framework\console.h"
 #include "loadlevel.h"
 #include "collision.h"
-//#include "AI Pathfinding.h"
+#include "AI Pathfinding.h"
 #include "menu.h"
 #include "levelTransition.h"
 #include "editor.h"
 #include "combat.h"
 #include "creative.h"
 #include "instruction.h"
+#include "Traps.h"
 #include "load.h"
 #include "doors.h"
 #include "movableObj.h"
@@ -105,6 +106,11 @@ void mapFiles();            // To extract the map from .txt <---- additional fun
 void renderGame();          // renders the game stuff
 void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer
+void renderEnemy();
+void renderProjectile();
+void Spikes();
+void Projectiles();
+void DeathPit();
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
