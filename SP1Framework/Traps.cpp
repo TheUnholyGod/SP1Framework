@@ -26,9 +26,6 @@ extern char map[40][130];
 
 void Spikes()
 {
-	if (g_eGameState == S_GAME)
-	{
-
 		//-------- CODE FOR THE TRAPS TO "OPEN" & "CLOSE" -------- //
 		if (g_dElapsedTime > g_dSpikeTriggerTime)
 		{
@@ -42,14 +39,6 @@ void Spikes()
 			g_dSpikeActivationTime = 3.0 + g_dSpikeTriggerTime;
 
 		}
-
-		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)215)
-		{
-			g_eGameState == S_GameOver;
-		}
-	}
-
-
 }
 
 void DeathPit()
@@ -58,7 +47,7 @@ void DeathPit()
 	if (g_dElapsedTime > g_dDeathPitTriggerTime)
 	{
 		DeathPitOpened = true;
-		g_dDeathPitTriggerTime = 13.0 + g_dElapsedTime;
+		g_dDeathPitTriggerTime = 5.0 + g_dElapsedTime;
 	
 	}
 	if (g_dElapsedTime > g_dDeathPitActivationTime)

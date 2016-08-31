@@ -24,6 +24,7 @@ public:
 
 	int AI_id;
 	COORD m_eLocation;
+	COORD m_e2Location;
 	bool m_bActive;
 	void xCorridorMove();
 	void yCorridorMove();

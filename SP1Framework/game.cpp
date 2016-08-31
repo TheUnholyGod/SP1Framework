@@ -67,17 +67,14 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
-<<<<<<< HEAD
-=======
 	g_dElapsedTime = 0.0;
->>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
 	g_dBounceTime = 0.0;
 	g_dProjBounceTime = 0.0;
 	g_dEnemyBounceTime = 0.0;
 	g_dSpikeTriggerTime = 5.0;
 	g_dSpikeActivationTime = 8.0;
-	g_dDeathPitTriggerTime = 13.0;
-	g_dDeathPitActivationTime = 16.0;
+	g_dDeathPitTriggerTime = 5.0;
+	g_dDeathPitActivationTime = 8.0;
 	g_dProjectileFireTime = 0.5;
 	g_dProjectileTravelTime = 0.75;
 	g_SlidingSpeed = 0.0;
@@ -106,8 +103,8 @@ void init( void )
 		EnemyArray.push_back(AIEnemy);
 
 		AIEnemy = new class AI;
-		AIEnemy->m_eLocation.X = 4;
-		AIEnemy->m_eLocation.Y = 8;
+		AIEnemy->m_e2Location.X = 4;
+		AIEnemy->m_e2Location.Y = 8;
 		AIEnemy->AI_id = 2;
 		EnemyArray.push_back(AIEnemy);
 	}
@@ -465,9 +462,6 @@ void renderCharacter()
 void renderEnemy()
 {
 	WORD enemyColor = 0xFF;
-
-	EnemyArray.at(0)->RandomDirection();
-	EnemyArray.at(0)->RandomDirection2();
 
 	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
 	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);

@@ -8,6 +8,7 @@ extern int g_CurrentLevel;
 extern char map[40][130];
 extern double g_dEnemyBounceTime;
 extern double g_dElapsedTime;
+extern bool g_isMapLoaded;
 int height = 0;
 int width = 0;
 
@@ -151,118 +152,5 @@ void AI::ChangePos()
 	}
 
 }
-
-void AI::RandomDirection2()
-{
-	do
-	{
-		dir = directions[rand() % 4];
-		ChangePos();
-	} while (AICollision(g_CurrentLevel) == true);
-}
-
-bool AI::AICollision2(int levelnumber)
-{
-	if (dir == 'w' && AIEnemy->m_eLocation.X > 0)
-	{
-		if (map[AIEnemy->m_eLocation.Y - 2][AIEnemy->m_eLocation.X] == (char)178 || map[AIEnemy->m_eLocation.Y - 2][AIEnemy->m_eLocation.X] == (char)219 || map[AIEnemy->m_eLocation.Y - 2][AIEnemy->m_eLocation.X] == (char)254 || map[AIEnemy->m_eLocation.Y - 2][AIEnemy->m_eLocation.X] == (char)220)
-			return false;
-	}
-	if (dir == 'a' && AIEnemy->m_eLocation.Y > 0)
-	{
-		if (map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X - 1] == (char)178 || map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X - 1] == (char)219 || map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X - 1] == (char)254 || map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X - 1] == (char)220)
-			return false;
-	}
-	if (dir == 's' && AIEnemy->m_eLocation.X < g_Console.getConsoleSize().X - 1)
-	{
-		if (map[AIEnemy->m_eLocation.Y][AIEnemy->m_eLocation.X] == (char)178 || map[AIEnemy->m_eLocation.Y][AIEnemy->m_eLocation.X] == (char)219 || map[AIEnemy->m_eLocation.Y][AIEnemy->m_eLocation.X] == (char)254 || map[AIEnemy->m_eLocation.Y][AIEnemy->m_eLocation.X] == (char)220)
-			return false;
-	}
-	if (dir == 'd' && AIEnemy->m_eLocation.Y < g_Console.getConsoleSize().Y - 1)
-	{
-		if (map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X + 1] == (char)178 || map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X + 1] == (char)219 || map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X + 1] == (char)254 || map[AIEnemy->m_eLocation.Y - 1][AIEnemy->m_eLocation.X + 1] == (char)220)
-			return false;
-	}
-	else
-		return true;
-
-}
-
-void AI::ChangePos2()
-{
-	bool bEnemySomethingHappened = false;
-	if (g_dEnemyBounceTime > g_dElapsedTime)
-		return;
-	if (dir == 'a')
-	{
-<<<<<<< HEAD
-		if (AICollision(g_CurrentLevel))
-		{
-			bEnemySomethingHappened = true;
-			--AIEnemy->m_eLocation.X;
-		}
-=======
-		bEnemySomethingHappened = true;
-		--AIEnemy->m_eLocation.X;
->>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
-	}
-
-	else if (dir == 'd')
-	{
-<<<<<<< HEAD
-
-		if (AICollision(g_CurrentLevel))
-		{
-			bEnemySomethingHappened = true;
-			++AIEnemy->m_eLocation.X;
-		}
-
-=======
-		bEnemySomethingHappened = true;
-		++AIEnemy->m_eLocation.X;
->>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
-	}
-
-	else if (dir == 'w')
-	{
-<<<<<<< HEAD
-
-		if (AICollision(g_CurrentLevel))
-		{
-			bEnemySomethingHappened = true;
-			--AIEnemy->m_eLocation.Y;
-		}
-
-
-	}
-	else if (dir == 's')
-	{
-
-		if (AICollision(g_CurrentLevel))
-		{
-			bEnemySomethingHappened = true;
-			++AIEnemy->m_eLocation.Y;
-		};
-
-=======
-		bEnemySomethingHappened = true;
-		--AIEnemy->m_eLocation.Y;
-	}
-	else if (dir == 's')
-	{
-		bEnemySomethingHappened = true;
-		++AIEnemy->m_eLocation.Y;
->>>>>>> a05cddd66531a2a752cbbb00805c8159c8a4a3a0
-
-	}
-	if (bEnemySomethingHappened)
-	{
-		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dEnemyBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-	}
-
-}
-
-
 
 
