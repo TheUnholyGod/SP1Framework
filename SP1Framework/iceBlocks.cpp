@@ -76,7 +76,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING LEFT, SLIDE LEFT ---------------------- //
 		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)223 && DirectionX == -1 && DirectionY == 0)
 		{
-			if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] != (char)178 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] != (char)254)
+			if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] != (char)178 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] != (char)254 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] != (char)219)
 			{
 				g_sChar.m_cLocation.X--;
 				g_sChar.m_cLocation.Y;
@@ -87,7 +87,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING RIGHT, SLIDE RIGHT ---------------------- //
 		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)223 && DirectionX == 1 && DirectionY == 0)
 		{
-			if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] != (char)178 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] != (char)254)
+			if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] != (char)178 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] != (char)254 && map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] != (char)219)
 			{
 				g_sChar.m_cLocation.X++;
 				g_sChar.m_cLocation.Y;
@@ -98,7 +98,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING UP, SLIDE UP ---------------------- //
 		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)223 && DirectionX == 0 && DirectionY == 1)
 		{
-			if (map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)178 && map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)254)
+			if (map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)178 && map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)254 && map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)219)
 			{
 				g_sChar.m_cLocation.X;
 				g_sChar.m_cLocation.Y--;
@@ -109,7 +109,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING DOWN, SLIDE DOWN ---------------------- //
 		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)223 && DirectionX == 0 && DirectionY == -1)
 		{
-			if (map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] != (char)178 && map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] != (char)254)
+			if (map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] != (char)178 && map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] != (char)254 && map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] != (char)219)
 			{
 				g_sChar.m_cLocation.X;
 				g_sChar.m_cLocation.Y++;
@@ -127,7 +127,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING LEFT, SLIDE LEFT ---------------------- //
 		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == -1 && DirectionY == 0)
 		{
-			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 1] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 1] != (char)254)
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 1] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 1] != (char)254 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X - 1] != (char)219)
 			{
 				g_sCreaChar.m_cCreativeLocation.X--;
 				g_sCreaChar.m_cCreativeLocation.Y;
@@ -138,7 +138,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING RIGHT, SLIDE RIGHT ---------------------- //
 		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == 1 && DirectionY == 0)
 		{
-			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X + 1] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X + 1] != (char)254)
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X + 1] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X + 1] != (char)254 && map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X + 1] != (char)219)
 			{
 				g_sCreaChar.m_cCreativeLocation.X++;
 				g_sCreaChar.m_cCreativeLocation.Y;
@@ -149,7 +149,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING UP, SLIDE UP ---------------------- //
 		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == 0 && DirectionY == 1)
 		{
-			if (map[g_sCreaChar.m_cCreativeLocation.Y - 2][g_sCreaChar.m_cCreativeLocation.X] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y - 2][g_sCreaChar.m_cCreativeLocation.X] != (char)254)
+			if (map[g_sCreaChar.m_cCreativeLocation.Y - 2][g_sCreaChar.m_cCreativeLocation.X] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y - 2][g_sCreaChar.m_cCreativeLocation.X] != (char)254 && map[g_sCreaChar.m_cCreativeLocation.Y - 2][g_sCreaChar.m_cCreativeLocation.X] != (char)219)
 			{
 				g_sCreaChar.m_cCreativeLocation.X;
 				g_sCreaChar.m_cCreativeLocation.Y--;
@@ -160,7 +160,7 @@ void sliding()
 		// ---------------------- IF THE PLAYER IS ON THE ICE BLOCK AND IS FACING DOWN, SLIDE DOWN ---------------------- //
 		if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)223 && DirectionX == 0 && DirectionY == -1)
 		{
-			if (map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] != (char)254)
+			if (map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] != (char)178 && map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] != (char)254 && map[g_sCreaChar.m_cCreativeLocation.Y][g_sCreaChar.m_cCreativeLocation.X] != (char)219)
 			{
 				g_sCreaChar.m_cCreativeLocation.X;
 				g_sCreaChar.m_cCreativeLocation.Y++;
