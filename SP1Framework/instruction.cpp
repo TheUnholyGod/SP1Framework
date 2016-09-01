@@ -50,6 +50,15 @@ void renderGameInstruction()
 	legend.str("");
 	legend << "Ice block      = " << (char)223;
 	g_Console.writeToBuffer(65, 37, legend.str(), 0x0B);
+	legend.str("");
+	legend << "Death Pit(open)= " << (char)253;
+	g_Console.writeToBuffer(65, 38, legend.str(), 0x00);
+	legend.str("");
+	legend << "Death Pit(open)= " << (char)255;
+	g_Console.writeToBuffer(65, 38, legend.str());
+	legend.str("");
+	legend << "Spikes  (open) = " << (char)215;
+	g_Console.writeToBuffer(65, 39, legend.str(), 0x0C);
 }
 void renderCreativeInstruction()
 {
@@ -97,6 +106,12 @@ void renderCreativeInstruction()
 	legend.str("");
 	legend << "Ice block      = " << (char)223;
 	g_Console.writeToBuffer(65, 37, legend.str(), 0x0B);
+	legend.str("");
+	legend << "Death Pit(open)= " << (char)255;
+	g_Console.writeToBuffer(65, 38, legend.str());
+	legend.str("");
+	legend << "Spikes  (open) = " << (char)215;
+	g_Console.writeToBuffer(65, 39, legend.str(), 0x0C);
 }
 void renderEditorInstruction()
 {
@@ -113,6 +128,8 @@ void renderEditorInstruction()
 	g_Console.writeToBuffer(5, 37, "<C>     for creative mode");
 	g_Console.writeToBuffer(5, 38, "<S>     to save");
 	g_Console.writeToBuffer(40, 29, "<I>     for Ice Block");
+	g_Console.writeToBuffer(40, 30, "<X>     for Death Pit");
+	g_Console.writeToBuffer(40, 31, "<Y>     for Spikes");
 	ostringstream legend;
 	legend.str("");
 	legend << "Wall           = " << (char)178;
@@ -141,6 +158,12 @@ void renderEditorInstruction()
 	legend.str("");
 	legend << "Ice block      = " << (char)223;
 	g_Console.writeToBuffer(65, 37, legend.str(), 0x0B);
+	legend.str("");
+	legend << "Death Pit      = " << (char)240;
+	g_Console.writeToBuffer(65, 38, legend.str(), 0x04);
+	legend.str("");
+	legend << "Spikes         = " << (char)196;
+	g_Console.writeToBuffer(65, 39, legend.str(), 0x0E);
 }
 void renderTextBox()
 {

@@ -250,12 +250,12 @@ void print_map()
 						color = 0x88;
 					}
 				}
-				else if (map[i][j] == 'x' || map[i][j] == (char)255 || map[i][j] == (char)240)
+				else if (map[i][j] == 'x' || map[i][j] == (char)253 || map[i][j] == (char)240)
 				{
 					if (DeathPitOpened == true)
 					{
-						map[i][j] = (char)255;
-						color = 0x8C;
+						map[i][j] = (char)253;
+						color = 0x00;
 					}
 					if (DeathPitOpened == false)
 					{
@@ -363,12 +363,12 @@ void print_map()
 						color = 0x88;
 					}
 				}
-				else if (map[i][j] == 'x' || map[i][j] == (char)255 || map[i][j] == (char)240)
+				else if (map[i][j] == 'x' || map[i][j] == (char)253 || map[i][j] == (char)240)
 				{
 					if (DeathPitOpened == true)
 					{
-						map[i][j] = (char)255;
-						color = 0x8C;
+						map[i][j] = (char)253;
+						color = 0x00;
 					}
 					if (DeathPitOpened == false)
 					{
@@ -452,20 +452,20 @@ void print_map()
 					if (SpikesActivated == false)
 					{
 						map[i][j] = (char)196;
-						color = 0x88;
+						color = 0x84;
 					}
 				}
-				else if (map[i][j] == 'x' || map[i][j] == (char)255 || map[i][j] == (char)240)
+				else if (map[i][j] == 'x' || map[i][j] == (char)253 || map[i][j] == (char)240)
 				{
 					if (DeathPitOpened == true)
 					{
-						map[i][j] = (char)255;
-						color = 0x8C;
+						map[i][j] = (char)253;
+						color = 0x00;
 					}
 					if (DeathPitOpened == false)
 					{
 						map[i][j] = (char)240;
-						color = 0x88;
+						color = 0x8E;
 					}
 
 				}

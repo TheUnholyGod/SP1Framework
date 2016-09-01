@@ -20,7 +20,7 @@ extern EGAMESTATES g_eGameState;
 
 void creativeGameplay()
 {
-	if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)255)
+	if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)253)
 	{
 		g_eGameState = S_GAMEOVER;
 	}

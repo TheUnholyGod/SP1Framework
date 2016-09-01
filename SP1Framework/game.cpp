@@ -195,6 +195,8 @@ void getInput( void )
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
 	g_abKeyPressed[K_I]      = isKeyPressed(0x49);
+	g_abKeyPressed[K_X]      = isKeyPressed(0x58);
+	g_abKeyPressed[K_Y]      = isKeyPressed(0x59);
 }
 
 //--------------------------------------------------------------
@@ -287,7 +289,7 @@ void splashScreenWait()    // waits for time to pass in splash screen
 
 void gameplay()            // gameplay logic
 {
-	if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)255)
+	if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)253)
 	{
 		g_eGameState = S_GAMEOVER;
 	}

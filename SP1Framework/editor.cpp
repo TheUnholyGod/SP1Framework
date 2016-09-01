@@ -136,6 +136,18 @@ void edits()
 		editmap(g_CreativeLevel, ch);
 		g_isMapLoaded = false;
 	}
+	if (g_abKeyPressed[K_X])
+	{
+		ch = 'x';
+		editmap(g_CreativeLevel, ch);
+		g_isMapLoaded = false;
+	}
+	if (g_abKeyPressed[K_Y])
+	{
+		ch = 'o';
+		editmap(g_CreativeLevel, ch);
+		g_isMapLoaded = false;
+	}
 }
 void saveMap(int levelnumber)
 {
@@ -184,6 +196,14 @@ void saveMap(int levelnumber)
 					else if (map[height][width] == (char)220)
 					{
 						map[height][width] = 'b';
+					}
+					else if (map[height][width] == (char)253 || map[height][width] == (char)240)
+					{
+						map[height][width] = 'x';
+					}
+					else if (map[height][width] == (char)196|| map[height][width] == (char)215)
+					{
+						map[height][width] = 'o';
 					}
 					newfile << map[height][width]; //loads the map data into temp.txt
 					width++;
