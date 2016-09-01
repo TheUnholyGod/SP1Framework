@@ -2,6 +2,7 @@
 #define _LOAD_H
 
 #include "game.h"
+#include "combat.h"
 
 //functions to load map into array based on respective modes the user is in
 

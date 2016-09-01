@@ -94,6 +94,7 @@ bool updatedtextprinted = true;
 bool defended = false;
 bool animate = false;
 bool projectiles = false;
+bool electricactivate = false;
 
 string projectile[20];
 COORD projectileCoord[20];
@@ -109,7 +110,7 @@ COORD FishProjectileCoord[8];
 string SpiderProjectile[5];
 COORD SpiderProjectilCoord[5];
 COORD RobotSafeSpot[10];
-char RobotElectric[7][17];
+char RobotElectric[8][18];
 
 
 /*/
@@ -271,10 +272,9 @@ char RobotElectric[7][17];
 				waittime = g_dElapsedTime + 2.5;
 				thisisacount = 0;
 				int damage = enemy1.getAttack(enemy1.boss1.MaxAttack, enemy1.boss1.MinAttack);
-				int hold = player1.damageSustained(damage, player1.character.Defence) * counter;
-				player1.healthUpdate(hold);
+				damagetaken = player1.damageSustained(damage, player1.character.Defence) * counter;
+				player1.healthUpdate(damagetaken);
 				isEnemyAttActive = false;
-				counter = 0;
 				defended = true;
 				updatedtextprinted = false;
 				combatgameplay = COMBAT_DEF_UPDATEALLSTATS;
@@ -329,6 +329,7 @@ char RobotElectric[7][17];
 	//-----Input Get-----//
 	void buttonsinput()
 	{
+		victory = 2;
 		if (isKeyPressed(VK_UP))
 		{
 			isUpPressed = true;
@@ -372,19 +373,23 @@ char RobotElectric[7][17];
 		{
 			playerinit();
 			enemySelector = 0;
+			enemyinit(enemySelector);
 			combatgameplay = COMBAT_GETINPUT;
 			g_eGameState = S_GAMEOVER;
 			if (g_Level == true)
 			{
+				player1.character.Health = player1.character.MaxHealth;
 				g_CurrentLevel = 1;
 			}
 			else if (g_Level == false)
 			{
+				player1.character.Health = player1.character.MaxHealth;
 				g_CreativeLevel = 101;
 			}
 		}
 		else if (victory == 1)
 		{
+			counter = 0;
 			enemySelector += 1;
 			enemyinit(enemySelector);
 			victory = 2;
@@ -393,10 +398,12 @@ char RobotElectric[7][17];
 			thisisatimeforspace = g_dElapsedTime + 2;
 			if (g_Level == true)
 			{
+				player1.character.Health = player1.character.MaxHealth;
 				g_eGameState = S_LOADGAME;
 			}
 			else if (g_Level == false)
 			{
+				player1.character.Health = player1.character.MaxHealth;
 				g_eGameState = S_LOADCREATIVE;
 			}
 		}
@@ -660,6 +667,7 @@ char RobotElectric[7][17];
 				{
 					if (RobotElectric[i][j] == '1')
 					{
+						damagecheck = g_dElapsedTime + 15;
 						counter++;
 					}
 				}
@@ -673,18 +681,11 @@ char RobotElectric[7][17];
 				{
 					if (RobotElectric[i][j] == '1')
 					{
+						damagecheck = g_dElapsedTime + 15;
 						counter++;
 					}
 				}
 			}
-			break;
-
-		case ENEMYPIC_KAMBENG1:
-			//UltimateKambeng();
-			break;
-
-		case ENEMYPIC_KAMBENG2:
-			//UltimateKambeng();
 			break;
 
 		default:
@@ -837,26 +838,6 @@ char RobotElectric[7][17];
 			{
 				thisisatimeforanimation = g_dElapsedTime + 1;
 				displayno1 = ENEMYPIC_ROBOT1;
-				animate = false;
-			}
-			break;
-
-		case ENEMYPIC_KAMBENG1:
-			display = enemypicture.KAMBENG1;
-			if (animate == true)
-			{
-				thisisatimeforanimation = g_dElapsedTime + 1;
-				displayno1 = ENEMYPIC_KAMBENG2;
-				animate = false;
-			}
-			break;
-
-		case ENEMYPIC_KAMBENG2:
-			display = enemypicture.KAMBENG2;
-			if (animate == true)
-			{
-				thisisatimeforanimation = g_dElapsedTime + 1;
-				displayno1 = ENEMYPIC_KAMBENG1;
 				animate = false;
 			}
 			break;
@@ -1146,11 +1127,11 @@ char RobotElectric[7][17];
 			break;
 
 		case ENEMYPIC_ROBOT1:
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 8; i++)
 			{
-				for (int j = 0; j < 17; j++)
+				for (int j = 0; j < 18; j++)
 				{
-					g_Console.writeToBuffer(56 + j, 31 + i, RobotElectric[i][j]);
+					g_Console.writeToBuffer(55 + j, 31 + i, RobotElectric[i][j]);
 				}
 			}
 			break;
@@ -1163,14 +1144,6 @@ char RobotElectric[7][17];
 					g_Console.writeToBuffer(56 + j, 31 + i, RobotElectric[i][j]);
 				}
 			}
-			break;
-
-		case ENEMYPIC_KAMBENG1:
-			//UltimateKambeng();
-			break;
-
-		case ENEMYPIC_KAMBENG2:
-			//UltimateKambeng();
 			break;
 
 		default:
@@ -1243,23 +1216,6 @@ char RobotElectric[7][17];
 				i++;
 				enemy1.init(att, max);
 				displayno1 = ENEMYPIC_ROBOT1;
-				break;
-			}
-			else if (i == 5) //For Sixth Boss
-			{
-				att = 250;
-				max = 450;
-				enemy1.init(att, max);
-				i++;
-				displayno1 = ENEMYPIC_KAMBENG1;
-				break;
-			}
-			else //For Normal AI
-			{
-				att = 10;
-				max = 120;
-				enemy1.init(att, max);
-				i++;
 				break;
 			}
 		}
@@ -1792,14 +1748,6 @@ void Enemy::enemyattackgame()
 		Robot();
 		break;
 
-	case ENEMYPIC_KAMBENG1:
-		UltimateKambeng();
-		break;
-
-	case ENEMYPIC_KAMBENG2:
-		UltimateKambeng();
-		break;
-
 	default:
 		break;
 	}
@@ -1949,12 +1897,7 @@ void Enemy::Robot()
 		RobotSafeSpot[i].Y = (rand() % 8) + 31;
 		RobotElectric[RobotSafeSpot[i].X - 56][RobotSafeSpot[i].Y - 31] = '0';
 	}
-}
-
-//---FINALKAMBENG---//
-void Enemy::UltimateKambeng()
-{
-
+	electricactivate = false;
 }
 
 //---Update the Projectiles---//
@@ -2000,14 +1943,6 @@ void Enemy::bullet()
 
 	case ENEMYPIC_ROBOT2:
 		RobotUpdate();
-		break;
-
-	case ENEMYPIC_KAMBENG1:
-		UltimateKambengUpdate();
-		break;
-
-	case ENEMYPIC_KAMBENG2:
-		UltimateKambengUpdate();
 		break;
 
 	default:
@@ -2244,11 +2179,16 @@ void Enemy::SpiderUpdate()
 //---Update for Robot Boss---//
 void Enemy::RobotUpdate()
 {
+	if (electricactivate == false)
+	{
+		thisisatimeforprojectiles = g_dElapsedTime + 5;
+		electricactivate = true;
+	}
 	if (thisisatimeforprojectiles > g_dElapsedTime)
 	{
-		for (int i = 0; i < 7; i++)
+		for (int i = 0; i < 8; i++)
 		{
-			for (int j = 0; j < 17; j++)
+			for (int j = 0; j < 18; j++)
 			{
 				if (RobotElectric[i][j] != '0')
 				{
@@ -2258,10 +2198,9 @@ void Enemy::RobotUpdate()
 		}
 		return;
 	}
-	thisisatimeforprojectiles = g_dElapsedTime + 5;
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		for (int j = 0; j < 17; j++)
+		for (int j = 0; j < 18; j++)
 		{
 			if (RobotElectric[i][j] != '0')
 			{
@@ -2273,12 +2212,7 @@ void Enemy::RobotUpdate()
 			}
 		}
 	}
-}
-
-//---Update for FINALKAMBENG---//
-void Enemy::UltimateKambengUpdate()
-{
-
+	electricactivate = true;
 }
 
 /*/

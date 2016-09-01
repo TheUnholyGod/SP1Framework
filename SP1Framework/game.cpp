@@ -73,8 +73,8 @@ void init( void )
 	g_dEnemyBounceTime = 0.0;
 	g_dSpikeTriggerTime = 5.0;
 	g_dSpikeActivationTime = 8.0;
-	g_dDeathPitTriggerTime = 5.0;
-	g_dDeathPitActivationTime = 8.0;
+	g_dDeathPitTriggerTime = 9.0;
+	g_dDeathPitActivationTime = 12.0;
 	g_dProjectileFireTime = 0.5;
 	g_dProjectileTravelTime = 0.75;
 	g_SlidingSpeed = 0.0;
@@ -102,9 +102,10 @@ void init( void )
 		AIEnemy->AI_id = 1;
 		EnemyArray.push_back(AIEnemy);
 
+
 		AIEnemy = new class AI;
-		AIEnemy->m_e2Location.X = 4;
-		AIEnemy->m_e2Location.Y = 8;
+		AIEnemy->m_eLocation.X = 4;
+		AIEnemy->m_eLocation.Y = 8;
 		AIEnemy->AI_id = 2;
 		EnemyArray.push_back(AIEnemy);
 	}
@@ -115,12 +116,6 @@ void init( void )
 		AIProjectile->m_pLocation.X = 2;
 		AIProjectile->m_pLocation.Y = 4;
 		AIProjectile->Proj_id = 1;
-		ProjectileArray.push_back(AIProjectile);
-
-		AIProjectile = new class Projectile;
-		AIProjectile->m_pLocation.X = 3;
-		AIProjectile->m_pLocation.Y = 4;
-		AIProjectile->Proj_id = 2;
 		ProjectileArray.push_back(AIProjectile);
 	}
 
@@ -214,7 +209,6 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-	
 	switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -463,6 +457,8 @@ void renderEnemy()
 {
 	WORD enemyColor = 0xFF;
 
+	EnemyArray.at(0)->RandomDirection();
+	
 	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
 	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
 
@@ -475,7 +471,8 @@ void renderProjectile()
 	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
 
 	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
-	g_Console.writeToBuffer(ProjectileArray.at(1)->m_pLocation, (char)164, projectileColor);
+
+
 }
 void renderFramerate()
 {
