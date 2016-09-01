@@ -15,17 +15,17 @@
 
 using namespace std;
 
-class Projectile
-{
-private:
-	char projdir;
-public:
-	COORD m_pLocation;
-	int Proj_id;
-	void ProjectileMove();
-	void ProjectileFire(char, int, int);
-	bool ProjectileCollision(int);
-};
+//class Projectile
+//{
+//private:
+//	char projdir;
+//public:
+//	COORD m_pLocation;
+//	int Proj_id;
+//	void ProjectileMove();
+//	void ProjectileFire(char, int, int);
+//	bool ProjectileCollision(int);
+//};
 const int ARROW = 0;
 
 void Spikes();

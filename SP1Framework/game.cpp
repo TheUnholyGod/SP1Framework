@@ -5,6 +5,8 @@
 
 using namespace std;
 
+extern Player			player1;
+
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 double  g_dSpikeTriggerTime;
@@ -40,7 +42,8 @@ SGameChar   g_sChar;
 vector<AI *>EnemyArray;
 AI * AIEnemy;
 vector<Projectile *>ProjectileArray;
-Projectile * AIProjectile;
+//vector<Projectile *>ProjectileArray;
+//Projectile * AIProjectile;
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 SSelector   g_sSelector;
@@ -94,7 +97,7 @@ void init( void )
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
-	if (g_CurrentLevel == 1)
+	/*if (g_CurrentLevel == 1)
 	{
 		AIEnemy = new class AI;
 		AIEnemy->m_eLocation.X = 3;
@@ -118,7 +121,7 @@ void init( void )
 		AIProjectile->Proj_id = 1;
 		ProjectileArray.push_back(AIProjectile);
 	}
-
+*/
 	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
@@ -188,6 +191,8 @@ void getInput( void )
 	g_abKeyPressed[K_O]      = isKeyPressed(0x4F);
 	g_abKeyPressed[K_T]      = isKeyPressed(0x54);
 	g_abKeyPressed[K_I]      = isKeyPressed(0x49);
+	g_abKeyPressed[K_X]      = isKeyPressed(0x58);
+	g_abKeyPressed[K_Y]      = isKeyPressed(0x59);
 }
 
 //--------------------------------------------------------------
@@ -279,6 +284,14 @@ void splashScreenWait()    // waits for time to pass in splash screen
 
 void gameplay()            // gameplay logic
 {
+	if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)253)
+	{
+		g_eGameState = S_GAMEOVER;
+	}
+	if (map[g_sChar.m_cLocation.Y -  1][g_sChar.m_cLocation.X] == (char)215)
+	{
+		g_eGameState = S_GAMEOVER;
+	}
 	KeyObtain();
 	DoorOpen();
 	pickObtain();
@@ -436,8 +449,8 @@ void renderGame()
 	renderGameInstruction();
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	renderEnemy();
-	renderProjectile();
+	//renderEnemy();
+	//renderProjectile();
 }
 
 void renderMap()
@@ -453,6 +466,7 @@ void renderCharacter()
 	g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
 }
+<<<<<<< HEAD
 void renderEnemy()
 {
 	WORD enemyColor = 0xFF;
@@ -474,6 +488,26 @@ void renderProjectile()
 
 
 }
+=======
+//void renderEnemy()
+//{
+//	WORD enemyColor = 0xFF;
+//
+//	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
+//	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
+//
+//
+//}
+//void renderProjectile()
+//{
+//	WORD projectileColor = 0x06;
+//	
+//	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
+//
+//	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
+//	g_Console.writeToBuffer(ProjectileArray.at(1)->m_pLocation, (char)164, projectileColor);
+//}
+>>>>>>> f82871198bb113f78eb43e83481babfef79ed4d7
 void renderFramerate()
 {
     COORD c;

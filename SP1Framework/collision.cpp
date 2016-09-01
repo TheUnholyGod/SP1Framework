@@ -11,55 +11,23 @@ bool colDetection(int levelnumber)
 {
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.X > 0)
 	{
-			if (map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)178 || map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)219 || map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)254 || map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)220)
-				return false;
-			else if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)255)
-			{
-				g_eGameState = S_GAMEOVER;
-			}
-			else if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
-			{
-				player1.healthUpdate(10);
-			}
+		if (map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)178 || map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)219 || map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)254 || map[g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == (char)220)
+			return false;
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.Y > 0)
 	{
-			if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)178 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)219 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)254 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)220)
+		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)178 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)219 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)254 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == (char)220)
 				return false;
-			else if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)255)
-			{
-				g_eGameState = S_GAMEOVER;
-			}
-			else if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
-			{
-				player1.healthUpdate(10);
-			}
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-			if (map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)178 || map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)219 || map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)254 || map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)220)
+		if (map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)178 || map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)219 || map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)254 || map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == (char)220)
 				return false;
-			else if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)255)
-			{
-				g_eGameState = S_GAMEOVER;
-			}
-			else if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
-			{
-				player1.healthUpdate(10);
-			}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
 		if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] == (char)178 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] == (char)219 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] == (char)254 || map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] == (char)220)
 			return false;
-		else if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)255)
-		{
-			g_eGameState = S_GAMEOVER;
-		}
-		else if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
-		{
-			player1.healthUpdate(10);
-		}
 	}
 	else
 		return true;

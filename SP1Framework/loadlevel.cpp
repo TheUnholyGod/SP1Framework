@@ -128,6 +128,12 @@ void store_map(int levelnumber)
 		maxMapWidth = 130;
 		maxMapHeight = 39;
 	}
+	if (levelnumber == 999)
+	{
+		file.open("gameover.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 39;
+	}
 	if (file.is_open())
 	{
 		//stores the map data into a 2d array and returns it
@@ -182,77 +188,82 @@ void print_map()
 			{
 				WORD color = 0x07;
 				//convert legend to actual ascii characters
-				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the '-' and walkable area
+				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
 				{
-					color = 0x07;
+					color = 0x88;
 					map[i][j] = (char)176;
 				}
 				else if (map[i][j] == 'W' || map[i][j] == (char)178) //converts wall 'W', to ascii character 178
 				{
-					color = 0x0B;
+					color = 0x8B;
 					map[i][j] = (char)178;
 				}
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x7C;
+					color = 0x8A;
+				}
+				else if (map[i][j] == '*') //converts the key and walkable area
+				{
+					color = 0x87;
+					map[i][j] = ' ';
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x6E;
+					color = 0x8E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x6E;
+					color = 0x8E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x85;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x44;
-				}
-				else if (map[i][j] == 'I' || map[i][j] == (char)223)
-				{
-					map[i][j] = (char)223;
-					color = 0xBB;
+					color = 0x84;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
 					map[i][j] = (char)156;
+				}
+				else if (map[i][j] == 'I' || map[i][j] == (char)223)
+				{
+					map[i][j] = (char)223;
+					color = 0x8B;
 				}
 				else if (map[i][j] == 'o' || map[i][j] == (char)196 || map[i][j] == (char)215)
 				{
 					if (SpikesActivated == true)
 					{
 						map[i][j] = (char)215;
-						color = 0x07;
+						color = 0x8C;
 					}
 					if (SpikesActivated == false)
 					{
 						map[i][j] = (char)196;
-						color = 0x07;
+						color = 0x88;
 					}
 				}
-				else if (map[i][j] == 'x' || map[i][j] == (char)255 || map[i][j] == (char)240)
+				else if (map[i][j] == 'x' || map[i][j] == (char)253 || map[i][j] == (char)240)
 				{
 					if (DeathPitOpened == true)
 					{
-						map[i][j] = (char)255;
-						color = 0x07;
+						map[i][j] = (char)253;
+						color = 0x00;
 					}
 					if (DeathPitOpened == false)
 					{
 						map[i][j] = (char)240;
-						color = 0x07;
+						color = 0x88;
 					}
-					
-				}	
+
+				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
 			}
@@ -292,38 +303,43 @@ void print_map()
 				//convert legend to actual ascii characters
 				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
 				{
-					color = 0x07;
+					color = 0x88;
 					map[i][j] = (char)176;
 				}
 				else if (map[i][j] == 'W' || map[i][j] == (char)178) //converts wall 'W', to ascii character 178
 				{
-					color = 0x0B;
+					color = 0x8B;
 					map[i][j] = (char)178;
 				}
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x7C;
+					color = 0x8A;
+				}
+				else if (map[i][j] == '*') //converts the key and walkable area
+				{
+					color = 0x87;
+					map[i][j] = ' ';
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x6E;
+					color = 0x8E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x6E;
+					color = 0x8E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x85;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x44;
+					color = 0x84;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
@@ -332,7 +348,34 @@ void print_map()
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0xBB;
+					color = 0x8B;
+				}
+				else if (map[i][j] == 'o' || map[i][j] == (char)196 || map[i][j] == (char)215)
+				{
+					if (SpikesActivated == true)
+					{
+						map[i][j] = (char)215;
+						color = 0x8C;
+					}
+					if (SpikesActivated == false)
+					{
+						map[i][j] = (char)196;
+						color = 0x88;
+					}
+				}
+				else if (map[i][j] == 'x' || map[i][j] == (char)253 || map[i][j] == (char)240)
+				{
+					if (DeathPitOpened == true)
+					{
+						map[i][j] = (char)253;
+						color = 0x00;
+					}
+					if (DeathPitOpened == false)
+					{
+						map[i][j] = (char)240;
+						color = 0x88;
+					}
+
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -352,18 +395,18 @@ void print_map()
 				//convert legend to actual ascii characters
 				if (map[i][j] == '-' || map[i][j] == (char)176) //converts the key and walkable area
 				{
-					color = 0x07;
+					color = 0x88;
 					map[i][j] = (char)176;
 				}
 				else if (map[i][j] == 'W' || map[i][j] == (char)178) //converts wall 'W', to ascii character 178
 				{
-					color = 0x0B;
+					color = 0x8B;
 					map[i][j] = (char)178;
 				}
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x7C;
+					color = 0x8A;
 				}
 				else if (map[i][j] == '*') //converts the key and walkable area
 				{
@@ -373,22 +416,22 @@ void print_map()
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x6E;
+					color = 0x8E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x6E;
+					color = 0x8E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x85;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x44;
+					color = 0x84;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
@@ -397,7 +440,34 @@ void print_map()
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0xBB;
+					color = 0x8B;
+				}
+				else if (map[i][j] == 'o' || map[i][j] == (char)196 || map[i][j] == (char)215)
+				{
+					if (SpikesActivated == true)
+					{
+						map[i][j] = (char)215;
+						color = 0x8C;
+					}
+					if (SpikesActivated == false)
+					{
+						map[i][j] = (char)196;
+						color = 0x84;
+					}
+				}
+				else if (map[i][j] == 'x' || map[i][j] == (char)253 || map[i][j] == (char)240)
+				{
+					if (DeathPitOpened == true)
+					{
+						map[i][j] = (char)253;
+						color = 0x00;
+					}
+					if (DeathPitOpened == false)
+					{
+						map[i][j] = (char)240;
+						color = 0x8E;
+					}
+
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);

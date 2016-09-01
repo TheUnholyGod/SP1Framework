@@ -1,5 +1,5 @@
 #include "creative.h"
-
+extern Player player1;
 extern bool g_isKeyObtain;
 extern bool g_isMapLoaded;
 extern char** creative;
@@ -15,9 +15,19 @@ extern int cY;
 extern int g_flares;
 extern bool g_isTimerStarted;
 extern bool g_isflareActive;
+extern char map[40][130];
+extern EGAMESTATES g_eGameState;
 
 void creativeGameplay()
 {
+	if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)253)
+	{
+		g_eGameState = S_GAMEOVER;
+	}
+	if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)215)
+	{
+		g_eGameState = S_GAMEOVER;
+	}
 	KeyObtain();
 	DoorOpen();
 	pickObtain();
@@ -25,6 +35,8 @@ void creativeGameplay()
 	updateSlide();
 	sliding();
 	flare();
+	Spikes();
+	DeathPit();
 	checkCreativeGameGoal();
 	processUserInput();
 	creativeMoveCharacter();
