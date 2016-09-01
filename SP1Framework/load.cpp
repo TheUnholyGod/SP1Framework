@@ -16,6 +16,8 @@ void loadingGame()
 	store_map(g_CurrentLevel);
 	player1.character.Health = player1.character.MaxHealth;
 	g_eGameState = S_GAME;
+	//play music
+	PlaySound(TEXT("Music.wav"), NULL, SND_ASYNC);
 }
 void loadingCreative()
 {
