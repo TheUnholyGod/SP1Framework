@@ -5,6 +5,8 @@
 
 using namespace std;
 
+extern Player			player1;
+
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 double  g_dSpikeTriggerTime;
@@ -285,6 +287,14 @@ void splashScreenWait()    // waits for time to pass in splash screen
 
 void gameplay()            // gameplay logic
 {
+	if (map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)255)
+	{
+		g_eGameState = S_GAMEOVER;
+	}
+	if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
+	{
+		player1.healthUpdate(10);
+	}
 	KeyObtain();
 	DoorOpen();
 	pickObtain();

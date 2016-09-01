@@ -128,6 +128,12 @@ void store_map(int levelnumber)
 		maxMapWidth = 130;
 		maxMapHeight = 39;
 	}
+	if (levelnumber == 999)
+	{
+		file.open("gameover.txt");
+		maxMapWidth = 130;
+		maxMapHeight = 39;
+	}
 	if (file.is_open())
 	{
 		//stores the map data into a 2d array and returns it
