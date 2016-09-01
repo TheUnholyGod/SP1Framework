@@ -391,7 +391,10 @@ char RobotElectric[8][18];
 		{
 			counter = 0;
 			enemySelector += 1;
-			enemyinit(enemySelector);
+			if (enemySelector < 5)
+			{
+				enemyinit(enemySelector);
+			}
 			victory = 2;
 			BossesDefeated++;
 			player1.statsUpdate(BossesDefeated);
