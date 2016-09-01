@@ -95,7 +95,7 @@ void init( void )
 	g_playerDirection = "NULL";
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
-	g_CreativeLevel = 101;
+	g_CreativeLevel = 106;
 	/*if (g_CurrentLevel == 1)
 	{
 		AIEnemy = new class AI;
