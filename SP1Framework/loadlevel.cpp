@@ -8,6 +8,7 @@
 	extern int character_Y;
 	extern SGameChar g_sChar;
 	extern SCreaChar g_sCreaChar;
+	extern EGAMESTATES g_eGameState;
 	extern Player player1;
 	extern bool g_isTorchEnabled;
 	extern int Y;
@@ -15,7 +16,7 @@
 	extern int cY;
 	extern int cX;
 	extern char map[40][130];
-	extern EGAMESTATES g_eGameState;
+	
 
 ////////// Function CREATE THE FIELD //////////
 void store_map(int levelnumber)
@@ -127,12 +128,6 @@ void store_map(int levelnumber)
 		maxMapWidth = 130;
 		maxMapHeight = 39;
 	}
-	if (levelnumber == 999)
-	{
-		file.open("gameover.txt");
-		maxMapWidth = 130;
-		maxMapHeight = 39;
-	}
 	if (file.is_open())
 	{
 		//stores the map data into a 2d array and returns it
@@ -151,6 +146,7 @@ void store_map(int levelnumber)
 		file.close();
 	}
 }
+
 void print_map()
 {
 	//Codes for the torch light effect (game mode)
@@ -199,32 +195,32 @@ void print_map()
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x0A;
+					color = 0x7C;
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x0E;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x0E;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x08;
+					color = 0x88;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x04;
+					color = 0x44;
 				}
 				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0x0B;
+					color = 0xBB;
 				}
 				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
@@ -236,11 +232,6 @@ void print_map()
 					{
 						map[i][j] = (char)215;
 						color = 0x07;
-						if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
-						{
-							player1.healthUpdate(10);
-						}
-						
 					}
 					if (SpikesActivated == false)
 					{
@@ -254,19 +245,14 @@ void print_map()
 					{
 						map[i][j] = (char)255;
 						color = 0x07;
-
-						if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)255)
-						{
-							g_eGameState = S_MENU;
-						}
 					}
 					if (DeathPitOpened == false)
 					{
 						map[i][j] = (char)240;
 						color = 0x07;
 					}
-				}
-				
+					
+				}	
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
 			}
@@ -317,36 +303,36 @@ void print_map()
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x0A;
+					color = 0x7C;
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x0E;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x0E;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x08;
+					color = 0x88;
 				}
-				else if (map[i][j] == 'b' || map[i][j] == (char)220) //smashable boulder
+				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x04;
+					color = 0x44;
 				}
-				else if (map[i][j] == 'P' || map[i][j] == (char)156) //Pickaxe
+				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
 					map[i][j] = (char)156;
 				}
-				else if (map[i][j] == 'I' || map[i][j] == (char)223) //ice blocks
+				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0x0B;
+					color = 0xBB;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);
@@ -377,40 +363,41 @@ void print_map()
 				else if (map[i][j] == '+' || map[i][j] == (char)177) //converts end point '+', to ascii character 177
 				{
 					map[i][j] = (char)177;
-					color = 0x0A;
+					color = 0x7C;
+				}
+				else if (map[i][j] == '*') //converts the key and walkable area
+				{
+					color = 0x07;
+					map[i][j] = ' ';
 				}
 				else if (map[i][j] == 'K' || map[i][j] == (char)168) //converts key 'K', to ascii character 168
 				{
 					map[i][j] = (char)168;
-					color = 0x0E;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'D' || map[i][j] == (char)219) //converts door 'D', to ascii character 219
 				{
 					map[i][j] = (char)219;
-					color = 0x0E;
+					color = 0x6E;
 				}
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x08;
+					color = 0x88;
 				}
-				else if (map[i][j] == 'b' || map[i][j] == (char)220) //smashable boulder
+				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
 					map[i][j] = (char)220;
-					color = 0x04;
+					color = 0x44;
 				}
-				else if (map[i][j] == 'P' || map[i][j] == (char)156) //Pickaxe
+				else if (map[i][j] == 'P' || map[i][j] == (char)156)
 				{
 					map[i][j] = (char)156;
 				}
-				else if (map[i][j] == 'I' || map[i][j] == (char)223) //ice blocks
+				else if (map[i][j] == 'I' || map[i][j] == (char)223)
 				{
 					map[i][j] = (char)223;
-					color = 0x0B;
-				}
-				else if (map[i][j] == '*' || map[i][j] == (char)223) //faces
-				{
-					map[i][j] = ' ';
+					color = 0xBB;
 				}
 				c.X = j;
 				g_Console.writeToBuffer(c, map[i][j], color);

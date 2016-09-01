@@ -13,6 +13,7 @@ extern bool SpikeSwitch;
 extern int g_CurrentLevel;
 extern double g_dProjBounceTime;
 extern double g_dElapsedTime;
+extern double g_dElapsed2Time;
 extern double g_dSpikeTriggerTime;
 extern double g_dSpikeActivationTime;
 extern double g_dDeathPitTriggerTime;
@@ -25,7 +26,7 @@ extern char map[40][130];
 
 void Spikes()
 {
-
+		//-------- CODE FOR THE TRAPS TO "OPEN" & "CLOSE" -------- //
 		if (g_dElapsedTime > g_dSpikeTriggerTime)
 		{
 			SpikesActivated = true;
@@ -46,7 +47,7 @@ void DeathPit()
 	if (g_dElapsedTime > g_dDeathPitTriggerTime)
 	{
 		DeathPitOpened = true;
-		g_dDeathPitTriggerTime = 9.0 + g_dElapsedTime;
+		g_dDeathPitTriggerTime = 5.0 + g_dElapsedTime;
 	
 	}
 	if (g_dElapsedTime > g_dDeathPitActivationTime)
@@ -58,10 +59,11 @@ void DeathPit()
 }
 void Projectile::ProjectileFire(char proj_direction, int InitX, int InitY)
 {	
-		
+	projdir = proj_direction;
+
 	if(ProjectileCollision(g_CurrentLevel) == true)
 	{
-		projdir = 'w';
+		
 		ProjectileMove();
 	}
 	else
@@ -69,7 +71,7 @@ void Projectile::ProjectileFire(char proj_direction, int InitX, int InitY)
 		AIProjectile->m_pLocation.X = InitX;
 		AIProjectile->m_pLocation.Y = InitY;
 	}
-		
+
 }
 
 

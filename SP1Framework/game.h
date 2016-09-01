@@ -1,6 +1,8 @@
 #ifndef _GAME_H
 #define _GAME_H
 
+#pragma comment(lib, "Winmm.lib")
+
 #include "Framework\timer.h"
 #include "Framework\console.h"
 #include "loadlevel.h"
