@@ -10,6 +10,7 @@ extern EGAMESTATES g_eGameState;
 extern int g_KeysObtain;
 extern int g_PicksObtain;
 extern bool g_Level;
+extern int g_flares;
 
 void renderMenu()
 {
@@ -145,6 +146,7 @@ void menuInput()
 		{
 			g_KeysObtain = 0;
 			g_PicksObtain = 0;
+			g_flares = 3;
 			if(g_Level == true)
 				g_eGameState = S_LOADGAME;
 			if (g_Level == false)
