@@ -143,6 +143,8 @@ void menuInput()
 	{
 		if (g_sSelector.m_cSelectorLocation.Y - 1 == 15 && g_abKeyPressed[K_SPACE]) //Game
 		{
+			g_KeysObtain = 0;
+			g_PicksObtain = 0;
 			if(g_Level == true)
 				g_eGameState = S_LOADGAME;
 			if (g_Level == false)
