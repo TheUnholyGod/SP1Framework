@@ -221,7 +221,7 @@ void print_map()
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x85;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
@@ -334,7 +334,7 @@ void print_map()
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x85;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{
@@ -426,7 +426,7 @@ void print_map()
 				else if (map[i][j] == 'B' || map[i][j] == (char)254) //converts boulder 'B', to ascii character 254
 				{
 					map[i][j] = (char)254;
-					color = 0x88;
+					color = 0x85;
 				}
 				else if (map[i][j] == 'b' || map[i][j] == (char)220)
 				{

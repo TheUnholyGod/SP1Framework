@@ -40,7 +40,7 @@ void renderGameInstruction()
 	g_Console.writeToBuffer(65, 33, legend.str(), 0x0E);
 	legend.str("");
 	legend << "Movable object = " << (char)254;
-	g_Console.writeToBuffer(65, 34, legend.str(), 0x08);
+	g_Console.writeToBuffer(65, 34, legend.str(), 0x05);
 	legend.str("");
 	legend << "Smashable rock = " << (char)220;
 	g_Console.writeToBuffer(65, 35, legend.str(), 0x04);
@@ -96,7 +96,7 @@ void renderCreativeInstruction()
 	g_Console.writeToBuffer(65, 33, legend.str(), 0x0E);
 	legend.str("");
 	legend << "Movable object = " << (char)254;
-	g_Console.writeToBuffer(65, 34, legend.str(), 0x08);
+	g_Console.writeToBuffer(65, 34, legend.str(), 0x05);
 	legend.str("");
 	legend << "Smashable rock = " << (char)220;
 	g_Console.writeToBuffer(65, 35, legend.str(), 0x04);
@@ -148,7 +148,7 @@ void renderEditorInstruction()
 	g_Console.writeToBuffer(65, 33, legend.str(), 0x0E);
 	legend.str("");
 	legend << "Movable object = " << (char)254;
-	g_Console.writeToBuffer(65, 34, legend.str(), 0x08);
+	g_Console.writeToBuffer(65, 34, legend.str(), 0x05);
 	legend.str("");
 	legend << "Smashable rock = " << (char)220;
 	g_Console.writeToBuffer(65, 35, legend.str(), 0x04);
