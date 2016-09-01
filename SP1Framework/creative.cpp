@@ -24,9 +24,9 @@ void creativeGameplay()
 	{
 		g_eGameState = S_GAMEOVER;
 	}
-	if (map[g_sCreaChar.m_cCreativeLocation.X][g_sCreaChar.m_cCreativeLocation.Y] == (char)215)
+	if (map[g_sCreaChar.m_cCreativeLocation.Y - 1][g_sCreaChar.m_cCreativeLocation.X] == (char)215)
 	{
-		player1.healthUpdate(10);
+		g_eGameState = S_GAMEOVER;
 	}
 	KeyObtain();
 	DoorOpen();
@@ -35,6 +35,8 @@ void creativeGameplay()
 	updateSlide();
 	sliding();
 	flare();
+	Spikes();
+	DeathPit();
 	checkCreativeGameGoal();
 	processUserInput();
 	creativeMoveCharacter();

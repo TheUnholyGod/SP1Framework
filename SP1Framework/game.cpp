@@ -41,8 +41,8 @@ int g_CreativeLevel;
 SGameChar   g_sChar;
 vector<AI *>EnemyArray;
 AI * AIEnemy;
-vector<Projectile *>ProjectileArray;
-Projectile * AIProjectile;
+//vector<Projectile *>ProjectileArray;
+//Projectile * AIProjectile;
 SEditor     g_sCursor;
 SCreaChar   g_sCreaChar;
 SSelector   g_sSelector;
@@ -96,7 +96,7 @@ void init( void )
     g_eGameState = S_SPLASHSCREEN;
 	g_CurrentLevel = 1;
 	g_CreativeLevel = 101;
-	if (g_CurrentLevel == 1)
+	/*if (g_CurrentLevel == 1)
 	{
 		AIEnemy = new class AI;
 		AIEnemy->m_eLocation.X = 3;
@@ -125,7 +125,7 @@ void init( void )
 		AIProjectile->Proj_id = 2;
 		ProjectileArray.push_back(AIProjectile);
 	}
-
+*/
 	// sets the initial position of the character
 	g_sChar.m_cLocation.X = 1; //g_Console.getConsoleSize().X / 2;
 	g_sChar.m_cLocation.Y = 2;//g_Console.getConsoleSize().Y / 2;
@@ -291,9 +291,9 @@ void gameplay()            // gameplay logic
 	{
 		g_eGameState = S_GAMEOVER;
 	}
-	if (map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == (char)215)
+	if (map[g_sChar.m_cLocation.Y -  1][g_sChar.m_cLocation.X] == (char)215)
 	{
-		player1.healthUpdate(10);
+		g_eGameState = S_GAMEOVER;
 	}
 	KeyObtain();
 	DoorOpen();
@@ -452,8 +452,8 @@ void renderGame()
 	renderGameInstruction();
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	renderEnemy();
-	renderProjectile();
+	//renderEnemy();
+	//renderProjectile();
 }
 
 void renderMap()
@@ -469,24 +469,24 @@ void renderCharacter()
 	g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
 }
-void renderEnemy()
-{
-	WORD enemyColor = 0xFF;
-
-	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
-	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
-
-
-}
-void renderProjectile()
-{
-	WORD projectileColor = 0x06;
-	
-	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
-
-	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
-	g_Console.writeToBuffer(ProjectileArray.at(1)->m_pLocation, (char)164, projectileColor);
-}
+//void renderEnemy()
+//{
+//	WORD enemyColor = 0xFF;
+//
+//	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
+//	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
+//
+//
+//}
+//void renderProjectile()
+//{
+//	WORD projectileColor = 0x06;
+//	
+//	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
+//
+//	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
+//	g_Console.writeToBuffer(ProjectileArray.at(1)->m_pLocation, (char)164, projectileColor);
+//}
 void renderFramerate()
 {
     COORD c;
