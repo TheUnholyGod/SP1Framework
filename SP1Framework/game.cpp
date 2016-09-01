@@ -41,7 +41,6 @@ int g_CreativeLevel;
 SGameChar   g_sChar;
 vector<AI *>EnemyArray;
 AI * AIEnemy;
-vector<Projectile *>ProjectileArray;
 //vector<Projectile *>ProjectileArray;
 //Projectile * AIProjectile;
 SEditor     g_sCursor;
@@ -466,29 +465,6 @@ void renderCharacter()
 	g_Console.writeToBuffer(g_sChar.m_cLocation, (char)178, charColor);
 
 }
-<<<<<<< HEAD
-void renderEnemy()
-{
-	WORD enemyColor = 0xFF;
-
-	EnemyArray.at(0)->RandomDirection();
-	
-	g_Console.writeToBuffer(EnemyArray.at(0)->m_eLocation, (char)178, enemyColor);
-	g_Console.writeToBuffer(EnemyArray.at(1)->m_eLocation, (char)178, enemyColor);
-
-
-}
-void renderProjectile()
-{
-	WORD projectileColor = 0x06;
-	
-	ProjectileArray.at(0)->ProjectileFire('s', 2, 4);
-
-	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
-
-
-}
-=======
 //void renderEnemy()
 //{
 //	WORD enemyColor = 0xFF;
@@ -507,7 +483,6 @@ void renderProjectile()
 //	g_Console.writeToBuffer(ProjectileArray.at(0)->m_pLocation, (char)164, projectileColor);
 //	g_Console.writeToBuffer(ProjectileArray.at(1)->m_pLocation, (char)164, projectileColor);
 //}
->>>>>>> f82871198bb113f78eb43e83481babfef79ed4d7
 void renderFramerate()
 {
     COORD c;
