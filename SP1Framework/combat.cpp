@@ -516,12 +516,12 @@ char RobotElectric[8][18];
 				{
 					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 
@@ -530,12 +530,12 @@ char RobotElectric[8][18];
 				{
 					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 				}
@@ -552,12 +552,12 @@ char RobotElectric[8][18];
 				{
 					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 
@@ -566,12 +566,12 @@ char RobotElectric[8][18];
 				{
 					if ((characterspawn.X >= SkeletonProjectileCoord[i + 1].X && characterspawn.Y >= SkeletonProjectileCoord[i + 1].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 1].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 1].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 					else if ((characterspawn.X == SkeletonProjectileCoord[i + 2].X && characterspawn.Y >= SkeletonProjectileCoord[i + 2].Y) || (characterspawn.X <= SkeletonProjectileCoord[i + 2].X + 13 && characterspawn.Y <= SkeletonProjectileCoord[i + 2].Y))
 					{
-						damagecheck = g_dElapsedTime + 2.5;
+						damagecheck = g_dElapsedTime + 5;
 						counter++;
 					}
 				}
@@ -653,11 +653,19 @@ char RobotElectric[8][18];
 			break;
 
 		case ENEMYPIC_SPIDER1:
-			//Spider();
+			if ((characterspawn.X >= FishProjectileCoord[0].X && characterspawn.Y >= FishProjectileCoord[4].Y) || (characterspawn.X <= FishProjectileCoord[0].X + 8 && characterspawn.Y <= FishProjectileCoord[4].Y))
+			{
+				counter++;
+				damagecheck = g_dElapsedTime + 5;
+			}
 			break;
 
 		case ENEMYPIC_SPIDER2:
-			//Spider();
+			if ((characterspawn.X >= FishProjectileCoord[0].X && characterspawn.Y >= FishProjectileCoord[4].Y) || (characterspawn.X <= FishProjectileCoord[0].X + 8 && characterspawn.Y <= FishProjectileCoord[4].Y))
+			{
+				counter++;
+				damagecheck = g_dElapsedTime + 5;
+			}
 			break;
 
 		case ENEMYPIC_ROBOT1:
@@ -667,8 +675,11 @@ char RobotElectric[8][18];
 				{
 					if (RobotElectric[i][j] == '1')
 					{
-						damagecheck = g_dElapsedTime + 15;
-						counter++;
+						if (characterspawn.X == j + 55 && characterspawn.Y == i + 31)
+						{
+							damagecheck = g_dElapsedTime + 15;
+							counter++;
+						}
 					}
 				}
 			}
@@ -681,8 +692,11 @@ char RobotElectric[8][18];
 				{
 					if (RobotElectric[i][j] == '1')
 					{
-						damagecheck = g_dElapsedTime + 15;
-						counter++;
+						if (characterspawn.X == j + 55 && characterspawn.Y == i + 31)
+						{
+							damagecheck = g_dElapsedTime + 15;
+							counter++;
+						}
 					}
 				}
 			}
@@ -1115,14 +1129,28 @@ char RobotElectric[8][18];
 		case ENEMYPIC_SPIDER1:
 			for (int i = 0; i < 5; i++)
 			{
-				g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i]);
+				if (i == 0)
+				{
+					g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i], 0x0C);
+				}
+				else
+				{
+					g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i]);
+				}
 			}
 			break;
 
 		case ENEMYPIC_SPIDER2:
 			for (int i = 0; i < 5; i++)
 			{
-				g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i]);
+				if (i == 0)
+				{
+					g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i], 0x0C);
+				}
+				else
+				{
+					g_Console.writeToBuffer(SpiderProjectilCoord[i], SpiderProjectile[i]);
+				}
 			}
 			break;
 
@@ -1131,17 +1159,31 @@ char RobotElectric[8][18];
 			{
 				for (int j = 0; j < 18; j++)
 				{
-					g_Console.writeToBuffer(55 + j, 31 + i, RobotElectric[i][j]);
+					if (RobotElectric[i][j] == '1')
+					{
+						g_Console.writeToBuffer(55 + j, 31 + i, RobotElectric[i][j], 0x0C);
+					}
+					else
+					{
+						g_Console.writeToBuffer(55 + j, 31 + i, RobotElectric[i][j]);
+					}
 				}
 			}
 			break;
 
 		case ENEMYPIC_ROBOT2:
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 8; i++)
 			{
-				for (int j = 0; j < 17; j++)
+				for (int j = 0; j < 18; j++)
 				{
-					g_Console.writeToBuffer(56 + j, 31 + i, RobotElectric[i][j]);
+					if (RobotElectric[i][j] == '1')
+					{
+						g_Console.writeToBuffer(55 + j, 31 + i, RobotElectric[i][j], 0x0C);
+					}
+					else
+					{
+						g_Console.writeToBuffer(55 + j, 31 + i, RobotElectric[i][j]);
+					}
 				}
 			}
 			break;
@@ -1178,14 +1220,17 @@ char RobotElectric[8][18];
 				max = 1;
 				i++;
 				enemy1.init(att, max);
-				enemy1.boss1.Defence = 1;
+				enemy1.boss1.Attack = 3;
+				enemy1.boss1.Health = 5;
+				enemy1.boss1.MaxHealth = 5;
+				enemy1.boss1.Defence = 25;
 				displayno1 = ENEMYPIC_KAMBENGF1;
 				break;
 			}
 			else if (i == 1) //For Second Boss
 			{
-				att = 30;
-				max = 50;
+				att = 15;
+				max = 20;
 				i++;
 				enemy1.init(att, max);
 				displayno1 = ENEMYPIC_SKELETON1;
@@ -1193,8 +1238,8 @@ char RobotElectric[8][18];
 			}
 			else if (i == 2) //For Third Boss
 			{
-				att = 45;
-				max = 90;
+				att = 25;
+				max = 45;
 				i++;
 				enemy1.init(att, max);
 				displayno1 = ENEMYPIC_FISH1;
@@ -1202,8 +1247,8 @@ char RobotElectric[8][18];
 			}
 			else if (i == 3) //For Fourth Boss
 			{
-				att = 75;
-				max = 125;
+				att = 50;
+				max = 100;
 				i++;
 				enemy1.init(att, max);
 				displayno1 = ENEMYPIC_SPIDER1;
@@ -1215,6 +1260,9 @@ char RobotElectric[8][18];
 				max = 1000;
 				i++;
 				enemy1.init(att, max);
+				enemy1.boss1.Health = 50;
+				enemy1.boss1.MaxHealth = 50;
+				enemy1.boss1.Defence = 25;
 				displayno1 = ENEMYPIC_ROBOT1;
 				break;
 			}
@@ -1226,7 +1274,7 @@ char RobotElectric[8][18];
 	{
 		int health = 100;
 		int attack = 1000;
-		int defence = 10000;
+		int defence = 25;
 
 		player1.playerBase(health, attack, defence);
 	}
@@ -2198,6 +2246,7 @@ void Enemy::RobotUpdate()
 		}
 		return;
 	}
+	thisisatimeforprojectiles = g_dElapsedTime + 5;
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 18; j++)
@@ -2326,13 +2375,10 @@ void Player::healthUpdate(int damageSustained)
 //---Update of all Stats---//
 void Player::statsUpdate(int killcount)
 {
-	for (int i = 0; i <= killcount; i++)
-	{
-		character.Health *= 1.5f;
-		character.MaxHealth *= 1.5f;
-		character.Attack = (character.Attack + 20) * 1.2f;
-		character.Defence = (character.Defence + 25) * 1.3f;
-	}
+	character.Health *= 1.75f;
+	character.MaxHealth *= 1.75f;
+	character.Attack = (character.Attack + 20) * 1.3f;
+	character.Defence = (character.Defence + 25) * 1.4f;
 }
 
 /*/
